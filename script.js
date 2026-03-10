@@ -662,6 +662,105 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // =============================================
+  // CALCULATOR 6: Term Insurance Calculator
+  // =============================================
+
+  const c6 = {
+    coverSteps: [2500000, 5000000, 7500000, 10000000, 20000000],
+    coverLabels: ['₹25L', '₹50L', '₹75L', '₹1Cr', '₹2Cr'],
+
+    state: { age: 30, coverIndex: 1, term: 20, income: 10 },
+
+    calculate() {
+      const cover = this.coverSteps[this.state.coverIndex];
+      const basePer1L = 28;
+      const coverInLakhs = cover / 100000;
+      const ageMul = this.getTermAgeFactor(this.state.age);
+      const termMul = this.getTermFactor(this.state.term);
+
+      const baseAnnual = coverInLakhs * basePer1L;
+      const ageComp = Math.round((baseAnnual * (ageMul - 1)) / 100) * 100;
+      const coverComp = Math.round((baseAnnual * 0.15 * (coverInLakhs / 50 - 1)) / 100) * 100;
+      const termComp = Math.round((baseAnnual * (termMul - 1)) / 100) * 100;
+
+      const total = Math.max(Math.round((baseAnnual + ageComp + coverComp + termComp) / 100) * 100, 3000);
+      const affordability = ((total / (this.state.income * 100000)) * 100).toFixed(1);
+
+      return { total, ageComp, coverComp, termComp, affordability };
+    },
+
+    getTermAgeFactor(age) {
+      if (age <= 25) return 0.7;
+      if (age <= 30) return 0.7 + (age - 25) * 0.06;
+      if (age <= 35) return 1.0 + (age - 30) * 0.08;
+      if (age <= 40) return 1.4 + (age - 35) * 0.12;
+      if (age <= 50) return 2.0 + (age - 40) * 0.2;
+      return 4.0 + (age - 50) * 0.35;
+    },
+
+    getTermFactor(term) {
+      if (term <= 10) return 0.75;
+      if (term <= 20) return 0.75 + (term - 10) * 0.025;
+      if (term <= 30) return 1.0 + (term - 20) * 0.04;
+      return 1.4 + (term - 30) * 0.06;
+    },
+
+    calculateForAge(age) {
+      const savedAge = this.state.age;
+      this.state.age = age;
+      const result = this.calculate();
+      this.state.age = savedAge;
+      return result.total;
+    },
+
+    update() {
+      const r = this.calculate();
+      animateAmount(document.getElementById('c6-premiumAmount'), formatINR(r.total));
+      animateValue(document.getElementById('c6-ageImpact'), formatImpact(r.ageComp));
+      animateValue(document.getElementById('c6-coverImpact'), formatImpact(r.coverComp));
+      animateValue(document.getElementById('c6-termImpact'), formatImpact(r.termComp));
+      animateValue(document.getElementById('c6-affordability'), r.affordability + '% of income');
+
+      const future = this.calculateForAge(this.state.age + 5);
+      const diff = future - r.total;
+      document.getElementById('c6-futureValue').textContent = formatINR(future);
+      document.getElementById('c6-futureDiff').textContent = '+' + formatINR(diff).replace('₹ ', '₹') + '/yr';
+    },
+
+    init() {
+      document.getElementById('c6-ageSlider').addEventListener('input', (e) => {
+        this.state.age = parseInt(e.target.value);
+        document.getElementById('c6-ageValue').textContent = this.state.age;
+        updateSliderProgress(e.target);
+        this.update();
+      });
+
+      document.getElementById('c6-coverSlider').addEventListener('input', (e) => {
+        this.state.coverIndex = parseInt(e.target.value);
+        document.getElementById('c6-coverValue').textContent = this.coverLabels[this.state.coverIndex];
+        updateSliderProgress(e.target);
+        this.update();
+      });
+
+      document.getElementById('c6-termSlider').addEventListener('input', (e) => {
+        this.state.term = parseInt(e.target.value);
+        document.getElementById('c6-termValue').textContent = this.state.term + ' yrs';
+        updateSliderProgress(e.target);
+        this.update();
+      });
+
+      document.getElementById('c6-incomeSlider').addEventListener('input', (e) => {
+        this.state.income = parseInt(e.target.value);
+        document.getElementById('c6-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
+        updateSliderProgress(e.target);
+        this.update();
+      });
+
+      this.update();
+    }
+  };
+
+  // =============================================
   // Global: Toggle Buttons (single-select per group per calculator)
   // =============================================
 
@@ -676,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       btn.classList.add('active');
 
-      const calcObj = { c1, c2, c3, c4, c5 }[calc];
+      const calcObj = { c1, c2, c3, c4, c5, c6 }[calc];
       if (calcObj) {
         calcObj.state[group] = value;
         calcObj.update();
@@ -696,7 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selected.push(b.dataset.value);
       });
 
-      const calcObj = { c1, c2, c3, c4, c5 }[calc];
+      const calcObj = { c1, c2, c3, c4, c5, c6 }[calc];
       if (calcObj) {
         calcObj.state[group] = selected;
         calcObj.update();
@@ -711,7 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.cta-button').forEach((btn) => {
     btn.addEventListener('click', () => {
       const calc = btn.dataset.calc;
-      const calcObj = { c1, c2, c3, c4, c5 }[calc];
+      const calcObj = { c1, c2, c3, c4, c5, c6 }[calc];
       if (calcObj) calcObj.update();
 
       btn.style.transform = 'scale(0.98)';
@@ -815,4 +914,5 @@ document.addEventListener('DOMContentLoaded', () => {
   c3.init();
   c4.init();
   c5.init();
+  c6.init();
 });
