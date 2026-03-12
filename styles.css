@@ -126,9 +126,9 @@ body {
 
 .tab-nav-inner {
   display: flex;
-  max-width: 800px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 var(--scale-16);
+  padding: 0 var(--scale-24);
 }
 
 .tab-btn {
@@ -176,7 +176,7 @@ body {
 
 .calculator-section {
   display: none;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: calc(100vh - 55px);
   padding: var(--scale-48) var(--scale-24);
@@ -196,7 +196,9 @@ body {
 }
 
 .calculator-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  grid-template-rows: auto auto;
   gap: var(--scale-24);
   align-items: stretch;
   padding: var(--scale-32);
@@ -205,12 +207,27 @@ body {
   border-radius: var(--radius-2xl);
 }
 
+.calculator-container .input-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.calculator-container .results-panel {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.calculator-container .cta-button {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+
 /* ==========================================
    Left Panel — Inputs
    ========================================== */
 
 .input-panel {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--scale-24);
@@ -363,6 +380,8 @@ body {
   line-height: 20px;
   color: var(--color-text-secondary);
   text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .slider-step:first-child {
@@ -804,7 +823,6 @@ body {
    ========================================== */
 
 .results-panel {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1017,12 +1035,14 @@ body {
   }
 
   .calculator-container {
+    display: flex;
     flex-direction: column;
     padding: var(--scale-24);
     gap: var(--scale-24);
   }
 
   .results-panel {
+    width: 100%;
     padding: var(--scale-32) var(--scale-24);
   }
 
@@ -1073,34 +1093,41 @@ body {
   }
 
   .calculator-section {
-    padding: var(--scale-8);
+    padding: var(--scale-16) var(--scale-12);
+    min-height: auto;
+    align-items: flex-start;
   }
 
   .calculator-container {
-    padding: var(--scale-12);
-    gap: var(--scale-12);
+    padding: var(--scale-20) var(--scale-16);
+    gap: var(--scale-20);
   }
 
+  /* Fields: comfortable gap so each group reads as a unit */
   .input-panel {
-    gap: var(--scale-12);
-    padding-bottom: 64px;
+    gap: var(--scale-24);
+    padding-bottom: 0;
   }
 
+  /* Inside each slider group: no extra gap, handled by header margin + track padding */
   .slider-group {
     gap: 0;
   }
 
   .slider-header {
-    min-height: 40px;
+    min-height: 44px;
+    margin-bottom: var(--scale-4);
   }
 
+  /* Track: enough room for the 36px thumb to not feel cramped */
   .slider-track-wrapper {
-    padding: var(--scale-8) 0 var(--scale-10);
+    padding: var(--scale-12) 0 var(--scale-4);
   }
 
+  /* Range labels: close to track, clear association */
   .slider-range {
     font-size: 12px;
-    margin-top: -4px;
+    margin-top: 0;
   }
 
   .toggle-buttons {
@@ -1124,14 +1151,15 @@ body {
   }
 
   .slider-label {
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .slider-value-box {
     font-size: 14px;
     padding: var(--scale-8) var(--scale-12);
     height: 40px;
-    min-width: 50px;
+    min-width: 52px;
   }
 
   .slider-step {
@@ -1154,7 +1182,7 @@ body {
   .member-stepper {
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--scale-10) var(--scale-12);
+    padding: var(--scale-12) var(--scale-16);
     gap: 0;
     border: none;
     border-radius: 0;
@@ -1233,15 +1261,13 @@ body {
   }
 
   .cta-button {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
+    position: static;
+    width: 100%;
     height: 52px;
     font-size: 15px;
-    border-radius: 0;
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-pill);
+    box-shadow: none;
+    margin-top: var(--scale-4);
   }
 
   .premium-subtitle {
@@ -1255,44 +1281,44 @@ body {
   }
 
   .results-panel {
-    padding: var(--scale-16) var(--scale-12);
+    padding: var(--scale-20) var(--scale-16);
   }
 
   .premium-display {
-    margin-bottom: var(--scale-12);
+    margin-bottom: var(--scale-16);
   }
 
   .plans-block {
-    margin-top: var(--scale-12);
+    margin-top: var(--scale-16);
   }
 
   .plans-block-top {
-    padding: var(--scale-10) var(--scale-12);
-    gap: var(--scale-8);
+    padding: var(--scale-12) var(--scale-16);
+    gap: var(--scale-12);
   }
 
   .plans-block-icon-img {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   .plans-block-text {
-    font-size: 17px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 24px;
   }
 
   .plans-trust {
-    padding: var(--scale-8) var(--scale-12);
+    padding: var(--scale-10) var(--scale-16);
   }
 
   .plans-trust-item {
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 13px;
+    line-height: 18px;
   }
 
   .plans-trust-item img {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 
   .plans-trust-divider {
@@ -1300,12 +1326,12 @@ body {
   }
 
   .plans-block-bottom {
-    padding: 4px var(--scale-10) var(--scale-10);
+    padding: var(--scale-4) var(--scale-12) var(--scale-12);
   }
 
   .plans-block-btn {
-    padding: 11px var(--scale-12);
-    font-size: 13px;
+    padding: 12px var(--scale-16);
+    font-size: 14px;
   }
 
   .premium-perday {
