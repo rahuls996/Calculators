@@ -48,7 +48,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Health Insurance<br>Premium Calculator</h1>
+          <h1 class="calculator-title">What does your health<br>cover cost?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -63,22 +63,22 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">How much cover do you need?</label>
-              <div class="slider-value-box"><span id="c1-coverValue">₹10L</span></div>
+              <label class="slider-label">Cover amount</label>
+              <div class="slider-value-box"><span id="c1-coverValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c1-coverSlider" min="0" max="3" value="0" step="1" class="custom-slider">
             </div>
             <div class="slider-steps">
-              <span class="slider-step">₹10L</span>
-              <span class="slider-step">₹25L</span>
-              <span class="slider-step">₹50L</span>
-              <span class="slider-step">₹1Cr</span>
+              <span class="slider-step">₹10 L</span>
+              <span class="slider-step">₹25 L</span>
+              <span class="slider-step">₹50 L</span>
+              <span class="slider-step">₹1 Cr</span>
             </div>
           </div>
 
           <div class="option-group">
-            <label class="option-label">Members to insure</label>
+            <label class="option-label">Who are you covering?</label>
             <div class="member-stepper-group">
               <div class="member-stepper">
                 <img class="member-stepper-icon" src="icons/Adult.svg" alt="" width="40" height="40">
@@ -111,7 +111,7 @@
           </div>
 
           <div class="option-group">
-            <label class="option-label">Your city</label>
+            <label class="option-label">Which city do you live in?</label>
             <div class="searchable-select" id="c1-citySelect" data-value="bengaluru">
               <div class="searchable-select-trigger">
                 <span class="searchable-select-text">Bengaluru</span>
@@ -148,8 +148,8 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c1-premiumAmount">₹ 13,700</p>
-              <p class="premium-subtitle">per year for complete health cover</p>
-              <p class="premium-perday" id="c1-perDay">That's just ₹38/day — less than a coffee</p>
+              <p class="premium-subtitle">per year — hospital bills go to zero</p>
+              <p class="premium-perday" id="c1-perDay">₹38/day. Less than your morning chai.</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
@@ -169,15 +169,15 @@
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  See my health plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and are indicative of health insurance premiums. It is not intended to be, and must not alone be taken as, the basis for an insurance or investment decision.</p>
+            <p class="calc-disclaimer">Indicative premium only. Actual price may vary based on your health history and the plan you choose. ACKO General Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c1">See my premium</button>
+        <button class="cta-button" data-calc="c1">Calculate my premium</button>
       </div>
     </div>
   </section>
@@ -187,7 +187,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Health Cover<br>Recommendation</h1>
+          <h1 class="calculator-title">How much health cover<br>do you actually need?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -202,8 +202,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual income</label>
-              <div class="slider-value-box"><span id="c2-incomeValue">₹30L</span></div>
+              <label class="slider-label">Your annual income</label>
+              <div class="slider-value-box"><span id="c2-incomeValue">₹30 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c2-incomeSlider" min="1" max="100" value="30" class="custom-slider">
@@ -213,7 +213,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Family members to cover</label>
+              <label class="slider-label">People you want to cover</label>
               <div class="slider-value-box"><span id="c2-familyValue">2</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -224,8 +224,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Current health cover</label>
-              <div class="slider-value-box"><span id="c2-existingValue">₹30L</span></div>
+              <label class="slider-label">Health cover you already have</label>
+              <div class="slider-value-box"><span id="c2-existingValue">₹30 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c2-existingSlider" min="0" max="100" value="30" class="custom-slider">
@@ -235,8 +235,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Employer-provided cover</label>
-              <div class="slider-value-box"><span id="c2-companyValue">₹5L</span></div>
+              <label class="slider-label">Cover your employer provides</label>
+              <div class="slider-value-box"><span id="c2-companyValue">₹5 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c2-companySlider" min="0" max="100" value="5" class="custom-slider">
@@ -245,7 +245,7 @@
           </div>
 
           <div class="option-group">
-            <label class="option-label">Your city</label>
+            <label class="option-label">Which city do you live in?</label>
             <div class="searchable-select" id="c2-citySelect" data-value="bengaluru">
               <div class="searchable-select-trigger">
                 <span class="searchable-select-text">Bengaluru</span>
@@ -282,8 +282,8 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c2-premiumAmount">₹ 13,700</p>
-              <p class="premium-subtitle">per year — tailored to your family</p>
-              <p class="premium-perday" id="c2-perDay">That's just ₹38/day — less than a coffee</p>
+              <p class="premium-subtitle">is the cover your family needs</p>
+              <p class="premium-perday" id="c2-perDay">Employer cover alone won't be enough. Here's why.</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
@@ -303,15 +303,15 @@
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c2-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  See plans for my family <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and are indicative of recommended health cover. It is not intended to be, and must not alone be taken as, the basis for an insurance decision.</p>
+            <p class="calc-disclaimer">Indicative cover amount only. Actual recommendation may vary based on your health history and city. ACKO General Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c2">Show my ideal cover</button>
+        <button class="cta-button" data-calc="c2">Find my ideal cover</button>
       </div>
     </div>
   </section>
@@ -321,7 +321,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Term Cover<br>Recommendation</h1>
+          <h1 class="calculator-title">How much life cover<br>does your family need?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -336,8 +336,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual income</label>
-              <div class="slider-value-box"><span id="c3-incomeValue">₹5L</span></div>
+              <label class="slider-label">Your annual income</label>
+              <div class="slider-value-box"><span id="c3-incomeValue">₹5 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c3-incomeSlider" min="0" max="100" value="5" class="custom-slider">
@@ -347,7 +347,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Monthly household expenses</label>
+              <label class="slider-label">Monthly expenses at home</label>
               <div class="slider-value-box"><span id="c3-expensesValue">₹10,000</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -358,7 +358,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Number of dependents</label>
+              <label class="slider-label">People who depend on you</label>
               <div class="slider-value-box"><span id="c3-dependentsValue">2</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -369,8 +369,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Existing term cover</label>
-              <div class="slider-value-box"><span id="c3-existingValue">₹30L</span></div>
+              <label class="slider-label">Term cover you already have</label>
+              <div class="slider-value-box"><span id="c3-existingValue">₹30 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c3-existingSlider" min="0" max="100" value="30" class="custom-slider">
@@ -380,8 +380,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Outstanding liabilities/loans</label>
-              <div class="slider-value-box"><span id="c3-liabilitiesValue">₹2L</span></div>
+              <label class="slider-label">Loans or liabilities outstanding</label>
+              <div class="slider-value-box"><span id="c3-liabilitiesValue">₹2 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c3-liabilitiesSlider" min="0" max="100" value="2" class="custom-slider">
@@ -390,7 +390,7 @@
           </div>
 
           <div class="option-group">
-            <label class="option-label">Select future goals</label>
+            <label class="option-label">Goals you want to protect</label>
             <div class="toggle-buttons multi-select-grid">
               <button class="toggle-btn multi-btn active" data-calc="c3" data-group="goals" data-value="education">Education</button>
               <button class="toggle-btn multi-btn" data-calc="c3" data-group="goals" data-value="marriages">Marriages</button>
@@ -408,8 +408,8 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c3-premiumAmount">₹ 13,700</p>
-              <p class="premium-subtitle">per year to protect your family's future</p>
-              <p class="premium-perday" id="c3-perDay">That's just ₹38/day — skip one coffee a month</p>
+              <p class="premium-subtitle">is the cover your family can't go without</p>
+              <p class="premium-perday" id="c3-perDay">Most people are underinsured by 5x. Are you?</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
@@ -419,25 +419,25 @@
               <div class="plans-trust">
                 <span class="plans-trust-item">
                   <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim settled in 1 day
+                  Claim paid in 1 day
                 </span>
                 <span class="plans-trust-divider"></span>
                 <span class="plans-trust-item">
                   <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agent, no hassle
+                  No agents, no paperwork
                 </span>
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c3-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  Protect my family now <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and are indicative of recommended term cover. It is not intended to be, and must not alone be taken as, the basis for an insurance decision.</p>
+            <p class="calc-disclaimer">Indicative cover amount only. Actual recommendation depends on your financial profile and goals. ACKO Life Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c3">Find my cover amount</button>
+        <button class="cta-button" data-calc="c3">Calculate my cover</button>
       </div>
     </div>
   </section>
@@ -447,7 +447,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Term Duration<br>Helper</h1>
+          <h1 class="calculator-title">How long should your<br>term plan last?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -462,7 +462,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Number of dependents</label>
+              <label class="slider-label">People who depend on you</label>
               <div class="slider-value-box"><span id="c4-dependentsValue">2</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -473,8 +473,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Outstanding liabilities/loans</label>
-              <div class="slider-value-box"><span id="c4-liabilitiesValue">₹2L</span></div>
+              <label class="slider-label">Loans or liabilities outstanding</label>
+              <div class="slider-value-box"><span id="c4-liabilitiesValue">₹2 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c4-liabilitiesSlider" min="0" max="100" value="2" class="custom-slider">
@@ -484,8 +484,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual income</label>
-              <div class="slider-value-box"><span id="c4-incomeValue">₹5L</span></div>
+              <label class="slider-label">Your annual income</label>
+              <div class="slider-value-box"><span id="c4-incomeValue">₹5 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c4-incomeSlider" min="0" max="100" value="5" class="custom-slider">
@@ -495,7 +495,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Monthly household expenses</label>
+              <label class="slider-label">Monthly expenses at home</label>
               <div class="slider-value-box"><span id="c4-expensesValue">₹10,000</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -506,7 +506,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Planned retirement age</label>
+              <label class="slider-label">When do you plan to retire?</label>
               <div class="slider-value-box"><span id="c4-retireValue">55 yrs</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -524,8 +524,8 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c4-yearsAmount">25 years</p>
-              <p class="premium-subtitle">is how long your family needs protection</p>
-              <p class="premium-perday" id="c4-perDay">Every year you wait, your premium goes up</p>
+              <p class="premium-subtitle">is how long your family needs you covered</p>
+              <p class="premium-perday" id="c4-perDay">Wait a year and your premium gets more expensive</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
@@ -535,25 +535,25 @@
               <div class="plans-trust">
                 <span class="plans-trust-item">
                   <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim settled in 1 day
+                  Claim paid in 1 day
                 </span>
                 <span class="plans-trust-divider"></span>
                 <span class="plans-trust-item">
                   <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agent, no hassle
+                  No agents, no paperwork
                 </span>
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c4-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  Lock in my rate now <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and are indicative of a suggested policy term. It is not intended to be, and must not alone be taken as, the basis for an insurance decision.</p>
+            <p class="calc-disclaimer">Indicative policy term only. Actual recommendation depends on your financial obligations and goals. ACKO Life Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c4">Find my ideal term</button>
+        <button class="cta-button" data-calc="c4">Find my policy term</button>
       </div>
     </div>
   </section>
@@ -563,7 +563,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Human Life Value<br>Calculator</h1>
+          <h1 class="calculator-title">What would your family<br>lose without you?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -578,8 +578,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual income</label>
-              <div class="slider-value-box"><span id="c5-incomeValue">₹10L</span></div>
+              <label class="slider-label">Your annual income</label>
+              <div class="slider-value-box"><span id="c5-incomeValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c5-incomeSlider" min="1" max="200" value="10" class="custom-slider">
@@ -589,8 +589,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual expenses</label>
-              <div class="slider-value-box"><span id="c5-expensesValue">₹4L</span></div>
+              <label class="slider-label">Your annual expenses</label>
+              <div class="slider-value-box"><span id="c5-expensesValue">₹4 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c5-expensesSlider" min="1" max="200" value="4" class="custom-slider">
@@ -600,7 +600,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Planned retirement age</label>
+              <label class="slider-label">When do you plan to retire?</label>
               <div class="slider-value-box"><span id="c5-retireValue">60 yrs</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -618,36 +618,36 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c5-hlvAmount">₹ 1,20,00,000</p>
-              <p class="premium-subtitle">is what your family stands to lose</p>
-              <p class="premium-perday" id="c5-perDay">Cover this for as little as ₹500/month</p>
+              <p class="premium-subtitle">is what your family would lose if you're gone</p>
+              <p class="premium-perday" id="c5-perDay">Cover it all for as little as ₹500/month</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
                 <img class="plans-block-icon-img" src="icons/Health Insurance.svg" alt="" width="66" height="66">
-                <p class="plans-block-text">Term insurance from ₹500/month</p>
+                <p class="plans-block-text">Term cover from ₹500/month</p>
               </div>
               <div class="plans-trust">
                 <span class="plans-trust-item">
                   <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim settled in 1 day
+                  Claim paid in 1 day
                 </span>
                 <span class="plans-trust-divider"></span>
                 <span class="plans-trust-item">
                   <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agent, no hassle
+                  No agents, no paperwork
                 </span>
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c5-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  Cover my life value <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and represent an indicative human life value estimate. It is not intended to be, and must not alone be taken as, the basis for an insurance or investment decision.</p>
+            <p class="calc-disclaimer">Indicative Human Life Value (HLV) only. Actual value depends on your income growth, liabilities, and financial goals. ACKO Life Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c5">Calculate my life value</button>
+        <button class="cta-button" data-calc="c5">See what I'm worth to my family</button>
       </div>
     </div>
   </section>
@@ -657,7 +657,7 @@
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">Term Insurance<br>Calculator</h1>
+          <h1 class="calculator-title">What does your term<br>plan actually cost?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -672,8 +672,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Cover amount</label>
-              <div class="slider-value-box"><span id="c6-coverValue">₹50L</span></div>
+              <label class="slider-label">Cover amount you want</label>
+              <div class="slider-value-box"><span id="c6-coverValue">₹50 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c6-coverSlider" min="0" max="4" value="1" step="1" class="custom-slider">
@@ -689,7 +689,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Policy term</label>
+              <label class="slider-label">How long do you want cover?</label>
               <div class="slider-value-box"><span id="c6-termValue">20 yrs</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -700,8 +700,8 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Annual income</label>
-              <div class="slider-value-box"><span id="c6-incomeValue">₹10L</span></div>
+              <label class="slider-label">Your annual income</label>
+              <div class="slider-value-box"><span id="c6-incomeValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c6-incomeSlider" min="1" max="100" value="10" class="custom-slider">
@@ -718,8 +718,8 @@
             </div>
             <div class="premium-display">
               <p class="premium-amount" id="c6-premiumAmount">₹ 7,000</p>
-              <p class="premium-subtitle">per year to secure your family</p>
-              <p class="premium-perday" id="c6-perDay">That's just ₹19/day — less than a coffee</p>
+              <p class="premium-subtitle">per year — your family stays protected</p>
+              <p class="premium-perday" id="c6-perDay">₹19/day to make sure they never struggle</p>
             </div>
             <div class="plans-block">
               <div class="plans-block-top">
@@ -729,25 +729,25 @@
               <div class="plans-trust">
                 <span class="plans-trust-item">
                   <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim settled in 1 day
+                  Claim paid in 1 day
                 </span>
                 <span class="plans-trust-divider"></span>
                 <span class="plans-trust-item">
                   <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agent, no hassle
+                  No agents, no paperwork
                 </span>
               </div>
               <div class="plans-block-bottom">
                 <a class="plans-block-btn" id="c6-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  View plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+                  Get this plan <img src="icons/arrow right.svg" alt="" width="16" height="16">
                 </a>
               </div>
             </div>
-            <p class="calc-disclaimer">This calculator serves as a guide. The results are generated based on the information provided and are indicative of term insurance premiums. It is not intended to be, and must not alone be taken as, the basis for an insurance decision.</p>
+            <p class="calc-disclaimer">Indicative premium only. Actual price depends on your health profile and the plan you choose. ACKO Life Insurance Ltd. | IRDAI Reg. No. 157.</p>
           </div>
         </div>
 
-        <button class="cta-button" data-calc="c6">See my premium</button>
+        <button class="cta-button" data-calc="c6">Calculate my premium</button>
       </div>
     </div>
   </section>
