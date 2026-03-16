@@ -178,7 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultEl  = document.getElementById(calcId + '-result');
     const emptyEl   = document.getElementById(calcId + '-empty');
     const plansEl   = document.getElementById(calcId + '-plans');
+    const shieldEl  = document.getElementById(calcId + '-shield');
     if (emptyEl)  emptyEl.hidden  = true;
+    if (shieldEl) shieldEl.hidden = false;
     if (resultEl) resultEl.hidden = false;
     if (plansEl)  plansEl.hidden  = false;
     renderResult(calcId, result);
