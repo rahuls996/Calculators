@@ -873,7 +873,8 @@ body {
 
 .premium-display[hidden],
 .plans-block[hidden],
-.shield-icon[hidden] {
+.shield-icon[hidden],
+.calc-empty-state[hidden] {
   display: none !important;
 }
 
