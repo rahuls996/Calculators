@@ -148,13 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Loading / Error / Result state helpers
   // =============================================
 
+  function getResultsPanel(calcId) {
+    const emptyEl = document.getElementById(calcId + '-empty');
+    return emptyEl ? emptyEl.closest('.results-panel') : null;
+  }
+
   function setLoadingState(calcId, isLoading) {
     const skeleton  = document.getElementById(calcId + '-skeleton');
     const resultEl  = document.getElementById(calcId + '-result');
     const emptyEl   = document.getElementById(calcId + '-empty');
+    const panel     = getResultsPanel(calcId);
     const btn       = document.querySelector('.cta-button[data-calc="' + calcId + '"]');
 
     if (isLoading) {
+      if (panel)    panel.classList.remove('results-empty');
       if (emptyEl)  emptyEl.hidden  = true;
       if (resultEl) resultEl.hidden = true;
       if (skeleton) skeleton.hidden = false;
@@ -209,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyEl   = document.getElementById(calcId + '-empty');
     const plansEl   = document.getElementById(calcId + '-plans');
     const shieldEl  = document.getElementById(calcId + '-shield');
+    const panel     = getResultsPanel(calcId);
+    if (panel)    panel.classList.remove('results-empty');
     if (emptyEl)  emptyEl.hidden  = true;
     if (shieldEl) shieldEl.hidden = false;
     if (resultEl) resultEl.hidden = false;
@@ -540,4 +549,10 @@ document.addEventListener('DOMContentLoaded', () => {
   c5.init();
   c6.init();
   updateBuyCtaUrls();
+
+  // Mark all results panels as empty on load (hides them on mobile)
+  ['c1', 'c5', 'c6'].forEach(id => {
+    const panel = getResultsPanel(id);
+    if (panel) panel.classList.add('results-empty');
+  });
 });
