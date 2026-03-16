@@ -1481,11 +1481,34 @@ body {
   text-align: center;
 }
 
-/* ── Mobile: sticky CTA bar ── */
+/* ── Mobile: sticky CTA bar + initial state optimisations ── */
 
 @media (max-width: 480px) {
   .calculator-section {
     padding-bottom: 84px;
+  }
+
+  /* Hide the entire results panel until a result is shown */
+  .results-panel:has(.calc-empty-state:not([hidden])) {
+    display: none;
+  }
+
+  /* Hide illustration in empty state on mobile */
+  .calc-empty-icon-wrap {
+    display: none;
+  }
+
+  /* Compact empty state padding */
+  .calc-empty-state {
+    padding: var(--scale-20) var(--scale-16);
+  }
+
+  /* Smaller disclaimer — still readable */
+  .calc-disclaimer {
+    font-size: 10px;
+    line-height: 1.5;
+    padding-top: var(--scale-8);
+    margin-top: var(--scale-12);
   }
 
   .cta-button {
