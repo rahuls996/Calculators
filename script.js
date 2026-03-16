@@ -175,10 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showResult(calcId, result) {
-    const resultEl = document.getElementById(calcId + '-result');
-    const emptyEl  = document.getElementById(calcId + '-empty');
+    const resultEl  = document.getElementById(calcId + '-result');
+    const emptyEl   = document.getElementById(calcId + '-empty');
+    const plansEl   = document.getElementById(calcId + '-plans');
     if (emptyEl)  emptyEl.hidden  = true;
     if (resultEl) resultEl.hidden = false;
+    if (plansEl)  plansEl.hidden  = false;
     renderResult(calcId, result);
   }
 
