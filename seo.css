@@ -1,0 +1,380 @@
+/* ================================================================
+   seo.css — SEO article page styles
+   Health Insurance page with sticky ToC + embedded calculator
+   ================================================================ */
+
+/* ── Page base ── */
+
+.seo-page {
+  background: #fff;
+  color: #0a0a0a;
+  font-family: 'Euclid Circular B', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+
+.seo-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.seo-header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+.seo-logo img {
+  display: block;
+}
+
+/* ── Two-column layout ── */
+
+.seo-layout {
+  display: grid;
+  grid-template-columns: 302px 1fr;
+  max-width: 1361px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+  gap: 0 24px;
+  align-items: start;
+}
+
+/* ── Left sticky ToC ── */
+
+.seo-toc {
+  position: sticky;
+  top: 80px;
+  padding-top: 24px;
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+}
+
+.seo-toc-heading {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #0a0a0a;
+  margin: 0 0 16px;
+  padding-left: 16px;
+}
+
+.seo-toc-list-wrap {
+  position: relative;
+  display: flex;
+  gap: 0;
+}
+
+.seo-toc-line-wrap {
+  position: relative;
+  width: 2px;
+  background: rgba(10, 10, 10, 0.1);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.seo-toc-active-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 20px;
+  background: #0a0a0a;
+  border-radius: 2px;
+  transition: top 0.25s ease;
+}
+
+.seo-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 32px 0 16px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  scrollbar-width: none;
+}
+
+.seo-toc-list::-webkit-scrollbar { display: none; }
+
+.seo-toc-item {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.56);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  display: block;
+}
+
+.seo-toc-item:hover {
+  color: #0a0a0a;
+}
+
+.seo-toc-item.active {
+  font-weight: 500;
+  color: #0a0a0a;
+}
+
+.seo-toc-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+
+/* ── Main content ── */
+
+.seo-main {
+  min-width: 0;
+  padding-top: 24px;
+}
+
+/* ── Breadcrumb ── */
+
+.seo-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.56);
+  margin-bottom: 32px;
+}
+
+.seo-breadcrumb a {
+  color: rgba(0, 0, 0, 0.56);
+  text-decoration: none;
+}
+
+.seo-breadcrumb a:hover { color: #0a0a0a; }
+
+/* ── Sections ── */
+
+.seo-section {
+  margin-bottom: 64px;
+  scroll-margin-top: 88px;
+}
+
+/* ── Typography ── */
+
+.seo-h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+  color: #0a0a0a;
+  margin: 0 0 24px;
+}
+
+.seo-h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 40px;
+  color: #0a0a0a;
+  margin: 0 0 32px;
+}
+
+.seo-body {
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.72);
+  margin: 0 0 16px;
+}
+
+/* ── Two-column bullet list ── */
+
+.seo-two-col-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  margin-top: 16px;
+}
+
+.seo-list {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.seo-list li {
+  margin-bottom: 12px;
+}
+
+.seo-list--spaced li {
+  margin-bottom: 16px;
+}
+
+/* ── Hospital grid ── */
+
+.seo-hospital-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.seo-hospital-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 12px;
+  width: 140px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a0a0a;
+  text-align: center;
+}
+
+.seo-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 24px;
+  background: #fff;
+  border: 1.5px solid rgba(10, 10, 10, 0.2);
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0a0a0a;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+}
+
+.seo-secondary-btn:hover {
+  border-color: rgba(10, 10, 10, 0.4);
+  background: rgba(10, 10, 10, 0.03);
+}
+
+/* ── At a Glance table ── */
+
+.seo-table {
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.seo-table-header,
+.seo-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+}
+
+.seo-table-row--last {
+  border-bottom: none;
+}
+
+.seo-table-cell {
+  padding: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0a0a0a;
+  border-right: 1px solid rgba(10, 10, 10, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.seo-table-cell:last-child {
+  border-right: none;
+}
+
+.seo-table-cell--header {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  min-height: 80px;
+}
+
+.seo-table-cell--spec {
+  color: #646464;
+  font-weight: 500;
+}
+
+/* ── Embedded calculator ── */
+
+.seo-calc-section .seo-h2 {
+  margin-bottom: 8px;
+}
+
+.seo-calc-section .seo-body {
+  margin-bottom: 32px;
+}
+
+.seo-calc-embed {
+  border-radius: var(--radius-2xl, 24px);
+  overflow: hidden;
+}
+
+.seo-calc-embed .calculator-container {
+  border-radius: var(--radius-2xl, 24px) var(--radius-2xl, 24px) 0 0;
+  overflow: hidden;
+}
+
+.seo-calc-embed .cta-button {
+  border-radius: 0 0 var(--radius-2xl, 24px) var(--radius-2xl, 24px);
+  width: 100%;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .seo-layout {
+    grid-template-columns: 260px 1fr;
+    padding: 32px 24px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .seo-layout {
+    grid-template-columns: 1fr;
+    padding: 24px 20px 60px;
+  }
+
+  .seo-toc {
+    position: static;
+    max-height: none;
+    padding-top: 0;
+    margin-bottom: 32px;
+  }
+
+  .seo-h1, .seo-h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .seo-two-col-list {
+    grid-template-columns: 1fr;
+  }
+
+  .seo-table-header,
+  .seo-table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .seo-table-cell {
+    border-right: none;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.07);
+  }
+
+  .seo-table-cell:last-child {
+    border-bottom: none;
+  }
+
+  .seo-table-cell--header:first-child {
+    border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+  }
+}
