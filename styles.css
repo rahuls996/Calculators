@@ -871,6 +871,11 @@ body {
   margin-bottom: var(--scale-24);
 }
 
+.premium-display[hidden],
+.plans-block[hidden] {
+  display: none !important;
+}
+
 /* display-md: 48px/56px Bold */
 .premium-amount {
   font-size: 48px;
