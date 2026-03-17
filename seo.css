@@ -437,6 +437,8 @@
     border-radius: 0;
     box-shadow: none;
     padding: 0;
+    /* Space for the fixed sticky CTA at the bottom */
+    padding-bottom: 84px;
   }
 
   .seo-calc-embed .calculator-container {
