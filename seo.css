@@ -30,6 +30,21 @@
   margin: 0 auto;
   padding: 0 40px;
   width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .seo-header {
+    height: 52px;
+  }
+
+  .seo-header-inner {
+    padding: 0 20px;
+  }
+
+  .seo-logo-link {
+    font-size: 18px;
+  }
 }
 
 .seo-logo-link {
@@ -384,42 +399,154 @@
 }
 
 @media (max-width: 768px) {
+  /* Single column — hide ToC entirely (Figma mobile shows none) */
   .seo-layout {
-    grid-template-columns: 1fr;
-    padding: 24px 20px 60px;
+    display: block;
+    padding: 0 0 80px;
   }
 
   .seo-toc {
-    position: static;
-    max-height: none;
-    padding-top: 0;
-    margin-bottom: 32px;
+    display: none;
   }
 
-  .seo-h1, .seo-h2 {
-    font-size: 28px;
-    line-height: 36px;
+  /* Main content — full width with 20px side padding matching Figma */
+  .seo-main {
+    padding-top: 0;
+  }
+
+  .seo-section {
+    padding: 0 20px;
+    margin-bottom: 44px;
+  }
+
+  /* Breadcrumb */
+  .seo-breadcrumb {
+    padding: 16px 20px 0;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  /* Typography — matching Figma 24px headings */
+  .seo-h1 {
+    font-size: 24px;
+    line-height: 32px;
+    margin: 0 0 16px;
+  }
+
+  .seo-h2 {
+    font-size: 24px;
+    line-height: 32px;
+    margin: 0 0 16px;
+  }
+
+  .seo-body {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* Bullet lists */
+  .seo-list {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .seo-list li {
+    margin-bottom: 10px;
   }
 
   .seo-two-col-list {
     grid-template-columns: 1fr;
   }
 
-  .seo-table-header,
-  .seo-table-row {
-    grid-template-columns: 1fr;
+  /* Hospital grid — 3 per row matching Figma */
+  .seo-hospital-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .seo-hospital-card {
+    width: calc(33.33% - 6px);
+    padding: 12px 8px;
+    gap: 6px;
+    border-radius: 10px;
+    font-size: 10px;
+  }
+
+  .seo-hospital-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  /* "Explore hospitals" button — full width on mobile */
+  .seo-secondary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* At a Glance table — keep 2 cols but reduce font */
+  .seo-table {
+    border-radius: 16px;
   }
 
   .seo-table-cell {
-    border-right: none;
-    border-bottom: 1px solid rgba(10, 10, 10, 0.07);
+    padding: 16px;
+    font-size: 14px;
+    line-height: 18px;
   }
 
-  .seo-table-cell:last-child {
-    border-bottom: none;
+  .seo-table-cell--header {
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 60px;
   }
 
-  .seo-table-cell--header:first-child {
-    border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+  .seo-table-cell--spec {
+    font-size: 13px;
+  }
+
+  /* Embedded calculator — break out of 20px side padding, go full width */
+  .seo-calc-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .seo-calc-section .seo-h2,
+  .seo-calc-section .seo-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .seo-calc-embed .calculator-wrapper {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .seo-calc-embed .calculator-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+  }
+
+  /* Restore the sticky CTA bottom padding for mobile */
+  .seo-calc-embed .calculator-section {
+    padding-bottom: 84px;
+  }
+
+  /* FAQs */
+  .seo-faq-item {
+    padding: 16px;
+  }
+
+  .seo-faq-q {
+    font-size: 15px;
+  }
+
+  .seo-faq-a {
+    font-size: 14px;
+    line-height: 22px;
   }
 }
