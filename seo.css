@@ -35,15 +35,7 @@
 
 @media (max-width: 768px) {
   .seo-header {
-    height: 52px;
-  }
-
-  .seo-header-inner {
-    padding: 0 20px;
-  }
-
-  .seo-logo-link {
-    font-size: 18px;
+    display: none;
   }
 }
 
