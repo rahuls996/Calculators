@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderResult(calcId, result) {
     if (calcId === 'c1') {
-      animateAmount(document.getElementById('c1-premiumAmount'), formatINR(result.price));
+      animateAmount(document.getElementById('c1-premiumAmount'), '₹ ' + result.monthly.toLocaleString('en-IN'));
       const plansEl = document.getElementById('c1-plansText');
       if (plansEl) plansEl.textContent = result.coverText;
       const perdayEl = document.getElementById('c1-perDay');
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (calcId === 'c5') {
       animateAmount(document.getElementById('c5-hlvAmount'), '₹ ' + result.price.toLocaleString('en-IN'));
     } else if (calcId === 'c6') {
-      animateAmount(document.getElementById('c6-premiumAmount'), formatINR(result.price));
+      animateAmount(document.getElementById('c6-premiumAmount'), '₹ ' + result.monthly.toLocaleString('en-IN'));
       const plansEl = document.getElementById('c6-plansText');
       if (plansEl) plansEl.textContent = result.coverText;
       const perdayEl = document.getElementById('c6-perDay');

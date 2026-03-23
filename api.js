@@ -44,7 +44,8 @@ function calcC1(p) {
   const total = Math.max(base + ageComp + cityComp + coverComp + memberComp, 2000);
   const monthly = Math.ceil(total / 12);
   const daily   = Math.ceil(total / 365);
-  return { price: total, monthly, daily, coverText: 'Starting at ₹' + monthly.toLocaleString('en-IN') + '/month' };
+  const coverLabel = cover >= 100 ? '₹1 Cr health cover' : '₹' + cover + ' L health cover';
+  return { price: total, monthly, daily, coverText: coverLabel };
 }
 
 
