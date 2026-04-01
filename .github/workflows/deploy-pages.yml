@@ -1,0 +1,49 @@
+# Publishes the static calculator site from branch `v6` to GitHub Pages.
+# After the first successful run: Repo → Settings → Pages → Build: GitHub Actions.
+name: Deploy GitHub Pages (v6)
+
+on:
+  push:
+    branches:
+      - v6
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-v6
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assemble site (exclude node_modules)
+        run: |
+          mkdir -p _site
+          shopt -s nullglob
+          for f in *.html *.css *.js *.svg *.png; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          cp -r Font icons _site/
+          touch _site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
