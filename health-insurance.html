@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Insurance — ACKO</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      var mark = '/Calculators';
+      var i = path.indexOf(mark);
+      if (i === -1) return;
+      var after = path.slice(i + mark.length);
+      var slash = after.indexOf('/');
+      var href =
+        slash === -1
+          ? path.slice(0, i + mark.length) + '/'
+          : path.slice(0, i + mark.length + slash + 1);
+      var b = document.createElement('base');
+      b.href = href;
+      document.head.insertBefore(b, document.head.querySelector('link'));
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -236,7 +253,7 @@
                         <a class="health-plans-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
                           <span class="health-plans-btn-label">See plans</span>
                           <span class="health-plans-btn-icon" aria-hidden="true">
-                            <img src="icons/arrow right.svg" alt="" width="24" height="24">
+                            <img src="icons/arrow%20right.svg" alt="" width="24" height="24">
                           </span>
                         </a>
                       </div>

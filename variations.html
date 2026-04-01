@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lead Capture Variations | Health Premium Calculator</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      var mark = '/Calculators';
+      var i = path.indexOf(mark);
+      if (i === -1) return;
+      var after = path.slice(i + mark.length);
+      var slash = after.indexOf('/');
+      var href =
+        slash === -1
+          ? path.slice(0, i + mark.length) + '/'
+          : path.slice(0, i + mark.length + slash + 1);
+      var b = document.createElement('base');
+      b.href = href;
+      document.head.insertBefore(b, document.head.querySelector('link'));
+    })();
+  </script>
   <link rel="stylesheet" href="fonts.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="variations.css">
