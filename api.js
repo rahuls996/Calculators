@@ -61,6 +61,8 @@ function calcC5(p) {
 }
 
 const C6_COVER_STEPS = [2500000, 5000000, 7500000, 10000000, 20000000];
+/** Figma SEO widget: 4 stops (₹25L → ₹2Cr), no ₹1Cr midpoint */
+const C6_COVER_STEPS_4 = [2500000, 5000000, 7500000, 20000000];
 
 function getTermAgeFactor(age) {
   if (age <= 25) return 0.7;
@@ -79,11 +81,14 @@ function getTermFactor(term) {
 }
 
 function calcC6(p) {
-  const cover = C6_COVER_STEPS[p.coverIndex];
+  const steps = p.coverVariant === '4' ? C6_COVER_STEPS_4 : C6_COVER_STEPS;
+  const idx = Math.min(Math.max(0, p.coverIndex | 0), steps.length - 1);
+  const cover = steps[idx];
   const coverInLakhs = cover / 100000;
   const baseAnnual = coverInLakhs * 28;
   const ageMul  = getTermAgeFactor(p.age);
-  const termMul = getTermFactor(p.term);
+  const term = p.coverVariant === '4' ? 60 : p.term;
+  const termMul = getTermFactor(term);
   const ageComp   = r100(baseAnnual * (ageMul - 1));
   const coverComp = r100(baseAnnual * 0.15 * (coverInLakhs / 50 - 1));
   const termComp  = r100(baseAnnual * (termMul - 1));
@@ -92,7 +97,13 @@ function calcC6(p) {
   const coverLabel = cover >= 10000000
     ? '₹' + (cover / 10000000).toFixed(0) + ' Cr life cover'
     : '₹' + (cover / 100000).toFixed(0) + ' L life cover';
-  return { price: total, monthly: Math.ceil(total / 12), daily, coverText: coverLabel };
+  return {
+    price: total,
+    monthly: Math.ceil(total / 12),
+    daily,
+    coverText: coverLabel,
+    termUsed: term
+  };
 }
 
 // ─── Formula dispatch map ────────────────────────────────────────────────────

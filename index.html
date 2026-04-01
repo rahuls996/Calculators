@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="fonts.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="seo.css">
 </head>
 <body>
 
@@ -281,110 +282,103 @@
     </div>
   </section>
 
-  <!-- ========== CALCULATOR 6: Term Insurance Calculator ========== -->
-  <section class="calculator-section" id="calc6">
+  <!-- ========== CALCULATOR 6: Term Insurance (Figma SEO Widget 3430:1599 / 3430:1681) ========== -->
+  <section class="calculator-section term-calculator--figma" id="calc6">
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">What does your term<br>plan actually cost?</h1>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label">Your age</label>
-              <div class="slider-value-box"><span id="c6-ageValue">30</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c6-ageSlider" min="18" max="65" value="30" class="custom-slider">
-            </div>
-            <div class="slider-range"><span>18 yrs</span><span>65 yrs</span></div>
+          <div class="calculator-intro">
+            <h1 class="calculator-title term-figma-title">What will your term plan<br>actually cost?</h1>
+            <p class="calculator-subtitle term-figma-subtitle">Tell us a few basics to see your premium estimate</p>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Cover amount you want</label>
-              <div class="slider-value-box"><span id="c6-coverValue">₹50 L</span></div>
+              <label class="slider-label" for="c6-ageSlider">Age</label>
+              <div class="slider-value-box"><span id="c6-ageValue">30</span></div>
             </div>
             <div class="slider-track-wrapper">
-              <input type="range" id="c6-coverSlider" min="0" max="4" value="1" step="1" class="custom-slider">
+              <input type="range" id="c6-ageSlider" min="18" max="100" value="30" class="custom-slider" aria-label="Age">
             </div>
-            <div class="slider-steps">
+            <div class="slider-range"><span>18 yrs</span><span>100 yrs</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="slider-label" for="c6-coverSlider">Coverage</label>
+              <div class="slider-value-box"><span id="c6-coverValue">₹25 L</span></div>
+            </div>
+            <div class="slider-track-wrapper">
+              <input type="range" id="c6-coverSlider" min="0" max="3" value="0" step="1" class="custom-slider" aria-label="Coverage amount">
+            </div>
+            <div class="slider-steps term-figma-cover-steps">
               <span class="slider-step">₹25L</span>
               <span class="slider-step">₹50L</span>
               <span class="slider-step">₹75L</span>
-              <span class="slider-step">₹1Cr</span>
               <span class="slider-step">₹2Cr</span>
             </div>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">How long do you want cover?</label>
-              <div class="slider-value-box"><span id="c6-termValue">20 yrs</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c6-termSlider" min="10" max="40" value="20" step="5" class="custom-slider">
-            </div>
-            <div class="slider-range"><span>10 yrs</span><span>40 yrs</span></div>
-          </div>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label">Your annual income</label>
+              <label class="slider-label" for="c6-incomeSlider">Annual income</label>
               <div class="slider-value-box"><span id="c6-incomeValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
-              <input type="range" id="c6-incomeSlider" min="1" max="100" value="10" class="custom-slider">
+              <input type="range" id="c6-incomeSlider" min="1" max="200" value="10" class="custom-slider" aria-label="Annual income">
             </div>
-            <div class="slider-range"><span>₹1L</span><span>₹1Cr</span></div>
+            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
           </div>
-
         </div>
 
-        <div class="results-panel">
-          <div class="results-content">
-            <div class="shield-icon" id="c6-shield" hidden>
-              <img src="Porting.svg" alt="Term insurance calculator" width="182" height="182">
+        <div class="results-panel term-figma-results-panel">
+          <div class="results-content term-figma-results-inner">
+            <div class="term-figma-empty" id="c6-empty">
+              <img class="term-figma-empty-illu" src="Porting.svg" alt="" width="182" height="182">
+              <p class="term-figma-empty-title">Check premium instantly</p>
+              <p class="term-figma-empty-copy">Adjust the sliders on the left to match your profile, then hit <strong>Calculate premium</strong> for a personalised quote.</p>
             </div>
-            <div class="calc-empty-state" id="c6-empty">
-              <div class="calc-empty-icon-wrap">
-                <img src="Porting.svg" alt="" width="120" height="120">
-              </div>
-              <p class="calc-empty-title">See your term premium</p>
-              <p class="calc-empty-subtitle">Choose your cover amount, then hit <strong>Calculate my premium</strong> to see what it costs to protect them.</p>
-            </div>
-            <div class="premium-display" id="c6-result" hidden>
-              <p class="premium-amount" id="c6-premiumAmount">₹ 7,000</p>
-              <p class="premium-subtitle">per month — your family stays protected</p>
-              <p class="premium-perday" id="c6-perDay">₹19/day to make sure they never struggle</p>
-            </div>
+
             <div class="price-skeleton" id="c6-skeleton" hidden></div>
-            <div class="plans-block" id="c6-plans" hidden>
-              <div class="plans-block-top">
-                <img class="plans-block-icon-img" src="icons/Health Insurance.svg" alt="" width="66" height="66">
-                <p class="plans-block-text" id="c6-plansText">₹1 Cr life cover</p>
+
+            <div class="term-figma-result" id="c6-result" hidden>
+              <div class="term-figma-result-top">
+                <div class="term-figma-price-cluster">
+                  <p class="term-figma-starting">Starting from</p>
+                  <p class="term-figma-price-line">
+                    <span id="c6-monthlyAmount">₹ 0</span><span class="term-figma-price-suffix">/month</span>
+                  </p>
+                </div>
+                <div class="term-figma-pill" id="c6-resultPill" aria-live="polite">
+                  <p>Price shown is for a non-smoker male.</p>
+                  <p>Policy term is automatically set to 60 years.</p>
+                </div>
               </div>
-              <div class="plans-trust">
-                <span class="plans-trust-item">
-                  <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim paid in 1 day
-                </span>
-                <span class="plans-trust-divider"></span>
-                <span class="plans-trust-item">
-                  <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agents, no paperwork
-                </span>
-              </div>
-              <div class="plans-block-bottom">
-                <a class="plans-block-btn" id="c6-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  Get this plan <img src="icons/arrow right.svg" alt="" width="16" height="16">
+              <div class="term-figma-different-card">
+                <h3 class="term-figma-different-title">What makes us different</h3>
+                <ul class="term-figma-different-list">
+                  <li>
+                    <img src="star.svg" alt="" width="24" height="24" class="term-figma-star">
+                    <span>Your family gets the full amount.</span>
+                  </li>
+                  <li>
+                    <img src="star.svg" alt="" width="24" height="24" class="term-figma-star">
+                    <span>Increase your cover as life changes.</span>
+                  </li>
+                </ul>
+                <a class="term-figma-plans-btn" id="c6-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
+                  <span class="term-figma-plans-btn-label">See plans</span>
+                  <span class="term-figma-plans-btn-icon" aria-hidden="true">
+                    <img src="icons/arrow right.svg" alt="" width="24" height="24">
+                  </span>
                 </a>
               </div>
+              <p class="term-figma-footer-note">This is a price estimate based on the inputs you provided. Your actual premium including GST will be shown on the plans page.</p>
             </div>
           </div>
-          <p class="calc-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
         </div>
 
-        <button class="cta-button" data-calc="c6">Calculate my premium</button>
+        <button type="button" class="cta-button term-cta--primary" data-calc="c6">Calculate premium</button>
       </div>
     </div>
   </section>

@@ -16,9 +16,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function formatLakhsWithRupee(val) {
-    if (val >= 100) return '₹1Cr';
+    if (val >= 100) {
+      const cr = val / 100;
+      const t = Number.isInteger(cr) ? String(cr) : String(Math.round(cr * 10) / 10);
+      return '₹' + t + ' Cr';
+    }
     if (val === 0) return '₹0';
-    return '₹' + val + 'L';
+    return '₹' + val + ' L';
+  }
+
+  function isTermFigma() {
+    const el = document.getElementById('calc6');
+    return !!(el && el.classList.contains('term-calculator--figma'));
+  }
+
+  function setC6FigmaCtaRecalc(on) {
+    const btn = document.querySelector('.cta-button[data-calc="c6"]');
+    if (!btn || !isTermFigma()) return;
+    if (on) {
+      btn.classList.remove('term-cta--primary');
+      btn.classList.add('term-cta--recalc');
+      btn.dataset.originalText = 'Recalculate';
+      btn.textContent = 'Recalculate';
+    } else {
+      btn.classList.add('term-cta--primary');
+      btn.classList.remove('term-cta--recalc');
+      btn.dataset.originalText = 'Calculate premium';
+      btn.textContent = 'Calculate premium';
+    }
   }
 
   function updateSliderProgress(slider) {
@@ -195,8 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shieldEl) shieldEl.classList.add('result-stale');
     if (btn && !btn.classList.contains('cta-stale')) {
       btn.dataset.originalText = btn.dataset.originalText || btn.textContent.trim();
-      btn.innerHTML = '<span class="cta-refresh-icon">↻</span> Update my price';
-      btn.classList.add('cta-stale');
+      if (calcId === 'c6' && isTermFigma()) {
+        btn.classList.add('cta-stale');
+      } else {
+        btn.innerHTML = '<span class="cta-refresh-icon">↻</span> Update my price';
+        btn.classList.add('cta-stale');
+      }
     }
   }
 
@@ -227,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (plansEl)  plansEl.hidden  = false;
     clearStale(calcId);
     renderResult(calcId, result);
+    if (calcId === 'c6' && isTermFigma()) setC6FigmaCtaRecalc(true);
   }
 
   function renderResult(calcId, result) {
@@ -239,11 +269,16 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (calcId === 'c5') {
       animateAmount(document.getElementById('c5-hlvAmount'), '₹ ' + result.price.toLocaleString('en-IN'));
     } else if (calcId === 'c6') {
-      animateAmount(document.getElementById('c6-premiumAmount'), '₹ ' + result.monthly.toLocaleString('en-IN'));
-      const plansEl = document.getElementById('c6-plansText');
-      if (plansEl) plansEl.textContent = result.coverText;
-      const perdayEl = document.getElementById('c6-perDay');
-      if (perdayEl) perdayEl.textContent = result.daily ? '₹' + result.daily + '/day to make sure they never struggle' : '';
+      if (isTermFigma()) {
+        const monthlyEl = document.getElementById('c6-monthlyAmount');
+        if (monthlyEl) animateAmount(monthlyEl, '₹ ' + result.monthly.toLocaleString('en-IN'));
+      } else {
+        animateAmount(document.getElementById('c6-premiumAmount'), '₹ ' + result.monthly.toLocaleString('en-IN'));
+        const plansEl = document.getElementById('c6-plansText');
+        if (plansEl) plansEl.textContent = result.coverText;
+        const perdayEl = document.getElementById('c6-perDay');
+        if (perdayEl) perdayEl.textContent = result.daily ? '₹' + result.daily + '/day to make sure they never struggle' : '';
+      }
     }
     updateBuyCtaUrls();
   }
@@ -409,33 +444,52 @@ document.addEventListener('DOMContentLoaded', () => {
     state: { age: 30, coverIndex: 1, term: 20, income: 10 },
 
     getParams() {
+      if (isTermFigma()) {
+        return {
+          age: this.state.age,
+          coverIndex: this.state.coverIndex,
+          term: 60,
+          income: this.state.income,
+          coverVariant: '4'
+        };
+      }
       return { ...this.state };
     },
 
     init() {
+      if (isTermFigma()) {
+        this.state = { age: 30, coverIndex: 0, term: 60, income: 10 };
+        this.coverLabels = ['₹25 L', '₹50 L', '₹75 L', '₹2 Cr'];
+        document.getElementById('c6-coverValue').textContent = this.coverLabels[this.state.coverIndex];
+        document.getElementById('c6-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
+      }
+
       document.getElementById('c6-ageSlider').addEventListener('input', (e) => {
-        this.state.age = parseInt(e.target.value);
+        this.state.age = parseInt(e.target.value, 10);
         document.getElementById('c6-ageValue').textContent = this.state.age;
         updateSliderProgress(e.target);
         markStale('c6');
       });
 
       document.getElementById('c6-coverSlider').addEventListener('input', (e) => {
-        this.state.coverIndex = parseInt(e.target.value);
+        this.state.coverIndex = parseInt(e.target.value, 10);
         document.getElementById('c6-coverValue').textContent = this.coverLabels[this.state.coverIndex];
         updateSliderProgress(e.target);
         markStale('c6');
       });
 
-      document.getElementById('c6-termSlider').addEventListener('input', (e) => {
-        this.state.term = parseInt(e.target.value);
-        document.getElementById('c6-termValue').textContent = this.state.term + ' yrs';
-        updateSliderProgress(e.target);
-        markStale('c6');
-      });
+      const termSlider = document.getElementById('c6-termSlider');
+      if (termSlider) {
+        termSlider.addEventListener('input', (e) => {
+          this.state.term = parseInt(e.target.value, 10);
+          document.getElementById('c6-termValue').textContent = this.state.term + ' yrs';
+          updateSliderProgress(e.target);
+          markStale('c6');
+        });
+      }
 
       document.getElementById('c6-incomeSlider').addEventListener('input', (e) => {
-        this.state.income = parseInt(e.target.value);
+        this.state.income = parseInt(e.target.value, 10);
         document.getElementById('c6-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
         updateSliderProgress(e.target);
         markStale('c6');
@@ -526,9 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (calcId === 'c5') {
       params.set('income', c5.state.income);
     } else if (calcId === 'c6') {
-      const coverSteps = [2500000, 5000000, 7500000, 10000000, 20000000];
-      params.set('cover',  coverSteps[c6.state.coverIndex] + '');
-      params.set('term',   c6.state.term);
+      const coverSteps = isTermFigma()
+        ? [2500000, 5000000, 7500000, 20000000]
+        : [2500000, 5000000, 7500000, 10000000, 20000000];
+      const ci = Math.min(c6.state.coverIndex, coverSteps.length - 1);
+      params.set('cover', coverSteps[ci] + '');
+      params.set('term', isTermFigma() ? '60' : String(c6.state.term));
       params.set('income', c6.state.income);
     }
 
@@ -552,6 +609,14 @@ document.addEventListener('DOMContentLoaded', () => {
   c5.init();
   c6.init();
   updateBuyCtaUrls();
+
+  if (isTermFigma()) {
+    document.querySelectorAll('#calc6 .custom-slider').forEach(updateSliderProgress);
+    const c6btn = document.querySelector('.cta-button[data-calc="c6"]');
+    if (c6btn && !c6btn.dataset.originalText) {
+      c6btn.dataset.originalText = c6btn.textContent.trim();
+    }
+  }
 
   // Mark all results panels as empty on load (hides them on mobile)
   ['c1', 'c5', 'c6'].forEach(id => {
