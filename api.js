@@ -151,3 +151,12 @@ async function callPricingApi(calcId, params) {
 async function fetchPrice(calcId, params) {
   return callPricingApi(calcId, params);
 }
+
+/**
+ * Same formulas as the mock API, synchronously — for live slider updates in the UI.
+ */
+function computePrice(calcId, params) {
+  const fn = formulaMap[calcId];
+  if (!fn) throw new Error('Unknown calculator: ' + calcId);
+  return fn(params);
+}

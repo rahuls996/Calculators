@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn || !isTermFigma()) return;
     if (on) {
       btn.classList.remove('term-cta--primary');
-      btn.classList.add('term-cta--recalc');
+      btn.classList.add('calc-cta--recalc');
       btn.dataset.originalText = 'Recalculate';
       btn.textContent = 'Recalculate';
     } else {
       btn.classList.add('term-cta--primary');
-      btn.classList.remove('term-cta--recalc');
+      btn.classList.remove('calc-cta--recalc');
       btn.dataset.originalText = 'Calculate premium';
       btn.textContent = 'Calculate premium';
     }
@@ -173,9 +173,87 @@ document.addEventListener('DOMContentLoaded', () => {
   // Loading / Error / Result state helpers
   // =============================================
 
+  const calcSectionIds = { c1: 'calc1', c5: 'calc5', c6: 'calc6' };
+
   function getResultsPanel(calcId) {
+    const live = document.getElementById(calcId + '-live');
+    if (live) return live.closest('.results-panel');
+    const sid = calcSectionIds[calcId];
+    if (sid) {
+      const section = document.getElementById(sid);
+      const panel = section && section.querySelector('.results-panel');
+      if (panel) return panel;
+    }
     const emptyEl = document.getElementById(calcId + '-empty');
     return emptyEl ? emptyEl.closest('.results-panel') : null;
+  }
+
+  function healthHospitalisationBullet(coverIndex) {
+    const steps = [10, 25, 50, 100];
+    const v = steps[Math.min(coverIndex | 0, steps.length - 1)];
+    if (v >= 100) return '₹1Cr hospitalisation cover';
+    return '₹' + v + 'L hospitalisation cover';
+  }
+
+  /** After the first Calculate tap, results stay visible and update on every input change. */
+  const resultsRevealed = { c1: false, c5: false, c6: false };
+
+  function setMainCtaToRecalc(calcId) {
+    const btn = document.querySelector('.cta-button[data-calc="' + calcId + '"]');
+    if (!btn || btn.classList.contains('calc-cta--recalc')) return;
+    btn.classList.remove('health-primary-cta', 'term-cta--primary', 'term-cta--recalc', 'health-cta--recalc');
+    btn.classList.add('calc-cta--recalc');
+    btn.textContent = 'Recalculate';
+    btn.dataset.originalText = 'Recalculate';
+  }
+
+  function applyEmptyResultsState(calcId) {
+    const panel = getResultsPanel(calcId);
+    if (panel) panel.classList.add('results-empty');
+    const emptyEl = document.getElementById(calcId + '-empty');
+    if (emptyEl) emptyEl.hidden = false;
+    const skeleton = document.getElementById(calcId + '-skeleton');
+    if (skeleton) skeleton.hidden = true;
+    const liveEl = document.getElementById(calcId + '-live');
+    const resultEl = document.getElementById(calcId + '-result');
+    if (liveEl) liveEl.hidden = true;
+    if (resultEl) resultEl.hidden = true;
+    const plansEl = document.getElementById(calcId + '-plans');
+    if (plansEl) plansEl.hidden = true;
+    const shieldEl = document.getElementById(calcId + '-shield');
+    if (shieldEl) shieldEl.hidden = true;
+  }
+
+  function liveUpdate(calcId) {
+    if (!resultsRevealed[calcId]) return;
+    const calcObj = { c1, c5, c6 }[calcId];
+    if (!calcObj || typeof computePrice !== 'function') return;
+    let result;
+    try {
+      result = computePrice(calcId, calcObj.getParams());
+    } catch (e) {
+      return;
+    }
+    showLiveResult(calcId, result);
+  }
+
+  function showLiveResult(calcId, result) {
+    const panel = getResultsPanel(calcId);
+    if (panel) panel.classList.remove('results-empty');
+    const emptyEl = document.getElementById(calcId + '-empty');
+    if (emptyEl) emptyEl.hidden = true;
+    const skeleton = document.getElementById(calcId + '-skeleton');
+    if (skeleton) skeleton.hidden = true;
+    const liveEl = document.getElementById(calcId + '-live');
+    const resultEl = document.getElementById(calcId + '-result');
+    if (liveEl) liveEl.hidden = false;
+    if (resultEl) resultEl.hidden = false;
+    const plansEl = document.getElementById(calcId + '-plans');
+    if (plansEl) plansEl.hidden = false;
+    const shieldEl = document.getElementById(calcId + '-shield');
+    if (shieldEl) shieldEl.hidden = true;
+    clearStale(calcId);
+    renderResult(calcId, result);
   }
 
   function setLoadingState(calcId, isLoading) {
@@ -233,10 +311,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultEl = document.getElementById(calcId + '-result');
     const plansEl  = document.getElementById(calcId + '-plans');
     const shieldEl = document.getElementById(calcId + '-shield');
+    const liveEl   = document.getElementById(calcId + '-live');
     const btn      = document.querySelector('.cta-button[data-calc="' + calcId + '"]');
     if (resultEl) resultEl.classList.remove('result-stale');
     if (plansEl)  plansEl.classList.remove('result-stale');
     if (shieldEl) shieldEl.classList.remove('result-stale');
+    if (liveEl)   liveEl.classList.remove('result-stale');
+    if (calcId === 'c6') {
+      document.querySelectorAll('#calc6 .term-figma-different-card').forEach(el => {
+        el.classList.remove('result-stale');
+      });
+    }
     if (btn && btn.classList.contains('cta-stale')) {
       btn.classList.remove('cta-stale');
       if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
@@ -256,16 +341,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (plansEl)  plansEl.hidden  = false;
     clearStale(calcId);
     renderResult(calcId, result);
-    if (calcId === 'c6' && isTermFigma()) setC6FigmaCtaRecalc(true);
   }
 
   function renderResult(calcId, result) {
     if (calcId === 'c1') {
-      animateAmount(document.getElementById('c1-premiumAmount'), '₹ ' + result.monthly.toLocaleString('en-IN'));
-      const plansEl = document.getElementById('c1-plansText');
-      if (plansEl) plansEl.textContent = result.coverText;
+      const pa = document.getElementById('c1-premiumAmount');
+      if (pa) animateAmount(pa, '₹ ' + result.price.toLocaleString('en-IN'));
+      const bulletEl = document.getElementById('c1-bulletCover');
+      if (bulletEl) bulletEl.textContent = healthHospitalisationBullet(c1.state.coverIndex);
       const perdayEl = document.getElementById('c1-perDay');
-      if (perdayEl) perdayEl.textContent = result.daily ? '₹' + result.daily + '/day. Less than your morning chai.' : '';
+      if (perdayEl) {
+        perdayEl.textContent = result.daily
+          ? '₹' + result.daily + '/day. Less than your morning breakfast.'
+          : '';
+      }
     } else if (calcId === 'c5') {
       animateAmount(document.getElementById('c5-hlvAmount'), '₹ ' + result.price.toLocaleString('en-IN'));
     } else if (calcId === 'c6') {
@@ -287,27 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Main fetch trigger — called by CTA
   // =============================================
 
-  async function triggerFetch(calcId) {
-    const calcObj = { c1, c5, c6 }[calcId];
-    if (!calcObj) return;
-
-    const params = calcObj.getParams();
-    setLoadingState(calcId, true);
-
-    try {
-      const result = await fetchPrice(calcId, params);
-      setLoadingState(calcId, false);
-      showResult(calcId, result);
-
-      // On mobile, scroll results into view after load
-      if (window.innerWidth <= 900) {
-        const section = document.querySelector('.cta-button[data-calc="' + calcId + '"]')
-          ?.closest('.calculator-section');
-        const panel = section?.querySelector('.results-panel');
-        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } catch (err) {
-      setLoadingState(calcId, false);
+  function triggerFetch(calcId) {
+    resultsRevealed[calcId] = true;
+    liveUpdate(calcId);
+    if (calcId === 'c1' || calcId === 'c5' || calcId === 'c6') setMainCtaToRecalc(calcId);
+    if (window.innerWidth <= 900) {
+      const section = document.querySelector('.cta-button[data-calc="' + calcId + '"]')
+        ?.closest('.calculator-section');
+      const pnl = section?.querySelector('.results-panel');
+      if (pnl) pnl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -349,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
           el.textContent = this.state[stateKey];
           el.dataset.zero = this.state[stateKey] === 0 ? 'true' : 'false';
           this.updateStepperButtons();
-          markStale('c1');
+          liveUpdate('c1');
         }
       });
       document.getElementById(incId).addEventListener('click', () => {
@@ -359,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
           el.textContent = this.state[stateKey];
           el.dataset.zero = this.state[stateKey] === 0 ? 'true' : 'false';
           this.updateStepperButtons();
-          markStale('c1');
+          liveUpdate('c1');
         }
       });
     },
@@ -369,19 +446,19 @@ document.addEventListener('DOMContentLoaded', () => {
         this.state.age = parseInt(e.target.value);
         document.getElementById('c1-ageValue').textContent = this.state.age;
         updateSliderProgress(e.target);
-        markStale('c1');
+        liveUpdate('c1');
       });
 
       document.getElementById('c1-coverSlider').addEventListener('input', (e) => {
         this.state.coverIndex = parseInt(e.target.value);
         document.getElementById('c1-coverValue').textContent = this.coverLabels[this.state.coverIndex];
         updateSliderProgress(e.target);
-        markStale('c1');
+        liveUpdate('c1');
       });
 
       document.getElementById('c1-citySelect').addEventListener('change', (e) => {
         this.state.city = e.detail.value;
-        markStale('c1');
+        liveUpdate('c1');
       });
 
       this.initStepper('c1-adults-dec', 'c1-adults-inc', 'c1-adults-val', 'adults', 1, 4);
@@ -407,28 +484,28 @@ document.addEventListener('DOMContentLoaded', () => {
         this.state.age = parseInt(e.target.value);
         document.getElementById('c5-ageValue').textContent = this.state.age;
         updateSliderProgress(e.target);
-        markStale('c5');
+        liveUpdate('c5');
       });
 
       document.getElementById('c5-incomeSlider').addEventListener('input', (e) => {
         this.state.income = parseInt(e.target.value);
         document.getElementById('c5-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
         updateSliderProgress(e.target);
-        markStale('c5');
+        liveUpdate('c5');
       });
 
       document.getElementById('c5-expensesSlider').addEventListener('input', (e) => {
         this.state.expenses = parseInt(e.target.value);
         document.getElementById('c5-expensesValue').textContent = formatLakhsWithRupee(this.state.expenses);
         updateSliderProgress(e.target);
-        markStale('c5');
+        liveUpdate('c5');
       });
 
       document.getElementById('c5-retireSlider').addEventListener('input', (e) => {
         this.state.retireAge = parseInt(e.target.value);
         document.getElementById('c5-retireValue').textContent = this.state.retireAge + ' yrs';
         updateSliderProgress(e.target);
-        markStale('c5');
+        liveUpdate('c5');
       });
     }
   };
@@ -466,14 +543,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.state.age = parseInt(e.target.value, 10);
         document.getElementById('c6-ageValue').textContent = this.state.age;
         updateSliderProgress(e.target);
-        markStale('c6');
+        liveUpdate('c6');
       });
 
       document.getElementById('c6-coverSlider').addEventListener('input', (e) => {
         this.state.coverIndex = parseInt(e.target.value, 10);
         document.getElementById('c6-coverValue').textContent = this.coverLabels[this.state.coverIndex];
         updateSliderProgress(e.target);
-        markStale('c6');
+        liveUpdate('c6');
       });
 
       const termSlider = document.getElementById('c6-termSlider');
@@ -482,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
           this.state.term = parseInt(e.target.value, 10);
           document.getElementById('c6-termValue').textContent = this.state.term + ' yrs';
           updateSliderProgress(e.target);
-          markStale('c6');
+          liveUpdate('c6');
         });
       }
 
@@ -493,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const incomeVal = document.getElementById('c6-incomeValue');
           if (incomeVal) incomeVal.textContent = formatLakhsWithRupee(this.state.income);
           updateSliderProgress(e.target);
-          markStale('c6');
+          liveUpdate('c6');
         });
       }
     }
@@ -548,6 +625,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.querySelectorAll('.searchable-select.open').forEach(s => s.classList.remove('open'));
 
+      const tabToCalc = { calc1: 'c1', calc5: 'c5', calc6: 'c6' };
+      const calcKey = tabToCalc[targetId];
+      if (calcKey && resultsRevealed[calcKey]) liveUpdate(calcKey);
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -578,6 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
       params.set('cover',    coverSteps[c1.state.coverIndex] + '');
       params.set('adults',   c1.state.adults);
       params.set('children', c1.state.children);
+      params.set('parents',  c1.state.parents);
       params.set('city',     c1.state.city);
     } else if (calcId === 'c5') {
       params.set('income', c5.state.income);
@@ -614,15 +696,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (isTermFigma()) {
     document.querySelectorAll('#calc6 .custom-slider').forEach(updateSliderProgress);
-    const c6btn = document.querySelector('.cta-button[data-calc="c6"]');
-    if (c6btn && !c6btn.dataset.originalText) {
-      c6btn.dataset.originalText = c6btn.textContent.trim();
-    }
   }
 
-  // Mark all results panels as empty on load (hides them on mobile)
   ['c1', 'c5', 'c6'].forEach(id => {
-    const panel = getResultsPanel(id);
-    if (panel) panel.classList.add('results-empty');
+    const b = document.querySelector('.cta-button[data-calc="' + id + '"]');
+    if (b && !b.dataset.originalText) b.dataset.originalText = b.textContent.trim();
+    applyEmptyResultsState(id);
   });
 });

@@ -33,12 +33,15 @@
     </nav>
 
     <div class="tab-content">
-  <!-- ========== CALCULATOR 1: Health Insurance Calculator ========== -->
-  <section class="calculator-section active" id="calc1">
+  <!-- ========== CALCULATOR 1: Health (Figma SEO 3440:2335 / 3440:2622) ========== -->
+  <section class="calculator-section active health-calculator--seo" id="calc1">
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel">
-          <h1 class="calculator-title">What does your health<br>cover cost?</h1>
+          <div class="calculator-intro health-intro">
+            <h1 class="calculator-title health-figma-title">What will your health plan<br>actually cost?</h1>
+            <p class="calculator-subtitle health-figma-subtitle">Tell us a few basics to see your premium estimate</p>
+          </div>
 
           <div class="slider-group">
             <div class="slider-header">
@@ -81,7 +84,7 @@
               </div>
               <div class="member-stepper">
                 <img class="member-stepper-icon" src="icons/Child.svg" alt="" width="40" height="40">
-                <span class="member-stepper-label">Children</span>
+                <span class="member-stepper-label">Child</span>
                 <div class="member-stepper-controls">
                   <button class="stepper-btn" id="c1-children-dec" aria-label="Decrease children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
                   <span class="stepper-value" id="c1-children-val" data-zero="true">0</span>
@@ -131,51 +134,55 @@
 
         </div>
 
-        <div class="results-panel">
-          <div class="results-content">
-            <div class="shield-icon" id="c1-shield" hidden>
-              <img src="Porting.svg" alt="Insurance shield" width="182" height="182">
-            </div>
-            <div class="calc-empty-state" id="c1-empty">
-              <div class="calc-empty-icon-wrap">
-                <img src="Porting.svg" alt="" width="120" height="120">
-              </div>
-              <p class="calc-empty-title">See your price instantly</p>
-              <p class="calc-empty-subtitle">Adjust the sliders on the left, then hit <strong>Calculate my premium</strong> to get your personalised quote.</p>
-            </div>
-            <div class="premium-display" id="c1-result" hidden>
-              <p class="premium-amount" id="c1-premiumAmount">₹ 13,700</p>
-              <p class="premium-subtitle">per month — hospital bills go to zero</p>
-              <p class="premium-perday" id="c1-perDay">₹38/day. Less than your morning chai.</p>
-            </div>
+        <div class="results-panel health-results-panel">
+          <div class="results-content health-results-inner">
             <div class="price-skeleton" id="c1-skeleton" hidden></div>
-            <div class="plans-block" id="c1-plans" hidden>
-              <div class="plans-block-top">
-                <img class="plans-block-icon-img" src="icons/Health Insurance.svg" alt="" width="66" height="66">
-                <p class="plans-block-text" id="c1-plansText">Starting at ₹1,142/month</p>
+            <div class="health-results-empty" id="c1-empty">
+              <div class="health-results-empty-illu-wrap">
+                <img class="health-results-empty-illu" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
               </div>
-              <div class="plans-trust">
-                <span class="plans-trust-item">
-                  <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Cashless at 14,000+ hospitals
-                </span>
-                <span class="plans-trust-divider"></span>
-                <span class="plans-trust-item">
-                  <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No medical test needed
-                </span>
+              <div class="health-results-empty-text">
+                <p class="health-results-empty-title">See your premium estimate</p>
+                <p class="health-results-empty-body">Add your details, then tap <strong class="health-results-empty-cta">Calculate my premium</strong>. After that, your price updates as you change the inputs.</p>
               </div>
-              <div class="plans-block-bottom">
-                <a class="plans-block-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
-                  See my health plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
+            </div>
+            <div class="health-live-panel" id="c1-live" hidden>
+              <div class="health-live-hero-illu" aria-hidden="true">
+                <img class="health-live-hero-illu-img" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
+              </div>
+              <div class="health-result-top">
+                <p class="health-starting">Starting from</p>
+                <p class="health-price-line">
+                  <span id="c1-premiumAmount">₹ 0</span><span class="health-price-suffix">/ year</span>
+                </p>
+                <p class="health-perday" id="c1-perDay">₹0/day. Less than your morning breakfast.</p>
+              </div>
+              <div class="health-different-card">
+                <h3 class="health-different-title">What makes us different</h3>
+                <ul class="health-different-list">
+                  <li>
+                    <img src="star.svg" alt="" width="16" height="16" class="health-star">
+                    <span id="c1-bulletCover">₹10L hospitalisation cover</span>
+                  </li>
+                  <li>
+                    <img src="star.svg" alt="" width="16" height="16" class="health-star">
+                    <span>14,000+ hospitals</span>
+                  </li>
+                </ul>
+                <a class="health-plans-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
+                  <span class="health-plans-btn-label">Check prices</span>
+                  <span class="health-plans-btn-icon" aria-hidden="true">
+                    <img src="icons/arrow right.svg" alt="" width="24" height="24">
+                  </span>
                 </a>
               </div>
+              <p class="health-plans-footnote">This is a price estimate based on the inputs you provided. Your actual premium including GST will be shown on the plans page.</p>
             </div>
           </div>
-          <p class="calc-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
+          <p class="calc-disclaimer health-bottom-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
         </div>
 
-        <button class="cta-button" data-calc="c1">Calculate my premium</button>
+        <button type="button" class="cta-button health-primary-cta" data-calc="c1">Calculate my premium</button>
       </div>
     </div>
   </section>
@@ -243,7 +250,7 @@
                 <img src="Porting.svg" alt="" width="120" height="120">
               </div>
               <p class="calc-empty-title">How much should you be covered for?</p>
-              <p class="calc-empty-subtitle">Fill in your details, then hit <strong>Calculate my cover</strong> to find out.</p>
+              <p class="calc-empty-subtitle">Fill in your details, then tap <strong>Calculate my cover</strong> to see your number. After that, it updates as you move the sliders.</p>
             </div>
             <div class="premium-display" id="c5-result" hidden>
               <p class="premium-amount" id="c5-hlvAmount">₹ 1,20,00,000</p>
@@ -328,7 +335,7 @@
               </div>
               <div class="term-figma-empty-text">
                 <p class="term-figma-empty-title">Check premium instantly</p>
-                <p class="term-figma-empty-body">Adjust the sliders to add your details, hit <strong class="term-figma-empty-cta">Calculate premium</strong> and get a personalised quote.</p>
+                <p class="term-figma-empty-body">Tap <strong class="term-figma-empty-cta">Calculate premium</strong> to see your estimate. After that, move the sliders — the monthly price updates automatically.</p>
               </div>
             </div>
 
