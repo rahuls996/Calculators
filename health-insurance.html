@@ -140,150 +140,113 @@
            ================================================================ -->
       <section class="seo-section seo-calc-section" id="calculator">
         <h2 class="seo-h2">Calculate Your Health Insurance Premium</h2>
-        <p class="seo-body">See how much your health cover will cost — adjust the details and hit Calculate.</p>
+        <p class="seo-body">See how much your health cover will cost — adjust the details and your estimate updates automatically.</p>
 
         <div class="seo-calc-embed">
-          <div class="calculator-wrapper">
-            <div class="calculator-container">
-              <div class="input-panel">
-                <h1 class="calculator-title">What does your health<br>cover cost?</h1>
+          <div id="calc1" class="health-calculator--seo">
+            <div class="calculator-wrapper">
+              <div class="calculator-container">
+                <div class="input-panel">
+                  <div class="calculator-intro health-intro">
+                    <h1 class="calculator-title health-figma-title">What will your health<br>cover cost?</h1>
+                    <p class="calculator-subtitle health-figma-subtitle">Tell us a few basics to see your premium estimate</p>
+                  </div>
 
-                <div class="slider-group">
-                  <div class="slider-header">
-                    <label class="slider-label">Your age</label>
-                    <div class="slider-value-box"><span id="c1-ageValue">30</span></div>
-                  </div>
-                  <div class="slider-track-wrapper">
-                    <input type="range" id="c1-ageSlider" min="18" max="100" value="30" class="custom-slider">
-                  </div>
-                  <div class="slider-range"><span>18 yrs</span><span>100 yrs</span></div>
-                </div>
-
-                <div class="slider-group">
-                  <div class="slider-header">
-                    <label class="slider-label">Cover amount</label>
-                    <div class="slider-value-box"><span id="c1-coverValue">₹10 L</span></div>
-                  </div>
-                  <div class="slider-track-wrapper">
-                    <input type="range" id="c1-coverSlider" min="0" max="3" value="0" step="1" class="custom-slider">
-                  </div>
-                  <div class="slider-steps">
-                    <span class="slider-step">₹10 L</span>
-                    <span class="slider-step">₹25 L</span>
-                    <span class="slider-step">₹50 L</span>
-                    <span class="slider-step">₹1 Cr</span>
-                  </div>
-                </div>
-
-                <div class="option-group">
-                  <label class="option-label">Who are you covering?</label>
-                  <div class="member-stepper-group">
-                    <div class="member-stepper">
-                      <img class="member-stepper-icon" src="icons/Adult.svg" alt="" width="40" height="40">
-                      <span class="member-stepper-label">Adults</span>
-                      <div class="member-stepper-controls">
-                        <button class="stepper-btn" id="c1-adults-dec" aria-label="Decrease adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                        <span class="stepper-value" id="c1-adults-val" data-zero="false">1</span>
-                        <button class="stepper-btn" id="c1-adults-inc" aria-label="Increase adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                      </div>
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label class="slider-label">Age</label>
+                      <div class="slider-value-box"><span id="c1-ageValue">30</span></div>
                     </div>
-                    <div class="member-stepper">
-                      <img class="member-stepper-icon" src="icons/Child.svg" alt="" width="40" height="40">
-                      <span class="member-stepper-label">Children</span>
-                      <div class="member-stepper-controls">
-                        <button class="stepper-btn" id="c1-children-dec" aria-label="Decrease children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                        <span class="stepper-value" id="c1-children-val" data-zero="true">0</span>
-                        <button class="stepper-btn" id="c1-children-inc" aria-label="Increase children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                      </div>
+                    <div class="slider-track-wrapper">
+                      <input type="range" id="c1-ageSlider" min="18" max="100" value="30" class="custom-slider">
                     </div>
-                    <div class="member-stepper">
-                      <img class="member-stepper-icon" src="icons/Parennt.svg" alt="" width="40" height="40">
-                      <span class="member-stepper-label">Parents</span>
-                      <div class="member-stepper-controls">
-                        <button class="stepper-btn" id="c1-parents-dec" aria-label="Decrease parents"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                        <span class="stepper-value" id="c1-parents-val" data-zero="true">0</span>
-                        <button class="stepper-btn" id="c1-parents-inc" aria-label="Increase parents"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                      </div>
+                    <div class="slider-range"><span>18 yrs</span><span>100 yrs</span></div>
+                  </div>
+
+                  <div class="slider-group">
+                    <div class="slider-header">
+                      <label class="slider-label">Coverage</label>
+                      <div class="slider-value-box"><span id="c1-coverValue">₹10 L</span></div>
+                    </div>
+                    <div class="slider-track-wrapper">
+                      <input type="range" id="c1-coverSlider" min="0" max="3" value="0" step="1" class="custom-slider">
+                    </div>
+                    <div class="slider-steps health-figma-cover-steps">
+                      <span class="slider-step">₹10 L</span>
+                      <span class="slider-step">₹25 L</span>
+                      <span class="slider-step">₹50 L</span>
+                      <span class="slider-step">₹1 Cr</span>
                     </div>
                   </div>
-                </div>
 
-                <div class="option-group">
-                  <label class="option-label">Which city do you live in?</label>
-                  <div class="searchable-select" id="c1-citySelect" data-value="bengaluru">
-                    <div class="searchable-select-trigger">
-                      <span class="searchable-select-text">Bengaluru</span>
-                      <svg class="select-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <div class="searchable-select-dropdown">
-                      <div class="searchable-select-search">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 11L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                        <input type="text" placeholder="Search city..." class="searchable-select-input">
+                  <div class="option-group health-figma-members">
+                    <label class="option-label">Who are you covering?</label>
+                    <div class="member-stepper-group health-figma-stepper-group">
+                      <div class="member-stepper health-figma-stepper">
+                        <div class="member-stepper-head">
+                          <img class="member-stepper-icon" src="icons/Adult.svg" alt="" width="24" height="24">
+                          <span class="member-stepper-label">Adults</span>
+                        </div>
+                        <div class="member-stepper-controls">
+                          <button class="stepper-btn" id="c1-adults-dec" aria-label="Decrease adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+                          <span class="stepper-value" id="c1-adults-val" data-zero="false">1</span>
+                          <button class="stepper-btn" id="c1-adults-inc" aria-label="Increase adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+                        </div>
                       </div>
-                      <ul class="searchable-select-options">
-                        <li data-value="bengaluru">Bengaluru</li>
-                        <li data-value="mumbai">Mumbai</li>
-                        <li data-value="delhi">Delhi</li>
-                        <li data-value="chennai">Chennai</li>
-                        <li data-value="hyderabad">Hyderabad</li>
-                        <li data-value="kolkata">Kolkata</li>
-                        <li data-value="pune">Pune</li>
-                        <li data-value="ahmedabad">Ahmedabad</li>
-                        <li data-value="jaipur">Jaipur</li>
-                        <li data-value="other">Other</li>
-                      </ul>
-                      <p class="searchable-select-no-results">No cities found</p>
+                      <div class="member-stepper health-figma-stepper">
+                        <div class="member-stepper-head">
+                          <img class="member-stepper-icon" src="icons/Child.svg" alt="" width="24" height="24">
+                          <span class="member-stepper-label">Child</span>
+                        </div>
+                        <div class="member-stepper-controls">
+                          <button class="stepper-btn" id="c1-children-dec" aria-label="Decrease children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+                          <span class="stepper-value" id="c1-children-val" data-zero="false">1</span>
+                          <button class="stepper-btn" id="c1-children-inc" aria-label="Increase children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
+                <div class="results-panel health-results-panel results-empty">
+                  <div class="results-content health-results-inner">
+                    <div class="price-skeleton" id="c1-skeleton" hidden></div>
+                    <div class="health-live-panel" id="c1-live" hidden>
+                      <div class="health-result-top">
+                        <p class="health-starting">Starting from</p>
+                        <p class="health-price-line">
+                          <span id="c1-premiumAmount">₹ 0</span><span class="health-price-suffix">/month</span>
+                        </p>
+                        <div class="health-perday-pill">
+                          <p class="health-perday" id="c1-perDay">₹0/day. Less than your morning breakfast.</p>
+                        </div>
+                      </div>
+                      <div class="health-different-card">
+                        <h3 class="health-different-title">What makes us different</h3>
+                        <ul class="health-different-list">
+                          <li>
+                            <img src="Star%201.svg" alt="" width="18" height="18" class="health-star">
+                            <span id="c1-bulletCover">₹10L hospitalisation cover</span>
+                          </li>
+                          <li>
+                            <img src="Star%201.svg" alt="" width="18" height="18" class="health-star">
+                            <span>14,000+ hospitals</span>
+                          </li>
+                        </ul>
+                        <a class="health-plans-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
+                          <span class="health-plans-btn-label">See plans</span>
+                          <span class="health-plans-btn-icon" aria-hidden="true">
+                            <img src="icons/arrow right.svg" alt="" width="24" height="24">
+                          </span>
+                        </a>
+                      </div>
+                      <p class="health-plans-footnote">This is a price estimate based on the inputs you provided. Your actual premium including GST will be shown on the plans page.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <a class="cta-button calc-sticky-plans health-sticky-plans" id="c1-stickyPlans" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">See plans</a>
               </div>
-
-              <div class="results-panel">
-                <div class="results-content">
-                  <div class="shield-icon" id="c1-shield" hidden>
-                    <img src="Porting.svg" alt="Insurance shield" width="182" height="182">
-                  </div>
-                  <div class="calc-empty-state" id="c1-empty">
-                    <div class="calc-empty-icon-wrap">
-                      <img src="Porting.svg" alt="" width="120" height="120">
-                    </div>
-                    <p class="calc-empty-title">See your price instantly</p>
-                    <p class="calc-empty-subtitle">Adjust the sliders on the left, then hit <strong>Calculate my premium</strong> to get your personalised quote.</p>
-                  </div>
-                  <div class="premium-display" id="c1-result" hidden>
-                    <p class="premium-amount" id="c1-premiumAmount">₹ 13,700</p>
-                    <p class="premium-subtitle">per year — hospital bills go to zero</p>
-                    <p class="premium-perday" id="c1-perDay">₹38/day. Less than your morning chai.</p>
-                  </div>
-                  <div class="price-skeleton" id="c1-skeleton" hidden></div>
-                  <div class="plans-block" id="c1-plans" hidden>
-                    <div class="plans-block-top">
-                      <img class="plans-block-icon-img" src="icons/Health Insurance.svg" alt="" width="66" height="66">
-                      <p class="plans-block-text" id="c1-plansText">Starting at ₹1,142/month</p>
-                    </div>
-                    <div class="plans-trust">
-                      <span class="plans-trust-item">
-                        <img src="icons/hospital.svg" alt="" width="28" height="28">
-                        Cashless at 14,000+ hospitals
-                      </span>
-                      <span class="plans-trust-divider"></span>
-                      <span class="plans-trust-item">
-                        <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                        No medical test needed
-                      </span>
-                    </div>
-                    <div class="plans-block-bottom">
-                      <a class="plans-block-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
-                        See my health plans <img src="icons/arrow right.svg" alt="" width="16" height="16">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <p class="calc-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
-              </div>
-
-              <button class="cta-button" data-calc="c1">Calculate my premium</button>
             </div>
           </div>
         </div>

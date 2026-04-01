@@ -10,6 +10,8 @@
   color: #0a0a0a;
   font-family: 'Euclid Circular B', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* ── Header ── */
@@ -334,8 +336,8 @@
   grid-template-columns: 1fr 380px;
 }
 
-/* On narrower SEO main area, stack below 860px */
-@media (max-width: 860px) {
+/* On narrower SEO main area, stack with main tab layout */
+@media (max-width: 1024px) {
   .seo-calc-embed .calculator-container {
     display: flex;
     flex-direction: column;
@@ -506,6 +508,101 @@
   background: #6841e6;
 }
 
+/* Who are you covering — /3440:2335: two equal cards, label+icon left + stepper right (not 3-column grid) */
+#calc1.health-calculator--seo .health-figma-members {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-members .option-label {
+  margin-bottom: 14px;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-controls {
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+@media (max-width: 480px) {
+  #calc1.health-calculator--seo .health-figma-stepper-group {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1.5px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border-default);
+    padding: var(--scale-12) var(--scale-16);
+    gap: 0;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper:last-child {
+    border-bottom: none;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper:not(:first-child):has(.stepper-value:not([data-zero="true"])) {
+    border-color: var(--color-border-default);
+    box-shadow: none;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper .member-stepper-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+}
+
 #calc1.health-calculator--seo .health-primary-cta {
   margin-top: 20px;
   min-height: 60px;
@@ -598,7 +695,7 @@
   color: rgba(0, 0, 0, 0.88);
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1025px) {
   #calc1.health-calculator--seo .health-results-panel:has(#c1-empty:not([hidden])) {
     min-height: 420px;
   }
@@ -660,7 +757,7 @@
   display: none;
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1025px) {
   #calc1.health-calculator--seo .health-live-hero-illu {
     display: flex;
     align-items: center;
@@ -846,10 +943,22 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   #calc1.health-calculator--seo .health-results-panel {
     height: auto;
-    min-height: 300px;
+    min-height: 280px;
+    align-self: stretch;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-results-panel,
+  #calc6.term-calculator--figma .term-figma-results-panel {
+    height: auto;
+    align-self: stretch;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-results-panel:has(#c5-empty:not([hidden])),
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 260px;
   }
 }
 
@@ -886,22 +995,22 @@
    Term calculator — Figma SEO Widget (3430:1599 / 3430:1681)
    ================================================================ */
 
-#calc6.term-calculator--figma .calculator-container {
+#calc5.hlv-calculator--figma .calculator-container , #calc6.term-calculator--figma .calculator-container {
   align-items: stretch;
 }
 
-#calc6.term-calculator--figma .input-panel {
+#calc5.hlv-calculator--figma .input-panel , #calc6.term-calculator--figma .input-panel {
   gap: 22px;
 }
 
-#calc6.term-calculator--figma .calculator-intro {
+#calc5.hlv-calculator--figma .calculator-intro , #calc6.term-calculator--figma .calculator-intro {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 2px;
 }
 
-#calc6.term-calculator--figma .term-figma-title {
+#calc5.hlv-calculator--figma .term-figma-title , #calc6.term-calculator--figma .term-figma-title {
   font-size: 30px;
   font-weight: 600;
   line-height: 36px;
@@ -909,7 +1018,7 @@
   margin-bottom: 0;
 }
 
-#calc6.term-calculator--figma .term-figma-subtitle {
+#calc5.hlv-calculator--figma .term-figma-subtitle , #calc6.term-calculator--figma .term-figma-subtitle {
   margin: 0;
   font-size: 16px;
   font-weight: 400;
@@ -918,7 +1027,7 @@
   max-width: 420px;
 }
 
-#calc6.term-calculator--figma .custom-slider {
+#calc5.hlv-calculator--figma .custom-slider , #calc6.term-calculator--figma .custom-slider {
   background: linear-gradient(
     to right,
     #6841e6 0%,
@@ -928,21 +1037,21 @@
   );
 }
 
-#calc6.term-calculator--figma .custom-slider::-webkit-slider-thumb {
+#calc5.hlv-calculator--figma .custom-slider::-webkit-slider-thumb , #calc6.term-calculator--figma .custom-slider::-webkit-slider-thumb {
   background: #6841e6;
   border-color: #fff;
 }
 
-#calc6.term-calculator--figma .custom-slider::-moz-range-thumb {
+#calc5.hlv-calculator--figma .custom-slider::-moz-range-thumb , #calc6.term-calculator--figma .custom-slider::-moz-range-thumb {
   background: #6841e6;
   border-color: #fff;
 }
 
-#calc6.term-calculator--figma .custom-slider::-moz-range-progress {
+#calc5.hlv-calculator--figma .custom-slider::-moz-range-progress , #calc6.term-calculator--figma .custom-slider::-moz-range-progress {
   background: #6841e6;
 }
 
-#calc6.term-calculator--figma .cta-button.term-cta--primary {
+#calc5.hlv-calculator--figma .cta-button.term-cta--primary , #calc6.term-calculator--figma .cta-button.term-cta--primary {
   margin-top: 20px;
   min-height: 60px;
   border-radius: 12px;
@@ -952,17 +1061,17 @@
   border: 2px solid #141414;
 }
 
-#calc6.term-calculator--figma .cta-button.term-cta--primary:hover {
+#calc5.hlv-calculator--figma .cta-button.term-cta--primary:hover , #calc6.term-calculator--figma .cta-button.term-cta--primary:hover {
   background: #2a2a2a;
   border-color: #2a2a2a;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
-#calc6.term-calculator--figma .cta-button.cta-stale.calc-cta--recalc {
+#calc5.hlv-calculator--figma .cta-button.cta-stale.calc-cta--recalc , #calc6.term-calculator--figma .cta-button.cta-stale.calc-cta--recalc {
   opacity: 0.92;
 }
 
-#calc6.term-calculator--figma .term-figma-results-panel {
+#calc5.hlv-calculator--figma .term-figma-results-panel , #calc6.term-calculator--figma .term-figma-results-panel {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -982,7 +1091,7 @@
     inset 0 0 4px 0 rgba(255, 255, 255, 0.88);
 }
 
-#calc6.term-calculator--figma .term-figma-results-inner {
+#calc5.hlv-calculator--figma .term-figma-results-inner , #calc6.term-calculator--figma .term-figma-results-inner {
   align-items: stretch;
   width: 100%;
   flex: 1;
@@ -990,15 +1099,17 @@
 }
 
 /* Initial results state — Figma 3436:1576 */
+#calc5.hlv-calculator--figma .term-figma-results-panel:has(#c5-empty:not([hidden])),
 #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
   min-height: 380px;
 }
 
+#calc5.hlv-calculator--figma .term-figma-results-inner:has(#c5-empty:not([hidden])),
 #calc6.term-calculator--figma .term-figma-results-inner:has(#c6-empty:not([hidden])) {
   justify-content: center;
 }
 
-#calc6.term-calculator--figma .term-figma-empty {
+#calc5.hlv-calculator--figma .term-figma-empty , #calc6.term-calculator--figma .term-figma-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1010,12 +1121,12 @@
 }
 
 /* display:flex above beats the UA [hidden] rule — force hide after calculate / while loading */
-#calc6.term-calculator--figma .term-figma-empty[hidden] {
+#calc5.hlv-calculator--figma .term-figma-empty[hidden] , #calc6.term-calculator--figma .term-figma-empty[hidden] {
   display: none !important;
 }
 
 /* Art is taller than wide (viewBox 127.4×163.799); never force a square — avoids distortion */
-#calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+#calc5.hlv-calculator--figma .term-figma-empty-illu-wrap , #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
   width: 118px;
   flex-shrink: 0;
   aspect-ratio: 127.4 / 163.799;
@@ -1026,7 +1137,7 @@
   justify-content: center;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-illu {
+#calc5.hlv-calculator--figma .term-figma-empty-illu , #calc6.term-calculator--figma .term-figma-empty-illu {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1034,7 +1145,7 @@
   display: block;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-text {
+#calc5.hlv-calculator--figma .term-figma-empty-text , #calc6.term-calculator--figma .term-figma-empty-text {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1044,7 +1155,7 @@
   max-width: 367px;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-title {
+#calc5.hlv-calculator--figma .term-figma-empty-title , #calc6.term-calculator--figma .term-figma-empty-title {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
@@ -1053,7 +1164,7 @@
   text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-body {
+#calc5.hlv-calculator--figma .term-figma-empty-body , #calc6.term-calculator--figma .term-figma-empty-body {
   margin: 0;
   max-width: 347px;
   font-size: 16px;
@@ -1063,22 +1174,23 @@
   text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-cta {
+#calc5.hlv-calculator--figma .term-figma-empty-cta , #calc6.term-calculator--figma .term-figma-empty-cta {
   font-weight: 600;
   color: rgba(0, 0, 0, 0.88);
 }
 
-@media (min-width: 901px) {
-  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+@media (min-width: 1025px) {
+  #calc5.hlv-calculator--figma .term-figma-results-panel:has(#c5-empty:not([hidden])),
+#calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
     min-height: 420px;
   }
 }
 
-#calc6.term-calculator--figma .term-figma-result[hidden] {
+#calc5.hlv-calculator--figma .term-figma-result[hidden] , #calc6.term-calculator--figma .term-figma-result[hidden] {
   display: none !important;
 }
 
-#calc6.term-calculator--figma .term-figma-result {
+#calc5.hlv-calculator--figma .term-figma-result , #calc6.term-calculator--figma .term-figma-result {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1090,7 +1202,7 @@
   box-sizing: border-box;
 }
 
-#calc6.term-calculator--figma .term-figma-result-top {
+#calc5.hlv-calculator--figma .term-figma-result-top , #calc6.term-calculator--figma .term-figma-result-top {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1100,14 +1212,14 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-#calc6.term-calculator--figma .term-figma-price-cluster {
+#calc5.hlv-calculator--figma .term-figma-price-cluster , #calc6.term-calculator--figma .term-figma-price-cluster {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-#calc6.term-calculator--figma .term-figma-starting {
+#calc5.hlv-calculator--figma .term-figma-starting , #calc6.term-calculator--figma .term-figma-starting {
   margin: 0;
   font-size: 16px;
   font-weight: 400;
@@ -1116,7 +1228,7 @@
   text-align: center;
 }
 
-#calc6.term-calculator--figma .term-figma-price-line {
+#calc5.hlv-calculator--figma .term-figma-price-line , #calc6.term-calculator--figma .term-figma-price-line {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
@@ -1126,12 +1238,22 @@
   white-space: nowrap;
 }
 
-#calc6.term-calculator--figma .term-figma-price-suffix {
+/* HLV (3443:1851): hero cover line larger than term monthly */
+#calc5.hlv-calculator--figma .term-figma-price-line {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-price-suffix , #calc6.term-calculator--figma .term-figma-price-suffix {
   font-weight: 600;
 }
 
 /* Supporting context directly under price — one thought, not a separate “card” */
-#calc6.term-calculator--figma .term-figma-pill {
+#calc5.hlv-calculator--figma .term-figma-pill , #calc6.term-calculator--figma .term-figma-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   width: 100%;
   max-width: 340px;
   margin-inline: auto;
@@ -1142,7 +1264,12 @@
   box-sizing: border-box;
 }
 
-#calc6.term-calculator--figma .term-figma-pill-copy {
+#calc5.hlv-calculator--figma .hlv-figma-pill {
+  background: #ebe4ff;
+}
+
+#calc5.hlv-calculator--figma .term-figma-pill-line , #calc6.term-calculator--figma .term-figma-pill-line ,
+#calc5.hlv-calculator--figma .term-figma-pill-copy , #calc6.term-calculator--figma .term-figma-pill-copy {
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
@@ -1151,12 +1278,12 @@
   text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-pill-em {
+#calc5.hlv-calculator--figma .term-figma-pill-em , #calc6.term-calculator--figma .term-figma-pill-em {
   font-weight: 600;
   color: rgba(0, 0, 0, 0.62);
 }
 
-#calc6.term-calculator--figma .term-figma-different-card {
+#calc5.hlv-calculator--figma .term-figma-different-card , #calc6.term-calculator--figma .term-figma-different-card {
   position: relative;
   align-self: stretch;
   display: flex;
@@ -1173,7 +1300,7 @@
     0 6px 6px 0 rgba(0, 0, 0, 0.02);
 }
 
-#calc6.term-calculator--figma .term-figma-different-card::after {
+#calc5.hlv-calculator--figma .term-figma-different-card::after , #calc6.term-calculator--figma .term-figma-different-card::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -1182,7 +1309,7 @@
   box-shadow: inset 1px 1px 2px 0 #fff;
 }
 
-#calc6.term-calculator--figma .term-figma-different-title {
+#calc5.hlv-calculator--figma .term-figma-different-title , #calc6.term-calculator--figma .term-figma-different-title {
   margin: 0;
   position: relative;
   z-index: 1;
@@ -1192,7 +1319,7 @@
   color: rgba(0, 0, 0, 0.88);
 }
 
-#calc6.term-calculator--figma .term-figma-different-list {
+#calc5.hlv-calculator--figma .term-figma-different-list , #calc6.term-calculator--figma .term-figma-different-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1203,7 +1330,7 @@
   gap: 16px;
 }
 
-#calc6.term-calculator--figma .term-figma-different-list li {
+#calc5.hlv-calculator--figma .term-figma-different-list li , #calc6.term-calculator--figma .term-figma-different-list li {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1213,7 +1340,7 @@
   color: rgba(0, 0, 0, 0.88);
 }
 
-#calc6.term-calculator--figma .term-figma-star {
+#calc5.hlv-calculator--figma .term-figma-star , #calc6.term-calculator--figma .term-figma-star {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -1221,7 +1348,7 @@
   display: block;
 }
 
-#calc6.term-calculator--figma .term-figma-plans-btn {
+#calc5.hlv-calculator--figma .term-figma-plans-btn , #calc6.term-calculator--figma .term-figma-plans-btn {
   position: relative;
   z-index: 1;
   display: flex;
@@ -1241,11 +1368,11 @@
   transition: background 0.2s ease;
 }
 
-#calc6.term-calculator--figma .term-figma-plans-btn-label {
+#calc5.hlv-calculator--figma .term-figma-plans-btn-label , #calc6.term-calculator--figma .term-figma-plans-btn-label {
   flex-shrink: 0;
 }
 
-#calc6.term-calculator--figma .term-figma-plans-btn-icon {
+#calc5.hlv-calculator--figma .term-figma-plans-btn-icon , #calc6.term-calculator--figma .term-figma-plans-btn-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1254,16 +1381,16 @@
   height: 24px;
 }
 
-#calc6.term-calculator--figma .term-figma-plans-btn:hover {
+#calc5.hlv-calculator--figma .term-figma-plans-btn:hover , #calc6.term-calculator--figma .term-figma-plans-btn:hover {
   background: #2a2a2a;
 }
 
-#calc6.term-calculator--figma .term-figma-plans-btn img {
+#calc5.hlv-calculator--figma .term-figma-plans-btn img , #calc6.term-calculator--figma .term-figma-plans-btn img {
   display: block;
   filter: brightness(0) invert(1);
 }
 
-#calc6.term-calculator--figma .term-figma-footer-note {
+#calc5.hlv-calculator--figma .term-figma-footer-note , #calc6.term-calculator--figma .term-figma-footer-note {
   margin: 0;
   font-size: 11px;
   line-height: 17.6px;
@@ -1272,13 +1399,13 @@
   max-width: 344px;
 }
 
-#calc6.term-calculator--figma .term-figma-result.result-stale,
-#calc6.term-calculator--figma .term-figma-different-card.result-stale {
+#calc5.hlv-calculator--figma .term-figma-result.result-stale, #calc6.term-calculator--figma .term-figma-result.result-stale,
+#calc5.hlv-calculator--figma .term-figma-different-card.result-stale , #calc6.term-calculator--figma .term-figma-different-card.result-stale {
   opacity: 0.72;
   transition: opacity 0.2s ease;
 }
 
-#calc6.term-calculator--figma .price-skeleton {
+#calc5.hlv-calculator--figma .price-skeleton , #calc6.term-calculator--figma .price-skeleton {
   min-height: 280px;
   width: 100%;
   border-radius: 12px;
@@ -1293,55 +1420,63 @@
 }
 
 @media (max-width: 480px) {
-  #calc6.term-calculator--figma .results-panel.results-empty {
+  #calc5.hlv-calculator--figma .results-panel.results-empty , #calc6.term-calculator--figma .results-panel.results-empty {
     display: flex !important;
   }
 
-  #calc6.term-calculator--figma .term-figma-title {
+  #calc5.hlv-calculator--figma .term-figma-title , #calc6.term-calculator--figma .term-figma-title {
     font-size: 26px;
     line-height: 32px;
   }
 
-  #calc6.term-calculator--figma .term-figma-price-line {
+  #calc5.hlv-calculator--figma .term-figma-price-line , #calc6.term-calculator--figma .term-figma-price-line {
     white-space: normal;
+    font-size: 28px;
+    line-height: 34px;
   }
 
-  #calc6.term-calculator--figma .term-figma-different-card {
+  #calc5.hlv-calculator--figma .term-figma-price-line {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-different-card , #calc6.term-calculator--figma .term-figma-different-card {
     padding: 22px 18px 26px;
   }
 
-  #calc6.term-calculator--figma .term-figma-pill {
+  #calc5.hlv-calculator--figma .term-figma-pill , #calc6.term-calculator--figma .term-figma-pill {
     padding: 10px 14px;
     max-width: none;
   }
 
-  #calc6.term-calculator--figma .term-figma-pill-copy {
+  #calc5.hlv-calculator--figma .term-figma-pill-copy , #calc6.term-calculator--figma .term-figma-pill-copy {
     font-size: 12.5px;
   }
 
+  #calc5.hlv-calculator--figma .term-figma-results-panel:has(#c5-empty:not([hidden])),
   #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
     min-height: 300px;
   }
 
-  #calc6.term-calculator--figma .term-figma-empty {
+  #calc5.hlv-calculator--figma .term-figma-empty , #calc6.term-calculator--figma .term-figma-empty {
     gap: 14px;
     padding: 8px 4px;
   }
 
-  #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+  #calc5.hlv-calculator--figma .term-figma-empty-illu-wrap , #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
     width: 100px;
   }
 
-  #calc6.term-calculator--figma .term-figma-empty-text {
+  #calc5.hlv-calculator--figma .term-figma-empty-text , #calc6.term-calculator--figma .term-figma-empty-text {
     max-width: none;
   }
 
-  #calc6.term-calculator--figma .term-figma-empty-title {
+  #calc5.hlv-calculator--figma .term-figma-empty-title , #calc6.term-calculator--figma .term-figma-empty-title {
     font-size: 22px;
     line-height: 28px;
   }
 
-  #calc6.term-calculator--figma .term-figma-empty-body {
+  #calc5.hlv-calculator--figma .term-figma-empty-body , #calc6.term-calculator--figma .term-figma-empty-body {
     max-width: none;
     font-size: 15px;
     line-height: 22px;

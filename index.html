@@ -39,13 +39,13 @@
       <div class="calculator-container">
         <div class="input-panel">
           <div class="calculator-intro health-intro">
-            <h1 class="calculator-title health-figma-title">What will your health plan<br>actually cost?</h1>
+            <h1 class="calculator-title health-figma-title">What will your health<br>cover cost?</h1>
             <p class="calculator-subtitle health-figma-subtitle">Tell us a few basics to see your premium estimate</p>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Your age</label>
+              <label class="slider-label">Age</label>
               <div class="slider-value-box"><span id="c1-ageValue">30</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -56,13 +56,13 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Cover amount</label>
+              <label class="slider-label">Coverage</label>
               <div class="slider-value-box"><span id="c1-coverValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
               <input type="range" id="c1-coverSlider" min="0" max="3" value="0" step="1" class="custom-slider">
             </div>
-            <div class="slider-steps">
+            <div class="slider-steps health-figma-cover-steps">
               <span class="slider-step">₹10 L</span>
               <span class="slider-step">₹25 L</span>
               <span class="slider-step">₹50 L</span>
@@ -70,107 +70,63 @@
             </div>
           </div>
 
-          <div class="option-group">
+          <div class="option-group health-figma-members">
             <label class="option-label">Who are you covering?</label>
-            <div class="member-stepper-group">
-              <div class="member-stepper">
-                <img class="member-stepper-icon" src="icons/Adult.svg" alt="" width="40" height="40">
-                <span class="member-stepper-label">Adults</span>
+            <div class="member-stepper-group health-figma-stepper-group">
+              <div class="member-stepper health-figma-stepper">
+                <div class="member-stepper-head">
+                  <img class="member-stepper-icon" src="icons/Adult.svg" alt="" width="24" height="24">
+                  <span class="member-stepper-label">Adults</span>
+                </div>
                 <div class="member-stepper-controls">
                   <button class="stepper-btn" id="c1-adults-dec" aria-label="Decrease adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
                   <span class="stepper-value" id="c1-adults-val" data-zero="false">1</span>
                   <button class="stepper-btn" id="c1-adults-inc" aria-label="Increase adults"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
                 </div>
               </div>
-              <div class="member-stepper">
-                <img class="member-stepper-icon" src="icons/Child.svg" alt="" width="40" height="40">
-                <span class="member-stepper-label">Child</span>
+              <div class="member-stepper health-figma-stepper">
+                <div class="member-stepper-head">
+                  <img class="member-stepper-icon" src="icons/Child.svg" alt="" width="24" height="24">
+                  <span class="member-stepper-label">Child</span>
+                </div>
                 <div class="member-stepper-controls">
                   <button class="stepper-btn" id="c1-children-dec" aria-label="Decrease children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                  <span class="stepper-value" id="c1-children-val" data-zero="true">0</span>
+                  <span class="stepper-value" id="c1-children-val" data-zero="false">1</span>
                   <button class="stepper-btn" id="c1-children-inc" aria-label="Increase children"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
                 </div>
-              </div>
-              <div class="member-stepper">
-                <img class="member-stepper-icon" src="icons/Parennt.svg" alt="" width="40" height="40">
-                <span class="member-stepper-label">Parents</span>
-                <div class="member-stepper-controls">
-                  <button class="stepper-btn" id="c1-parents-dec" aria-label="Decrease parents"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                  <span class="stepper-value" id="c1-parents-val" data-zero="true">0</span>
-                  <button class="stepper-btn" id="c1-parents-inc" aria-label="Increase parents"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="option-group">
-            <label class="option-label">Which city do you live in?</label>
-            <div class="searchable-select" id="c1-citySelect" data-value="bengaluru">
-              <div class="searchable-select-trigger">
-                <span class="searchable-select-text">Bengaluru</span>
-                <svg class="select-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div class="searchable-select-dropdown">
-                <div class="searchable-select-search">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 11L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <input type="text" placeholder="Search city..." class="searchable-select-input">
-                </div>
-                <ul class="searchable-select-options">
-                  <li data-value="bengaluru">Bengaluru</li>
-                  <li data-value="mumbai">Mumbai</li>
-                  <li data-value="delhi">Delhi</li>
-                  <li data-value="chennai">Chennai</li>
-                  <li data-value="hyderabad">Hyderabad</li>
-                  <li data-value="kolkata">Kolkata</li>
-                  <li data-value="pune">Pune</li>
-                  <li data-value="ahmedabad">Ahmedabad</li>
-                  <li data-value="jaipur">Jaipur</li>
-                  <li data-value="other">Other</li>
-                </ul>
-                <p class="searchable-select-no-results">No cities found</p>
               </div>
             </div>
           </div>
 
         </div>
 
-        <div class="results-panel health-results-panel">
+        <div class="results-panel health-results-panel results-empty">
           <div class="results-content health-results-inner">
             <div class="price-skeleton" id="c1-skeleton" hidden></div>
-            <div class="health-results-empty" id="c1-empty">
-              <div class="health-results-empty-illu-wrap">
-                <img class="health-results-empty-illu" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
-              </div>
-              <div class="health-results-empty-text">
-                <p class="health-results-empty-title">See your premium estimate</p>
-                <p class="health-results-empty-body">Add your details, then tap <strong class="health-results-empty-cta">Calculate my premium</strong>. After that, your price updates as you change the inputs.</p>
-              </div>
-            </div>
             <div class="health-live-panel" id="c1-live" hidden>
-              <div class="health-live-hero-illu" aria-hidden="true">
-                <img class="health-live-hero-illu-img" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
-              </div>
               <div class="health-result-top">
                 <p class="health-starting">Starting from</p>
                 <p class="health-price-line">
-                  <span id="c1-premiumAmount">₹ 0</span><span class="health-price-suffix">/ year</span>
+                  <span id="c1-premiumAmount">₹ 0</span><span class="health-price-suffix">/month</span>
                 </p>
-                <p class="health-perday" id="c1-perDay">₹0/day. Less than your morning breakfast.</p>
+                <div class="health-perday-pill">
+                  <p class="health-perday" id="c1-perDay">₹0/day. Less than your morning breakfast.</p>
+                </div>
               </div>
               <div class="health-different-card">
                 <h3 class="health-different-title">What makes us different</h3>
                 <ul class="health-different-list">
                   <li>
-                    <img src="star.svg" alt="" width="16" height="16" class="health-star">
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="health-star">
                     <span id="c1-bulletCover">₹10L hospitalisation cover</span>
                   </li>
                   <li>
-                    <img src="star.svg" alt="" width="16" height="16" class="health-star">
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="health-star">
                     <span>14,000+ hospitals</span>
                   </li>
                 </ul>
                 <a class="health-plans-btn" id="c1-plansBtn" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">
-                  <span class="health-plans-btn-label">Check prices</span>
+                  <span class="health-plans-btn-label">See plans</span>
                   <span class="health-plans-btn-icon" aria-hidden="true">
                     <img src="icons/arrow right.svg" alt="" width="24" height="24">
                   </span>
@@ -179,69 +135,103 @@
               <p class="health-plans-footnote">This is a price estimate based on the inputs you provided. Your actual premium including GST will be shown on the plans page.</p>
             </div>
           </div>
-          <p class="calc-disclaimer health-bottom-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
         </div>
 
-        <button type="button" class="cta-button health-primary-cta" data-calc="c1">Calculate my premium</button>
+        <a class="cta-button calc-sticky-plans health-sticky-plans" id="c1-stickyPlans" href="https://www.acko.com/health-insurance/buy" target="_blank" rel="noopener">See plans</a>
       </div>
     </div>
   </section>
 
   <!-- ========== CALCULATOR 5: HLV (Human Life Value) Calculator ========== -->
-  <section class="calculator-section" id="calc5">
+  <section class="calculator-section hlv-calculator--figma" id="calc5">
     <div class="calculator-wrapper">
       <div class="calculator-container">
-        <div class="input-panel">
+        <div class="input-panel c5-input-panel">
           <h1 class="calculator-title">How much cover does<br>your family actually need?</h1>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">Your age</label>
+              <label class="slider-label" for="c5-ageSlider">Current age</label>
               <div class="slider-value-box"><span id="c5-ageValue">30</span></div>
             </div>
             <div class="slider-track-wrapper">
-              <input type="range" id="c5-ageSlider" min="18" max="65" value="30" class="custom-slider">
+              <input type="range" id="c5-ageSlider" min="18" max="65" value="30" class="custom-slider" aria-label="Current age">
             </div>
             <div class="slider-range"><span>18 yrs</span><span>65 yrs</span></div>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">What you earn every year</label>
-              <div class="slider-value-box"><span id="c5-incomeValue">₹10 L</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c5-incomeSlider" min="1" max="200" value="10" class="custom-slider">
-            </div>
-            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
-          </div>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label">What you spend every year</label>
-              <div class="slider-value-box"><span id="c5-expensesValue">₹4 L</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c5-expensesSlider" min="1" max="200" value="4" class="custom-slider">
-            </div>
-            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
-          </div>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label">When you plan to retire</label>
+              <label class="slider-label" for="c5-retireSlider">Expected retirement age</label>
               <div class="slider-value-box"><span id="c5-retireValue">60 yrs</span></div>
             </div>
             <div class="slider-track-wrapper">
-              <input type="range" id="c5-retireSlider" min="40" max="70" value="60" step="1" class="custom-slider">
+              <input type="range" id="c5-retireSlider" min="40" max="70" value="60" step="1" class="custom-slider" aria-label="Expected retirement age">
             </div>
-            <div class="slider-range"><span>40 yrs</span><span>70 yrs</span></div>
+            <div class="slider-range"><span id="c5-retireMinLabel">40 yrs</span><span>70 yrs</span></div>
           </div>
 
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="slider-label" for="c5-incomeSlider">Annual income</label>
+              <div class="slider-value-box"><span id="c5-incomeValue">₹10 L</span></div>
+            </div>
+            <div class="slider-track-wrapper">
+              <input type="range" id="c5-incomeSlider" min="1" max="200" value="10" class="custom-slider" aria-label="Annual income">
+            </div>
+            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
+          </div>
+
+          <div class="c5-refine-accordion" id="c5-refineAccordion">
+            <button type="button" class="c5-refine-trigger c5-refine-trigger--desktop" id="c5-refineOpen" aria-expanded="false" aria-controls="c5-accordionPanel">
+              <span class="c5-refine-trigger-label">Refine your estimate</span>
+              <span class="c5-refine-trigger-chevron" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="c5-refine-accordion-trigger" id="c5-accordionToggle" aria-expanded="false" aria-controls="c5-accordionPanel">
+              <span class="c5-refine-accordion-title">Refine your estimate</span>
+              <span class="c5-refine-accordion-sub">Add savings, loans &amp; existing cover</span>
+              <span class="c5-refine-accordion-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="c5-refine-accordion-panel" id="c5-accordionPanel" role="region" aria-label="Savings, loans and existing cover" aria-hidden="true">
+              <div class="c5-refine-panel-measure">
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="slider-label" for="c5-accSavingsSlider">My savings</label>
+                    <div class="slider-value-box"><span id="c5-accSavingsValue">₹0</span></div>
+                  </div>
+                  <div class="slider-track-wrapper">
+                    <input type="range" id="c5-accSavingsSlider" min="0" max="200" value="0" class="custom-slider" aria-label="My savings">
+                  </div>
+                  <div class="slider-range"><span>₹0</span><span>₹2Cr</span></div>
+                </div>
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="slider-label" for="c5-accLoansSlider">Loans and liabilities</label>
+                    <div class="slider-value-box"><span id="c5-accLoansValue">₹0</span></div>
+                  </div>
+                  <div class="slider-track-wrapper">
+                    <input type="range" id="c5-accLoansSlider" min="0" max="200" value="0" class="custom-slider" aria-label="Loans and liabilities">
+                  </div>
+                  <div class="slider-range"><span>₹0</span><span>₹2Cr</span></div>
+                </div>
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="slider-label" for="c5-accExistingSlider">Existing life cover</label>
+                    <div class="slider-value-box"><span id="c5-accExistingValue">₹0</span></div>
+                  </div>
+                  <div class="slider-track-wrapper">
+                    <input type="range" id="c5-accExistingSlider" min="0" max="200" value="0" class="custom-slider" aria-label="Existing life cover">
+                  </div>
+                  <div class="slider-range"><span>₹0</span><span>₹2Cr</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="results-panel">
-          <div class="results-content">
+        <div class="results-panel term-figma-results-panel results-empty">
+          <div class="results-content term-figma-results-inner">
+            <div class="price-skeleton" id="c5-skeleton" hidden></div>
             <div class="shield-icon" id="c5-shield" hidden>
               <img src="Porting.svg" alt="Human life value calculator illustration" width="182" height="182">
             </div>
@@ -252,39 +242,46 @@
               <p class="calc-empty-title">How much should you be covered for?</p>
               <p class="calc-empty-subtitle">Fill in your details, then tap <strong>Calculate my cover</strong> to see your number. After that, it updates as you move the sliders.</p>
             </div>
-            <div class="premium-display" id="c5-result" hidden>
-              <p class="premium-amount" id="c5-hlvAmount">₹ 1,20,00,000</p>
-              <p class="premium-subtitle">is the cover your family needs if you're not around</p>
-              <p class="premium-perday" id="c5-perDay">You can cover this for as little as ₹500/month</p>
-            </div>
-            <div class="price-skeleton" id="c5-skeleton" hidden></div>
-            <div class="plans-block" id="c5-plans" hidden>
-              <div class="plans-block-top">
-                <img class="plans-block-icon-img" src="icons/Health Insurance.svg" alt="" width="66" height="66">
-                <p class="plans-block-text">Term cover from ₹500/month</p>
+            <div class="term-figma-result" id="c5-result" hidden>
+              <div class="term-figma-result-top">
+                <div class="term-figma-price-cluster">
+                  <p class="term-figma-starting">Your family needs</p>
+                  <p class="term-figma-price-line">
+                    <span class="term-figma-price-amount" id="c5-coverHero">₹ 0</span>
+                  </p>
+                </div>
+                <div class="term-figma-pill hlv-figma-pill" id="c5-resultPill" aria-live="polite">
+                  <p class="term-figma-pill-line">Based on your income, age, and dependents.</p>
+                  <p class="term-figma-pill-line" id="c5-premiumPillLine">Estimated premium from ₹0/month.</p>
+                </div>
               </div>
-              <div class="plans-trust">
-                <span class="plans-trust-item">
-                  <img src="icons/hospital.svg" alt="" width="28" height="28">
-                  Claim paid in 1 day
-                </span>
-                <span class="plans-trust-divider"></span>
-                <span class="plans-trust-item">
-                  <img src="icons/Blood test.svg" alt="" width="28" height="28">
-                  No agents, no paperwork
-                </span>
-              </div>
-              <div class="plans-block-bottom">
-                <a class="plans-block-btn" id="c5-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
-                  Get covered now <img src="icons/arrow right.svg" alt="" width="16" height="16">
+              <div class="term-figma-different-card">
+                <h3 class="term-figma-different-title">What makes us different</h3>
+                <ul class="term-figma-different-list">
+                  <li>
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
+                    <span>Your family gets the full amount.</span>
+                  </li>
+                  <li>
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
+                    <span>Increase your cover as life changes.</span>
+                  </li>
+                </ul>
+                <a class="term-figma-plans-btn" id="c5-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
+                  <span class="term-figma-plans-btn-label">See plans</span>
+                  <span class="term-figma-plans-btn-icon" aria-hidden="true">
+                    <img src="icons/arrow right.svg" alt="" width="24" height="24">
+                  </span>
                 </a>
               </div>
+              <p class="term-figma-footer-note">This is an indicative cover amount based on the inputs you provided. Your actual needs and premium will be clearer on the plans page.</p>
             </div>
           </div>
           <p class="calc-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
         </div>
 
-        <button class="cta-button" data-calc="c5">Calculate my cover</button>
+        <button type="button" class="cta-button calc-cta--first" data-calc="c5">Calculate my cover</button>
+        <a class="cta-button calc-sticky-plans" id="c5-stickyPlans" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">See plans</a>
       </div>
     </div>
   </section>
@@ -296,12 +293,12 @@
         <div class="input-panel">
           <div class="calculator-intro">
             <h1 class="calculator-title term-figma-title">What will your term plan<br>actually cost?</h1>
-            <p class="calculator-subtitle term-figma-subtitle">Pick your age and coverage to see a monthly premium estimate.</p>
+            <p class="calculator-subtitle term-figma-subtitle">Tell us a few basics to see your premium estimate</p>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label" for="c6-ageSlider">Age</label>
+              <label class="slider-label" for="c6-ageSlider">Your age</label>
               <div class="slider-value-box"><span id="c6-ageValue">30</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -312,7 +309,7 @@
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label" for="c6-coverSlider">Coverage</label>
+              <label class="slider-label" for="c6-coverSlider">Cover amount</label>
               <div class="slider-value-box"><span id="c6-coverValue">₹25 L</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -321,24 +318,25 @@
             <div class="slider-steps term-figma-cover-steps">
               <span class="slider-step">₹25L</span>
               <span class="slider-step">₹50L</span>
-              <span class="slider-step">₹75L</span>
+              <span class="slider-step">₹1Cr</span>
               <span class="slider-step">₹2Cr</span>
             </div>
           </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="slider-label" for="c6-incomeSlider">Your annual income</label>
+              <div class="slider-value-box"><span id="c6-incomeValue">₹50 L</span></div>
+            </div>
+            <div class="slider-track-wrapper">
+              <input type="range" id="c6-incomeSlider" min="1" max="200" value="50" class="custom-slider" aria-label="Annual income">
+            </div>
+            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
+          </div>
         </div>
 
-        <div class="results-panel term-figma-results-panel">
+        <div class="results-panel term-figma-results-panel results-empty">
           <div class="results-content term-figma-results-inner">
-            <div class="term-figma-empty" id="c6-empty">
-              <div class="term-figma-empty-illu-wrap">
-                <img class="term-figma-empty-illu" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
-              </div>
-              <div class="term-figma-empty-text">
-                <p class="term-figma-empty-title">Check premium instantly</p>
-                <p class="term-figma-empty-body">Tap <strong class="term-figma-empty-cta">Calculate premium</strong> to see your estimate. After that, move the sliders — the monthly price updates automatically.</p>
-              </div>
-            </div>
-
             <div class="price-skeleton" id="c6-skeleton" hidden></div>
 
             <div class="term-figma-result" id="c6-result" hidden>
@@ -346,22 +344,23 @@
                 <div class="term-figma-price-cluster">
                   <p class="term-figma-starting">Starting from</p>
                   <p class="term-figma-price-line">
-                    <span id="c6-monthlyAmount">₹ 0</span><span class="term-figma-price-suffix">/month</span>
+                    <span class="term-figma-price-amount" id="c6-monthlyAmount">₹ 0</span><span class="term-figma-price-suffix">/month</span>
                   </p>
                 </div>
                 <div class="term-figma-pill" id="c6-resultPill" aria-live="polite">
-                  <p class="term-figma-pill-copy">This estimate assumes a non-smoker male profile and a <strong class="term-figma-pill-em">60-year</strong> policy term.</p>
+                  <p class="term-figma-pill-line">Price shown is for a non-smoker male.</p>
+                  <p class="term-figma-pill-line">Policy term is automatically set to 60 years.</p>
                 </div>
               </div>
               <div class="term-figma-different-card">
                 <h3 class="term-figma-different-title">What makes us different</h3>
                 <ul class="term-figma-different-list">
                   <li>
-                    <img src="star.svg" alt="" width="16" height="16" class="term-figma-star">
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
                     <span>Your family gets the full amount.</span>
                   </li>
                   <li>
-                    <img src="star.svg" alt="" width="16" height="16" class="term-figma-star">
+                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
                     <span>Increase your cover as life changes.</span>
                   </li>
                 </ul>
@@ -377,7 +376,7 @@
           </div>
         </div>
 
-        <button type="button" class="cta-button term-cta--primary" data-calc="c6">Calculate premium</button>
+        <a class="cta-button calc-sticky-plans term-sticky-plans" id="c6-stickyPlans" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">See plans</a>
       </div>
     </div>
   </section>

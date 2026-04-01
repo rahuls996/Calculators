@@ -1,11 +1,11 @@
-# Publishes the static calculator site from branch `v6` to GitHub Pages.
+# Publishes the static calculator site from branch `v7` to GitHub Pages.
 # After the first successful run: Repo → Settings → Pages → Build: GitHub Actions.
-name: Deploy GitHub Pages (v6)
+name: Deploy GitHub Pages (v7)
 
 on:
   push:
     branches:
-      - v6
+      - v7
 
 permissions:
   contents: read
@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-v6
+  group: pages-v7
   cancel-in-progress: true
 
 jobs:

@@ -12,12 +12,6 @@
 
 // ─── Shared formula helpers (mirrors script.js) ─────────────────────────────
 
-const cityRiskMap = {
-  mumbai: 1.4, delhi: 1.35, bengaluru: 1.2, chennai: 1.15,
-  hyderabad: 1.1, kolkata: 1.1, pune: 1.15, ahmedabad: 1.05,
-  jaipur: 1.0, other: 0.9
-};
-
 function getAgeMultiplier(age) {
   if (age <= 25) return 0.6;
   if (age <= 35) return 0.8 + (age - 25) * 0.04;
@@ -36,12 +30,10 @@ const C1_COVER_STEPS = [10, 25, 50, 100];
 function calcC1(p) {
   const base = 5000;
   const ageComp   = r100(base * getAgeMultiplier(p.age) - base);
-  const cityMul   = cityRiskMap[p.city] || 1.0;
-  const cityComp  = r100(base * (cityMul - 1) * 2);
   const cover     = C1_COVER_STEPS[p.coverIndex];
   const coverComp = r100(base * (cover / 10 - 1) * 0.3);
-  const memberComp = r100((p.adults - 1) * 1500 + p.children * 600 + p.parents * 2800);
-  const total = Math.max(base + ageComp + cityComp + coverComp + memberComp, 2000);
+  const memberComp = r100((p.adults - 1) * 1500 + p.children * 600);
+  const total = Math.max(base + ageComp + coverComp + memberComp, 2000);
   const monthly = Math.ceil(total / 12);
   const daily   = Math.ceil(total / 365);
   const coverLabel = cover >= 100 ? '₹1 Cr health cover' : '₹' + cover + ' L health cover';
@@ -53,16 +45,33 @@ function calcC1(p) {
 
 function calcC5(p) {
   const yearsLeft = Math.max(p.retireAge - p.age, 1);
-  const netAnnual = Math.max(p.income - p.expenses, 0) * 100000;
+  const incomeL = Number(p.income) || 0;
+  const expensesL =
+    p.expenses != null
+      ? Number(p.expenses)
+      : Math.max(1, Math.round(incomeL * 0.35));
+  const netAnnual = Math.max(incomeL - expensesL, 0) * 100000;
   const r = 0.06;
   const pv = netAnnual * ((1 - Math.pow(1 + r, -yearsLeft)) / r);
-  const hlv = Math.max(Math.round(pv / 100000) * 100000, 500000);
-  return { price: hlv, monthly: null, daily: null, coverText: 'Term cover from ₹500/month', isHLV: true };
+  let hlv = Math.max(Math.round(pv / 100000) * 100000, 500000);
+  const savingsR = Math.max(0, Number(p.savings) || 0) * 100000;
+  const loansR = Math.max(0, Number(p.loans) || 0) * 100000;
+  const existingR = Math.max(0, Number(p.existingCover) || 0) * 100000;
+  hlv = Math.max(Math.round((hlv + loansR - savingsR - existingR) / 100000) * 100000, 500000);
+  const annualEst = Math.max(r100(hlv * 0.00014 + p.age * 1200), 2400);
+  const monthly = Math.ceil(annualEst / 12);
+  return {
+    price: hlv,
+    monthly,
+    daily: Math.max(1, Math.ceil(monthly / 30)),
+    coverText: 'Term cover from ₹500/month',
+    isHLV: true
+  };
 }
 
 const C6_COVER_STEPS = [2500000, 5000000, 7500000, 10000000, 20000000];
-/** Figma SEO widget: 4 stops (₹25L → ₹2Cr), no ₹1Cr midpoint */
-const C6_COVER_STEPS_4 = [2500000, 5000000, 7500000, 20000000];
+/** Figma SEO widget (3430:1434): ₹25L, ₹50L, ₹1Cr, ₹2Cr */
+const C6_COVER_STEPS_4 = [2500000, 5000000, 10000000, 20000000];
 
 function getTermAgeFactor(age) {
   if (age <= 25) return 0.7;
@@ -92,7 +101,12 @@ function calcC6(p) {
   const ageComp   = r100(baseAnnual * (ageMul - 1));
   const coverComp = r100(baseAnnual * 0.15 * (coverInLakhs / 50 - 1));
   const termComp  = r100(baseAnnual * (termMul - 1));
-  const total = Math.max(r100(baseAnnual + ageComp + coverComp + termComp), 3000);
+  let total = Math.max(r100(baseAnnual + ageComp + coverComp + termComp), 3000);
+  if (p.coverVariant === '4' && p.income != null) {
+    const inc = Math.min(Math.max(Number(p.income) || 10, 1), 200);
+    const incomeAdj = 0.94 + (inc / 200) * 0.12;
+    total = Math.max(r100(total * incomeAdj), 3000);
+  }
   const daily = Math.ceil(total / 365);
   const coverLabel = cover >= 10000000
     ? '₹' + (cover / 10000000).toFixed(0) + ' Cr life cover'
