@@ -452,11 +452,19 @@
    Term calculator — Figma SEO Widget (3430:1599 / 3430:1681)
    ================================================================ */
 
+#calc6.term-calculator--figma .calculator-container {
+  align-items: stretch;
+}
+
+#calc6.term-calculator--figma .input-panel {
+  gap: 22px;
+}
+
 #calc6.term-calculator--figma .calculator-intro {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 10px;
+  margin-bottom: 2px;
 }
 
 #calc6.term-calculator--figma .term-figma-title {
@@ -501,7 +509,7 @@
 }
 
 #calc6.term-calculator--figma .cta-button.term-cta--primary {
-  margin-top: var(--scale-8);
+  margin-top: 20px;
   min-height: 60px;
   border-radius: 12px;
   background: #141414;
@@ -517,6 +525,7 @@
 }
 
 #calc6.term-calculator--figma .cta-button.term-cta--recalc {
+  margin-top: 20px;
   min-height: 60px;
   border-radius: 12px;
   background: #fff;
@@ -536,9 +545,12 @@
 
 #calc6.term-calculator--figma .term-figma-results-panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #cccbcd;
   border-radius: 24px;
   padding: 20px;
+  box-sizing: border-box;
   background: linear-gradient(
     236.86deg,
     rgba(74, 222, 128, 0.16) 0%,
@@ -554,42 +566,93 @@
 #calc6.term-calculator--figma .term-figma-results-inner {
   align-items: stretch;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Initial results state — Figma 3436:1576 */
+#calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+  min-height: 380px;
+}
+
+#calc6.term-calculator--figma .term-figma-results-inner:has(#c6-empty:not([hidden])) {
+  justify-content: center;
 }
 
 #calc6.term-calculator--figma .term-figma-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 12px;
-  padding: 8px 4px 16px;
+  gap: 17px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px 8px 8px;
+}
+
+/* display:flex above beats the UA [hidden] rule — force hide after calculate / while loading */
+#calc6.term-calculator--figma .term-figma-empty[hidden] {
+  display: none !important;
+}
+
+/* Art is taller than wide (viewBox 127.4×163.799); never force a square — avoids distortion */
+#calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+  width: 118px;
+  flex-shrink: 0;
+  aspect-ratio: 127.4 / 163.799;
+  overflow: visible;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #calc6.term-calculator--figma .term-figma-empty-illu {
-  width: 182px;
-  height: 182px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+#calc6.term-calculator--figma .term-figma-empty-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 367px;
 }
 
 #calc6.term-calculator--figma .term-figma-empty-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 26px;
-  color: #141414;
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.88);
+  text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-copy {
+#calc6.term-calculator--figma .term-figma-empty-body {
   margin: 0;
-  max-width: 320px;
-  font-size: 15px;
-  line-height: 22px;
-  color: #5c5c5c;
+  max-width: 347px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.56);
+  text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-empty-copy strong {
+#calc6.term-calculator--figma .term-figma-empty-cta {
   font-weight: 600;
-  color: #141414;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+@media (min-width: 901px) {
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 420px;
+  }
 }
 
 #calc6.term-calculator--figma .term-figma-result[hidden] {
@@ -600,15 +663,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
   width: 100%;
+  padding-top: 4px;
 }
 
 #calc6.term-calculator--figma .term-figma-result-top {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 
@@ -642,27 +706,30 @@
   font-weight: 600;
 }
 
+/* Supporting context directly under price — one thought, not a separate “card” */
 #calc6.term-calculator--figma .term-figma-pill {
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: #e7e7e7;
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  padding: 10px 16px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.04);
   text-align: center;
-  max-width: 100%;
   box-sizing: border-box;
 }
 
-#calc6.term-calculator--figma .term-figma-pill p {
+#calc6.term-calculator--figma .term-figma-pill-copy {
   margin: 0;
-  max-width: 330px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 12px;
-  line-height: 16px;
-  color: #7a7b7d;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: rgba(0, 0, 0, 0.52);
+  text-wrap: balance;
 }
 
-#calc6.term-calculator--figma .term-figma-pill p + p {
-  margin-top: 0;
+#calc6.term-calculator--figma .term-figma-pill-em {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.62);
 }
 
 #calc6.term-calculator--figma .term-figma-different-card {
@@ -714,7 +781,7 @@
 #calc6.term-calculator--figma .term-figma-different-list li {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -723,6 +790,10 @@
 
 #calc6.term-calculator--figma .term-figma-star {
   flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
 }
 
 #calc6.term-calculator--figma .term-figma-plans-btn {
@@ -814,7 +885,40 @@
     padding: 24px 20px 28px;
   }
 
-  #calc6.term-calculator--figma .term-figma-pill p {
+  #calc6.term-calculator--figma .term-figma-pill {
+    padding: 10px 14px;
     max-width: none;
+  }
+
+  #calc6.term-calculator--figma .term-figma-pill-copy {
+    font-size: 12.5px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 300px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-empty {
+    gap: 14px;
+    padding: 8px 4px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+    width: 100px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-empty-text {
+    max-width: none;
+  }
+
+  #calc6.term-calculator--figma .term-figma-empty-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-empty-body {
+    max-width: none;
+    font-size: 15px;
+    line-height: 22px;
   }
 }

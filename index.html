@@ -289,7 +289,7 @@
         <div class="input-panel">
           <div class="calculator-intro">
             <h1 class="calculator-title term-figma-title">What will your term plan<br>actually cost?</h1>
-            <p class="calculator-subtitle term-figma-subtitle">Tell us a few basics to see your premium estimate</p>
+            <p class="calculator-subtitle term-figma-subtitle">Pick your age and coverage to see a monthly premium estimate.</p>
           </div>
 
           <div class="slider-group">
@@ -318,25 +318,18 @@
               <span class="slider-step">₹2Cr</span>
             </div>
           </div>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label" for="c6-incomeSlider">Annual income</label>
-              <div class="slider-value-box"><span id="c6-incomeValue">₹10 L</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c6-incomeSlider" min="1" max="200" value="10" class="custom-slider" aria-label="Annual income">
-            </div>
-            <div class="slider-range"><span>₹1L</span><span>₹2Cr</span></div>
-          </div>
         </div>
 
         <div class="results-panel term-figma-results-panel">
           <div class="results-content term-figma-results-inner">
             <div class="term-figma-empty" id="c6-empty">
-              <img class="term-figma-empty-illu" src="Porting.svg" alt="" width="182" height="182">
-              <p class="term-figma-empty-title">Check premium instantly</p>
-              <p class="term-figma-empty-copy">Adjust the sliders on the left to match your profile, then hit <strong>Calculate premium</strong> for a personalised quote.</p>
+              <div class="term-figma-empty-illu-wrap">
+                <img class="term-figma-empty-illu" src="term-results-empty-illustration.svg" alt="" width="120" height="154" decoding="async">
+              </div>
+              <div class="term-figma-empty-text">
+                <p class="term-figma-empty-title">Check premium instantly</p>
+                <p class="term-figma-empty-body">Adjust the sliders to add your details, hit <strong class="term-figma-empty-cta">Calculate premium</strong> and get a personalised quote.</p>
+              </div>
             </div>
 
             <div class="price-skeleton" id="c6-skeleton" hidden></div>
@@ -350,19 +343,18 @@
                   </p>
                 </div>
                 <div class="term-figma-pill" id="c6-resultPill" aria-live="polite">
-                  <p>Price shown is for a non-smoker male.</p>
-                  <p>Policy term is automatically set to 60 years.</p>
+                  <p class="term-figma-pill-copy">This estimate assumes a non-smoker male profile and a <strong class="term-figma-pill-em">60-year</strong> policy term.</p>
                 </div>
               </div>
               <div class="term-figma-different-card">
                 <h3 class="term-figma-different-title">What makes us different</h3>
                 <ul class="term-figma-different-list">
                   <li>
-                    <img src="star.svg" alt="" width="24" height="24" class="term-figma-star">
+                    <img src="star.svg" alt="" width="16" height="16" class="term-figma-star">
                     <span>Your family gets the full amount.</span>
                   </li>
                   <li>
-                    <img src="star.svg" alt="" width="24" height="24" class="term-figma-star">
+                    <img src="star.svg" alt="" width="16" height="16" class="term-figma-star">
                     <span>Increase your cover as life changes.</span>
                   </li>
                 </ul>

@@ -449,7 +449,6 @@ document.addEventListener('DOMContentLoaded', () => {
           age: this.state.age,
           coverIndex: this.state.coverIndex,
           term: 60,
-          income: this.state.income,
           coverVariant: '4'
         };
       }
@@ -458,10 +457,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init() {
       if (isTermFigma()) {
-        this.state = { age: 30, coverIndex: 0, term: 60, income: 10 };
+        this.state = { age: 30, coverIndex: 0, term: 60 };
         this.coverLabels = ['₹25 L', '₹50 L', '₹75 L', '₹2 Cr'];
         document.getElementById('c6-coverValue').textContent = this.coverLabels[this.state.coverIndex];
-        document.getElementById('c6-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
       }
 
       document.getElementById('c6-ageSlider').addEventListener('input', (e) => {
@@ -488,12 +486,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      document.getElementById('c6-incomeSlider').addEventListener('input', (e) => {
-        this.state.income = parseInt(e.target.value, 10);
-        document.getElementById('c6-incomeValue').textContent = formatLakhsWithRupee(this.state.income);
-        updateSliderProgress(e.target);
-        markStale('c6');
-      });
+      const incomeSlider = document.getElementById('c6-incomeSlider');
+      if (incomeSlider) {
+        incomeSlider.addEventListener('input', (e) => {
+          this.state.income = parseInt(e.target.value, 10);
+          const incomeVal = document.getElementById('c6-incomeValue');
+          if (incomeVal) incomeVal.textContent = formatLakhsWithRupee(this.state.income);
+          updateSliderProgress(e.target);
+          markStale('c6');
+        });
+      }
     }
   };
 
@@ -586,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const ci = Math.min(c6.state.coverIndex, coverSteps.length - 1);
       params.set('cover', coverSteps[ci] + '');
       params.set('term', isTermFigma() ? '60' : String(c6.state.term));
-      params.set('income', c6.state.income);
+      params.set('income', isTermFigma() ? '10' : String(c6.state.income));
     }
 
     return base + '?' + params.toString();
