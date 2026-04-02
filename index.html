@@ -159,38 +159,47 @@
     </div>
   </section>
 
-  <!-- ========== CALCULATOR 5: HLV (Human Life Value) Calculator ========== -->
+  <!-- ========== CALCULATOR 5: HLV — Figma SEO-Widget-2025 3463:2158 / 3463:2412 ========== -->
   <section class="calculator-section hlv-calculator--figma" id="calc5">
     <div class="calculator-wrapper">
       <div class="calculator-container">
         <div class="input-panel c5-input-panel">
-          <h1 class="calculator-title">How much cover does<br>your family actually need?</h1>
-
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label" for="c5-ageSlider">Current age</label>
-              <div class="slider-value-box"><span id="c5-ageValue">30</span></div>
-            </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c5-ageSlider" min="18" max="65" value="30" class="custom-slider" aria-label="Current age">
-            </div>
-            <div class="slider-range"><span>18 yrs</span><span>65 yrs</span></div>
+          <div class="calculator-intro hlv-figma-intro">
+            <h1 class="calculator-title hlv-figma-title">Human life value calculator</h1>
+            <p class="calculator-subtitle hlv-figma-subtitle">
+              <span class="hlv-sub-part1">Find out how much life cover your family</span>
+              <span class="hlv-sub-part2">actually needs</span>
+            </p>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label" for="c5-retireSlider">Expected retirement age</label>
+              <label class="slider-label" for="c5-ageSlider">Your age</label>
+              <div class="slider-value-box"><span id="c5-ageValue">30</span></div>
+            </div>
+            <div class="slider-track-wrapper">
+              <input type="range" id="c5-ageSlider" min="18" max="100" value="30" class="custom-slider" aria-label="Your age">
+            </div>
+            <div class="slider-range"><span>18 yrs</span><span>100 yrs</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="slider-label" for="c5-retireSlider">When you plan to retire</label>
               <div class="slider-value-box"><span id="c5-retireValue">60 yrs</span></div>
             </div>
             <div class="slider-track-wrapper">
-              <input type="range" id="c5-retireSlider" min="40" max="70" value="60" step="1" class="custom-slider" aria-label="Expected retirement age">
+              <input type="range" id="c5-retireSlider" min="40" max="70" value="60" step="1" class="custom-slider" aria-label="When you plan to retire">
             </div>
             <div class="slider-range"><span id="c5-retireMinLabel">40 yrs</span><span>70 yrs</span></div>
           </div>
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label" for="c5-incomeSlider">Annual income</label>
+              <label class="slider-label" for="c5-incomeSlider">
+                <span class="hlv-income-label hlv-income-label--desktop">Your annual income</span>
+                <span class="hlv-income-label hlv-income-label--mobile">Annual income</span>
+              </label>
               <div class="slider-value-box"><span id="c5-incomeValue">₹10 L</span></div>
             </div>
             <div class="slider-track-wrapper">
@@ -201,16 +210,24 @@
 
           <div class="c5-refine-accordion" id="c5-refineAccordion">
             <button type="button" class="c5-refine-trigger c5-refine-trigger--desktop" id="c5-refineOpen" aria-expanded="false" aria-controls="c5-accordionPanel">
-              <span class="c5-refine-trigger-label">Refine your estimate</span>
-              <span class="c5-refine-trigger-chevron" aria-hidden="true"></span>
+              <span class="c5-refine-trigger-copy">
+                <span class="c5-refine-trigger-title">Refine your estimate</span>
+                <span class="c5-refine-trigger-sub">Add savings, loans &amp; retirement age</span>
+              </span>
+              <span class="c5-refine-trigger-icon" aria-hidden="true"></span>
             </button>
             <button type="button" class="c5-refine-accordion-trigger" id="c5-accordionToggle" aria-expanded="false" aria-controls="c5-accordionPanel">
-              <span class="c5-refine-accordion-title">Refine your estimate</span>
-              <span class="c5-refine-accordion-sub">Add savings, loans &amp; existing cover</span>
-              <span class="c5-refine-accordion-chevron" aria-hidden="true"></span>
+              <span class="c5-refine-accordion-row">
+                <span class="c5-refine-accordion-copy">
+                  <span class="c5-refine-accordion-title">Refine your estimate</span>
+                  <span class="c5-refine-accordion-sub">Add savings, loans &amp; retirement age</span>
+                </span>
+                <span class="c5-refine-accordion-icon" aria-hidden="true"></span>
+              </span>
             </button>
-            <div class="c5-refine-accordion-panel" id="c5-accordionPanel" role="region" aria-label="Savings, loans and existing cover" aria-hidden="true">
+            <div class="c5-refine-accordion-panel" id="c5-accordionPanel" role="region" aria-label="Savings, loans and retirement age" aria-hidden="true">
               <div class="c5-refine-panel-measure">
+                <div class="c5-refine-divider" aria-hidden="true"></div>
                 <div class="slider-group">
                   <div class="slider-header">
                     <label class="slider-label" for="c5-accSavingsSlider">My savings</label>
@@ -246,55 +263,66 @@
           </div>
         </div>
 
-        <div class="results-panel term-figma-results-panel results-empty">
+        <div class="results-panel term-figma-results-panel">
           <div class="results-content term-figma-results-inner">
             <div class="price-skeleton" id="c5-skeleton" hidden></div>
             <div class="shield-icon" id="c5-shield" hidden>
               <img src="Porting.svg" alt="Human life value calculator illustration" width="182" height="182">
             </div>
-            <div class="calc-empty-state" id="c5-empty">
-              <div class="calc-empty-icon-wrap">
-                <img src="Porting.svg" alt="" width="120" height="120">
-              </div>
-              <p class="calc-empty-title">How much should you be covered for?</p>
-              <p class="calc-empty-subtitle">Fill in your details, then tap <strong>Calculate my cover</strong> to see your number. After that, it updates as you move the sliders.</p>
-            </div>
-            <div class="term-figma-result" id="c5-result" hidden>
-              <div class="term-figma-result-top">
-                <div class="term-figma-price-cluster">
-                  <p class="term-figma-starting">Your family needs</p>
-                  <p class="term-figma-price-line">
-                    <span class="term-figma-price-amount" id="c5-coverHero">₹ 0</span>
+            <div class="term-figma-result" id="c5-result">
+              <div class="term-figma-result-top hlv-result-top">
+                <div class="hlv-hero hlv-hero--mobile" aria-live="polite">
+                  <p class="hlv-mobile-starting">Starting from</p>
+                  <p class="hlv-mobile-price-line">
+                    <span class="hlv-mobile-price-amount" id="c5-monthlyHero">₹ 0</span>
                   </p>
+                  <div class="hlv-perday-capsule">
+                    <p class="hlv-perday-text" id="c5-hlvPerDay"></p>
+                  </div>
                 </div>
-                <div class="term-figma-pill hlv-figma-pill" id="c5-resultPill" aria-live="polite">
-                  <p class="term-figma-pill-line">Based on your income, age, and dependents.</p>
-                  <p class="term-figma-pill-line" id="c5-premiumPillLine">Estimated premium from ₹0/month.</p>
+                <div class="hlv-hero hlv-hero--desktop" aria-live="polite">
+                  <div class="term-figma-price-cluster">
+                    <p class="term-figma-starting">Your family needs</p>
+                    <p class="term-figma-price-line">
+                      <span class="term-figma-price-amount" id="c5-coverHero">₹ 0</span>
+                    </p>
+                  </div>
+                  <div class="hlv-context-pill">
+                    <p class="hlv-context-pill-text">Based on your income, age, and dependents.</p>
+                  </div>
                 </div>
               </div>
-              <div class="term-figma-different-card">
-                <h3 class="term-figma-different-title">What makes us different</h3>
-                <ul class="term-figma-different-list">
+              <div class="term-figma-different-card hlv-different-card">
+                <h3 class="term-figma-different-title hlv-different-title">
+                  <span class="hlv-title-desktop">
+                    <span class="hlv-title-line">What makes</span>
+                    <span class="hlv-title-line">ACKO insurance different</span>
+                  </span>
+                  <span class="hlv-title-mobile">
+                    <span class="hlv-title-line">What makes ACKO</span>
+                    <span class="hlv-title-line">insurance different</span>
+                  </span>
+                </h3>
+                <ul class="term-figma-different-list hlv-different-list">
                   <li>
-                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
+                    <img src="Star%201.svg" alt="" width="24" height="24" class="term-figma-star">
                     <span>Your family gets the full amount.</span>
                   </li>
                   <li>
-                    <img src="Star%201.svg" alt="" width="18" height="18" class="term-figma-star">
+                    <img src="Star%201.svg" alt="" width="24" height="24" class="term-figma-star">
                     <span>Increase your cover as life changes.</span>
                   </li>
                 </ul>
-                <a class="term-figma-plans-btn" id="c5-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
+                <a class="term-figma-plans-btn hlv-plans-btn" id="c5-plansBtn" href="https://www.acko.com/term-life-insurance/buy" target="_blank" rel="noopener">
                   <span class="term-figma-plans-btn-label">See plans</span>
                   <span class="term-figma-plans-btn-icon" aria-hidden="true">
                     <img src="icons/arrow%20right.svg" alt="" width="24" height="24">
                   </span>
                 </a>
               </div>
-              <p class="term-figma-footer-note">This is an indicative cover amount based on the inputs you provided. Your actual needs and premium will be clearer on the plans page.</p>
+              <p class="term-figma-footer-note hlv-footer-note">This is a price estimate based on the inputs you provided. Your actual premium including GST will be shown on the plans page.</p>
             </div>
           </div>
-          <p class="calc-disclaimer">This calculator serves as a guide. Results are based on the information provided and must not alone be taken as the basis for a financial decision.</p>
         </div>
 
         <button type="button" class="cta-button calc-cta--first" data-calc="c5">Calculate my cover</button>

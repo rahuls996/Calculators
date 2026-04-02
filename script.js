@@ -349,10 +349,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (calcId === 'c5') {
       const coverHero = document.getElementById('c5-coverHero');
       if (coverHero) coverHero.textContent = formatCoverHeroINR(result.price);
-      const pillLine = document.getElementById('c5-premiumPillLine');
-      if (pillLine && result.monthly != null) {
-        pillLine.textContent =
-          'Estimated premium from ₹' + result.monthly.toLocaleString('en-IN') + '/month.';
+      const monthlyHero = document.getElementById('c5-monthlyHero');
+      if (monthlyHero && result.monthly != null) {
+        animateAmount(monthlyHero, '₹ ' + result.monthly.toLocaleString('en-IN'));
+      }
+      const perDayEl = document.getElementById('c5-hlvPerDay');
+      if (perDayEl) {
+        perDayEl.textContent = result.daily
+          ? '₹' + result.daily + '/day. Less than your morning breakfast.'
+          : '';
       }
     } else if (calcId === 'c6') {
       if (isTermFigma()) {
@@ -490,8 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const age = this.state.age;
       const el = document.getElementById('c5-retireSlider');
       if (!el) return;
-      const minR = Math.max(40, age + 1);
       const maxR = 70;
+      let minR = Math.max(40, age + 1);
+      if (minR > maxR) minR = maxR;
       el.min = String(minR);
       el.max = String(maxR);
       let rv = parseInt(el.value, 10);
@@ -809,11 +815,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#calc6 .custom-slider').forEach(updateSliderProgress);
   }
 
-  ['c5'].forEach(id => {
-    const b = document.querySelector('.calc-cta--first[data-calc="' + id + '"]');
-    if (b && !b.dataset.originalText) b.dataset.originalText = b.textContent.trim();
-    applyEmptyResultsState(id);
-  });
+  const c5Btn = document.querySelector('.calc-cta--first[data-calc="c5"]');
+  if (c5Btn && !c5Btn.dataset.originalText) c5Btn.dataset.originalText = c5Btn.textContent.trim();
   triggerFetch('c1');
+  triggerFetch('c5');
   triggerFetch('c6');
 });
