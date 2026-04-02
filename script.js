@@ -405,6 +405,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // CALCULATOR 1: Health Insurance Calculator
   // =============================================
 
+  /** Allowed health floater pairs only: 1A, 2A, 1A1C, 2A1C, 2A2C, 1A2C. */
+  const C1_VALID_MEMBER_KEYS = new Set(['1-0', '2-0', '1-1', '2-1', '2-2', '1-2']);
+
+  function c1MemberPairIsValid(adults, children) {
+    if (adults < 0 || children < 0) return false;
+    return C1_VALID_MEMBER_KEYS.has(adults + '-' + children);
+  }
+
   const c1 = {
     coverSteps: [10, 25, 50, 100],
     coverLabels: ['₹10 L', '₹25 L', '₹50 L', '₹1 Cr'],
@@ -420,33 +428,54 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     },
 
-    updateStepperButtons() {
-      document.getElementById('c1-adults-dec').disabled  = this.state.adults <= 1;
-      document.getElementById('c1-adults-inc').disabled  = this.state.adults >= 4;
-      document.getElementById('c1-children-dec').disabled = this.state.children <= 0;
-      document.getElementById('c1-children-inc').disabled = this.state.children >= 4;
+    updateMemberUi() {
+      const aEl = document.getElementById('c1-adults-val');
+      const cEl = document.getElementById('c1-children-val');
+      if (aEl) {
+        aEl.textContent = this.state.adults;
+        aEl.dataset.zero = this.state.adults === 0 ? 'true' : 'false';
+      }
+      if (cEl) {
+        cEl.textContent = this.state.children;
+        cEl.dataset.zero = this.state.children === 0 ? 'true' : 'false';
+      }
+      this.updateStepperButtons();
     },
 
-    initStepper(decId, incId, valId, stateKey, min, max) {
+    updateStepperButtons() {
+      const a = this.state.adults;
+      const c = this.state.children;
+      const decA = document.getElementById('c1-adults-dec');
+      const incA = document.getElementById('c1-adults-inc');
+      const decC = document.getElementById('c1-children-dec');
+      const incC = document.getElementById('c1-children-inc');
+      if (decA) decA.disabled = !c1MemberPairIsValid(a - 1, c);
+      if (incA) incA.disabled = !c1MemberPairIsValid(a + 1, c);
+      if (decC) decC.disabled = !c1MemberPairIsValid(a, c - 1);
+      if (incC) incC.disabled = !c1MemberPairIsValid(a, c + 1);
+    },
+
+    initStepper(decId, incId, stateKey) {
+      const self = this;
       document.getElementById(decId).addEventListener('click', () => {
-        if (this.state[stateKey] > min) {
-          this.state[stateKey]--;
-          const el = document.getElementById(valId);
-          el.textContent = this.state[stateKey];
-          el.dataset.zero = this.state[stateKey] === 0 ? 'true' : 'false';
-          this.updateStepperButtons();
-          liveUpdate('c1');
-        }
+        const next =
+          stateKey === 'adults'
+            ? { adults: self.state.adults - 1, children: self.state.children }
+            : { adults: self.state.adults, children: self.state.children - 1 };
+        if (!c1MemberPairIsValid(next.adults, next.children)) return;
+        self.state[stateKey]--;
+        self.updateMemberUi();
+        liveUpdate('c1');
       });
       document.getElementById(incId).addEventListener('click', () => {
-        if (this.state[stateKey] < max) {
-          this.state[stateKey]++;
-          const el = document.getElementById(valId);
-          el.textContent = this.state[stateKey];
-          el.dataset.zero = this.state[stateKey] === 0 ? 'true' : 'false';
-          this.updateStepperButtons();
-          liveUpdate('c1');
-        }
+        const next =
+          stateKey === 'adults'
+            ? { adults: self.state.adults + 1, children: self.state.children }
+            : { adults: self.state.adults, children: self.state.children + 1 };
+        if (!c1MemberPairIsValid(next.adults, next.children)) return;
+        self.state[stateKey]++;
+        self.updateMemberUi();
+        liveUpdate('c1');
       });
     },
 
@@ -465,9 +494,9 @@ document.addEventListener('DOMContentLoaded', () => {
         liveUpdate('c1');
       });
 
-      this.initStepper('c1-adults-dec', 'c1-adults-inc', 'c1-adults-val', 'adults', 1, 4);
-      this.initStepper('c1-children-dec', 'c1-children-inc', 'c1-children-val', 'children', 0, 4);
-      this.updateStepperButtons();
+      this.initStepper('c1-adults-dec', 'c1-adults-inc', 'adults');
+      this.initStepper('c1-children-dec', 'c1-children-inc', 'children');
+      this.updateMemberUi();
     }
   };
 
