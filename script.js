@@ -349,9 +349,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (calcId === 'c5') {
       const coverHero = document.getElementById('c5-coverHero');
       if (coverHero) coverHero.textContent = formatCoverHeroINR(result.price);
+      const monthlyStr =
+        result.monthly != null ? '₹ ' + result.monthly.toLocaleString('en-IN') : '₹ 0';
       const monthlyHero = document.getElementById('c5-monthlyHero');
-      if (monthlyHero && result.monthly != null) {
-        animateAmount(monthlyHero, '₹ ' + result.monthly.toLocaleString('en-IN'));
+      if (monthlyHero) {
+        animateAmount(monthlyHero, monthlyStr);
+      }
+      const stickyMonthly = document.getElementById('c5-stickyMonthlyDisplay');
+      if (stickyMonthly) {
+        animateAmount(stickyMonthly, monthlyStr + '/month');
       }
       const perDayEl = document.getElementById('c5-hlvPerDay');
       if (perDayEl) {

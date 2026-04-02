@@ -440,7 +440,7 @@
     box-shadow: none;
     padding: 0;
     /* Space for the fixed sticky CTA at the bottom */
-    padding-bottom: 84px;
+    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
   }
 
   .seo-calc-embed .calculator-container {
