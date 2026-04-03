@@ -112,9 +112,18 @@ export default function HlvCalculator({
   );
 
   const onHlvCalculate = useCallback(() => {
+    if (hlvResultShown) {
+      scrollHlvResultsIntoView();
+      return;
+    }
     setHlvResultShown(true);
-    scrollHlvResultsIntoView();
-  }, []);
+    // First reveal: wait for commit so #c5-result is not [hidden] before focus/scroll.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollHlvResultsIntoView();
+      });
+    });
+  }, [hlvResultShown]);
 
   const profileFields = (
     <>
