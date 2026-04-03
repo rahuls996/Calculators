@@ -1,0 +1,63 @@
+# Publishes the calculator site from branch `v7` to GitHub Pages (Vite build + legacy static files).
+name: Deploy GitHub Pages (v7)
+
+on:
+  push:
+    branches:
+      - v7
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-v7
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -r dist/* _site/
+          for f in variations.html variations.css variations.js script.js; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          [ -f legacy/api.js ] && cp legacy/api.js _site/api.js
+          for f in *.svg *.png; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          cp -r Font _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
