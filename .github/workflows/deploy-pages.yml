@@ -1,5 +1,4 @@
-# Publishes the static calculator site from branch `v7` to GitHub Pages.
-# After the first successful run: Repo → Settings → Pages → Build: GitHub Actions.
+# Publishes the calculator site from branch `v7` to GitHub Pages (Vite build + legacy static files).
 name: Deploy GitHub Pages (v7)
 
 on:
@@ -26,14 +25,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Assemble site (exclude node_modules)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble site
         run: |
           mkdir -p _site
-          shopt -s nullglob
-          for f in *.html *.css *.js *.svg *.png; do
+          cp -r dist/* _site/
+          for f in variations.html variations.css variations.js script.js; do
             [ -f "$f" ] && cp "$f" _site/
           done
-          cp -r Font icons _site/
+          [ -f legacy/api.js ] && cp legacy/api.js _site/api.js
+          for f in *.svg *.png; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          cp -r Font _site/ 2>/dev/null || true
           touch _site/.nojekyll
 
       - name: Configure Pages

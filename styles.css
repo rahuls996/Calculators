@@ -242,7 +242,7 @@ body {
 #calc1.health-calculator--seo .calculator-container .results-panel {
   grid-row: 1;
   grid-column: 2;
-  align-self: start;
+  align-self: stretch;
 }
 
 .calculator-container > .calc-primary-plans-bar {
@@ -274,7 +274,7 @@ body {
 #calc6.term-calculator--figma .calculator-container .results-panel {
   grid-row: 1;
   grid-column: 2;
-  align-self: start;
+  align-self: stretch;
 }
 
 /* ==========================================

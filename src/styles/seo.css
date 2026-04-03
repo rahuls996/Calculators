@@ -1,0 +1,1694 @@
+/* ================================================================
+   seo.css — SEO article page styles
+   Health Insurance page with sticky ToC + embedded calculator
+   ================================================================ */
+
+/* ── Page base ── */
+
+.seo-page {
+  background: #fff;
+  color: #0a0a0a;
+  font-family: 'Euclid Circular B', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Header ── */
+
+.seo-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.seo-header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .seo-header {
+    display: none;
+  }
+}
+
+.seo-logo-link {
+  font-size: 20px;
+  font-weight: 700;
+  color: #5920c5;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+/* ── Two-column layout ── */
+
+.seo-layout {
+  display: grid;
+  grid-template-columns: 302px 1fr;
+  max-width: 1361px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+  gap: 0 24px;
+  align-items: start;
+}
+
+/* ── Left sticky ToC ── */
+
+.seo-toc {
+  position: sticky;
+  top: 80px;
+  padding-top: 24px;
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+}
+
+.seo-toc-heading {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #0a0a0a;
+  margin: 0 0 16px;
+  padding-left: 16px;
+}
+
+.seo-toc-list-wrap {
+  position: relative;
+  display: flex;
+  gap: 0;
+}
+
+.seo-toc-line-wrap {
+  position: relative;
+  width: 2px;
+  background: rgba(10, 10, 10, 0.1);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.seo-toc-active-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 20px;
+  background: #0a0a0a;
+  border-radius: 2px;
+  transition: top 0.25s ease;
+}
+
+.seo-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 32px 0 16px;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  scrollbar-width: none;
+}
+
+.seo-toc-list::-webkit-scrollbar { display: none; }
+
+.seo-toc-item {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.56);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  display: block;
+}
+
+.seo-toc-item:hover {
+  color: #0a0a0a;
+}
+
+.seo-toc-item.active {
+  font-weight: 500;
+  color: #0a0a0a;
+}
+
+.seo-toc-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+
+/* ── Main content ── */
+
+.seo-main {
+  min-width: 0;
+  padding-top: 24px;
+}
+
+/* ── Breadcrumb ── */
+
+.seo-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.56);
+  margin-bottom: 32px;
+}
+
+.seo-breadcrumb a {
+  color: rgba(0, 0, 0, 0.56);
+  text-decoration: none;
+}
+
+.seo-breadcrumb a:hover { color: #0a0a0a; }
+
+/* ── Sections ── */
+
+.seo-section {
+  margin-bottom: 64px;
+  scroll-margin-top: 88px;
+}
+
+/* ── Typography ── */
+
+.seo-h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+  color: #0a0a0a;
+  margin: 0 0 24px;
+}
+
+.seo-h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 40px;
+  color: #0a0a0a;
+  margin: 0 0 32px;
+}
+
+.seo-body {
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.72);
+  margin: 0 0 16px;
+}
+
+/* ── Two-column bullet list ── */
+
+.seo-two-col-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  margin-top: 16px;
+}
+
+.seo-list {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.seo-list li {
+  margin-bottom: 12px;
+}
+
+.seo-list--spaced li {
+  margin-bottom: 16px;
+}
+
+/* ── Hospital grid ── */
+
+.seo-hospital-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.seo-hospital-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 12px;
+  width: 140px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a0a0a;
+  text-align: center;
+}
+
+.seo-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 24px;
+  background: #fff;
+  border: 1.5px solid rgba(10, 10, 10, 0.2);
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0a0a0a;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+}
+
+.seo-secondary-btn:hover {
+  border-color: rgba(10, 10, 10, 0.4);
+  background: rgba(10, 10, 10, 0.03);
+}
+
+/* ── At a Glance table ── */
+
+.seo-table {
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.seo-table-header,
+.seo-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+}
+
+.seo-table-row--last {
+  border-bottom: none;
+}
+
+.seo-table-cell {
+  padding: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0a0a0a;
+  border-right: 1px solid rgba(10, 10, 10, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.seo-table-cell:last-child {
+  border-right: none;
+}
+
+.seo-table-cell--header {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  min-height: 80px;
+}
+
+.seo-table-cell--spec {
+  color: #646464;
+  font-weight: 500;
+}
+
+/* ── Embedded calculator ── */
+
+.seo-calc-section .seo-h2 {
+  margin-bottom: 8px;
+}
+
+.seo-calc-section .seo-body {
+  margin-bottom: 32px;
+}
+
+/* Calculator sizing within SEO page — narrower container than standalone page */
+.seo-calc-embed .calculator-wrapper {
+  max-width: 100%;
+}
+
+.seo-calc-embed .calculator-container {
+  grid-template-columns: 1fr 380px;
+}
+
+/* On narrower SEO main area, stack with main tab layout */
+@media (max-width: 1024px) {
+  .seo-calc-embed .calculator-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* ── FAQs ── */
+
+.seo-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(10,10,10,0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.seo-faq-item {
+  padding: 24px;
+  border-bottom: 1px solid rgba(10,10,10,0.1);
+}
+
+.seo-faq-item:last-child {
+  border-bottom: none;
+}
+
+.seo-faq-q {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin: 0 0 8px;
+}
+
+.seo-faq-a {
+  font-size: 15px;
+  line-height: 24px;
+  color: rgba(0,0,0,0.64);
+  margin: 0;
+}
+
+/* ordered list style */
+.seo-list ol, ol.seo-list {
+  padding-left: 20px;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .seo-layout {
+    grid-template-columns: 260px 1fr;
+    padding: 32px 24px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Single column — hide ToC entirely */
+  .seo-layout {
+    display: block;
+    padding: 0;
+  }
+
+  .seo-toc {
+    display: none;
+  }
+
+  /* Hide all content sections — show only the calculator */
+  .seo-main {
+    padding-top: 0;
+  }
+
+  .seo-section {
+    display: none;
+  }
+
+  /* Show only the calculator section */
+  .seo-calc-section {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Hide the calculator section heading/subtext — go straight to widget */
+  .seo-calc-section .seo-h2,
+  .seo-calc-section .seo-body {
+    display: none;
+  }
+
+  /* Hide breadcrumb */
+  .seo-breadcrumb {
+    display: none;
+  }
+
+  /* Calculator fills full screen width, no wrapper chrome */
+  .seo-calc-embed {
+    padding: 0;
+  }
+
+  .seo-calc-embed .calculator-wrapper {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    /* Space for the fixed sticky CTA at the bottom */
+    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .seo-calc-embed .calculator-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+  }
+}
+
+/* ================================================================
+   Health calculator — Figma SEO (3440:2335 / 3440:2622)
+   ================================================================ */
+
+/* Inherit grid align-items: stretch so the results rail matches inputs+CTA column height */
+
+#calc1.health-calculator--seo .input-panel {
+  gap: 22px;
+  justify-content: center;
+}
+
+#calc1.health-calculator--seo .health-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+#calc1.health-calculator--seo .health-figma-title {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #7a7b7d;
+  max-width: 420px;
+}
+
+#calc1.health-calculator--seo .custom-slider {
+  background: linear-gradient(
+    to right,
+    #6841e6 0%,
+    #6841e6 var(--slider-progress, 0%),
+    #e4e4e5 var(--slider-progress, 0%),
+    #e4e4e5 100%
+  );
+}
+
+#calc1.health-calculator--seo .custom-slider::-webkit-slider-thumb {
+  background: #6841e6;
+  border-color: #fff;
+}
+
+#calc1.health-calculator--seo .custom-slider::-moz-range-thumb {
+  background: #6841e6;
+  border-color: #fff;
+}
+
+#calc1.health-calculator--seo .custom-slider::-moz-range-progress {
+  background: #6841e6;
+}
+
+/* Who are you covering — /3440:2335: two equal cards, label+icon left + stepper right (not 3-column grid) */
+#calc1.health-calculator--seo .health-figma-members {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-members .option-label {
+  margin-bottom: 14px;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc1.health-calculator--seo .health-figma-stepper .member-stepper-controls {
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+/* Match adults + children cards — global .member-stepper wrongly highlights second card when count > 0 */
+#calc1.health-calculator--seo .health-figma-stepper.member-stepper {
+  border-color: var(--color-border-default);
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  #calc1.health-calculator--seo .health-figma-stepper-group {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1.5px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border-default);
+    padding: var(--scale-12) var(--scale-16);
+    gap: 0;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper:last-child {
+    border-bottom: none;
+  }
+
+  #calc1.health-calculator--seo .health-figma-stepper .member-stepper-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+}
+
+#calc1.health-calculator--seo .health-primary-cta {
+  margin-top: 20px;
+  min-height: 60px;
+  border-radius: 12px;
+  background: #141414;
+  color: #fff;
+  font-weight: 600;
+  border: 2px solid #141414;
+}
+
+#calc1.health-calculator--seo .health-primary-cta:hover {
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Initial empty state (matches term widget rhythm) */
+#calc1.health-calculator--seo .health-results-panel:has(#c1-empty:not([hidden])) {
+  min-height: 380px;
+}
+
+#calc1.health-calculator--seo .health-results-inner:has(#c1-empty:not([hidden])) {
+  justify-content: center;
+}
+
+#calc1.health-calculator--seo .health-results-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px 8px 8px;
+}
+
+#calc1.health-calculator--seo .health-results-empty[hidden] {
+  display: none !important;
+}
+
+#calc1.health-calculator--seo .health-results-empty-illu-wrap {
+  width: 118px;
+  flex-shrink: 0;
+  aspect-ratio: 127.4 / 163.799;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#calc1.health-calculator--seo .health-results-empty-illu {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+#calc1.health-calculator--seo .health-results-empty-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 367px;
+}
+
+#calc1.health-calculator--seo .health-results-empty-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.88);
+  text-wrap: balance;
+}
+
+#calc1.health-calculator--seo .health-results-empty-body {
+  margin: 0;
+  max-width: 347px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.56);
+  text-wrap: balance;
+}
+
+#calc1.health-calculator--seo .health-results-empty-cta {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+@media (min-width: 1025px) {
+  #calc1.health-calculator--seo .health-results-panel:has(#c1-empty:not([hidden])) {
+    min-height: 420px;
+  }
+}
+
+#calc1.health-calculator--seo .health-results-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  align-self: stretch;
+  border: 1px solid #cccbcd;
+  border-radius: 24px;
+  padding: 24px 22px 20px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    236.86deg,
+    rgba(74, 222, 128, 0.16) 0%,
+    rgba(255, 255, 255, 0.16) 57.75%
+  );
+  box-shadow: 0 2px 20px -4px rgba(0, 0, 0, 0.02);
+}
+
+/* Fills the stretched grid cell; centers quote + card; footer stays anchored */
+#calc1.health-calculator--seo .health-results-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+#calc1.health-calculator--seo .health-live-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 22px;
+  width: 100%;
+  max-width: 400px;
+  margin-inline: auto;
+  padding: clamp(12px, 3vh, 28px) 4px 0;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+}
+
+#calc1.health-calculator--seo .health-live-panel[hidden] {
+  display: none !important;
+}
+
+/* Same art as empty state — desktop only */
+#calc1.health-calculator--seo .health-live-hero-illu {
+  display: none;
+}
+
+@media (min-width: 1025px) {
+  #calc1.health-calculator--seo .health-live-hero-illu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 118px;
+    margin: 0 auto 6px;
+    aspect-ratio: 127.4 / 163.799;
+  }
+
+  #calc1.health-calculator--seo .health-live-hero-illu-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
+}
+
+#calc1.health-calculator--seo .health-live-panel.result-stale {
+  opacity: 0.92;
+  transition: opacity 0.2s ease;
+}
+
+#calc1.health-calculator--seo .health-result-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 8px 18px;
+  box-sizing: border-box;
+}
+
+#calc1.health-calculator--seo .health-starting {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.56);
+  text-align: center;
+}
+
+#calc1.health-calculator--seo .health-price-line {
+  margin: 2px 0 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -0.03em;
+  color: #3f2299;
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 14px rgba(78, 41, 187, 0.22), 0 1px 2px rgba(78, 41, 187, 0.12);
+}
+
+#calc1.health-calculator--seo .health-price-suffix {
+  font-weight: 700;
+}
+
+#calc1.health-calculator--seo .health-perday {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.48);
+  text-align: center;
+  max-width: 20rem;
+  margin-inline: auto;
+}
+
+#calc1.health-calculator--seo .health-different-card {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  border: 0.5px solid rgba(104, 65, 230, 0.55);
+  border-radius: 16px;
+  padding: 24px 22px 26px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 12px 28px -8px rgba(74, 45, 130, 0.06),
+    0 4px 8px -4px rgba(0, 0, 0, 0.04);
+}
+
+#calc1.health-calculator--seo .health-different-title {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 25px;
+  letter-spacing: -0.015em;
+  color: rgba(0, 0, 0, 0.9);
+  text-wrap: balance;
+}
+
+#calc1.health-calculator--seo .health-different-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#calc1.health-calculator--seo .health-different-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc1.health-calculator--seo .health-star {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+}
+
+#calc1.health-calculator--seo .health-plans-btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 60px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #141414;
+  color: rgba(255, 255, 255, 0.96) !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background 0.2s ease;
+}
+
+#calc1.health-calculator--seo .health-plans-btn:hover {
+  background: #2a2a2a;
+}
+
+#calc1.health-calculator--seo .health-plans-btn img {
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+#calc1.health-calculator--seo .health-plans-footnote {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #7a7b7d;
+  text-align: center;
+  max-width: 100%;
+  padding: 0 6px;
+  box-sizing: border-box;
+}
+
+#calc1.health-calculator--seo .health-result-arn ,
+#calc5.hlv-calculator--figma .hlv-result-arn ,
+#calc6.term-calculator--figma .term-result-arn {
+  margin: 0 0 8px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #7a7b7d;
+  text-align: center;
+  max-width: 344px;
+}
+
+#calc1.health-calculator--seo .health-bottom-disclaimer {
+  margin-top: auto;
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  #calc1.health-calculator--seo .health-results-panel {
+    height: auto;
+    min-height: 280px;
+    align-self: stretch;
+  }
+
+  #calc1.health-calculator--seo .input-panel {
+    justify-content: flex-start;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-results-panel,
+  #calc6.term-calculator--figma .term-figma-results-panel {
+    height: auto;
+    align-self: stretch;
+  }
+
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 260px;
+  }
+
+  #calc6.term-calculator--figma .input-panel {
+    justify-content: flex-start;
+  }
+
+  #calc6.term-calculator--figma .term-figma-results-panel {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  #calc1.health-calculator--seo .health-results-panel.results-empty {
+    display: flex !important;
+  }
+
+  #calc1.health-calculator--seo .health-figma-title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  #calc1.health-calculator--seo .health-price-line {
+    white-space: normal;
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  #calc1.health-calculator--seo .health-different-card {
+    padding: 22px 18px 26px;
+  }
+
+  #calc1.health-calculator--seo .health-results-empty-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  #calc1.health-calculator--seo .health-results-empty-body {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+/* ================================================================
+   Term calculator — Figma SEO Widget (3430:1599 / 3430:1681)
+   ================================================================ */
+
+#calc5.hlv-calculator--figma .calculator-container , #calc6.term-calculator--figma .calculator-container {
+  align-items: stretch;
+}
+
+#calc5.hlv-calculator--figma .input-panel {
+  gap: 24px;
+}
+
+#calc6.term-calculator--figma .input-panel {
+  gap: 22px;
+  justify-content: center;
+}
+
+#calc5.hlv-calculator--figma .calculator-intro , #calc6.term-calculator--figma .calculator-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-title , #calc6.term-calculator--figma .term-figma-title {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.4px;
+  margin-bottom: 0;
+}
+
+#calc5.hlv-calculator--figma .term-figma-subtitle , #calc6.term-calculator--figma .term-figma-subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #7a7b7d;
+  max-width: 420px;
+}
+
+#calc5.hlv-calculator--figma .custom-slider , #calc6.term-calculator--figma .custom-slider {
+  background: linear-gradient(
+    to right,
+    #6841e6 0%,
+    #6841e6 var(--slider-progress, 0%),
+    #e4e4e5 var(--slider-progress, 0%),
+    #e4e4e5 100%
+  );
+}
+
+#calc5.hlv-calculator--figma .custom-slider::-webkit-slider-thumb , #calc6.term-calculator--figma .custom-slider::-webkit-slider-thumb {
+  background: #6841e6;
+  border-color: #fff;
+}
+
+#calc5.hlv-calculator--figma .custom-slider::-moz-range-thumb , #calc6.term-calculator--figma .custom-slider::-moz-range-thumb {
+  background: #6841e6;
+  border-color: #fff;
+}
+
+#calc5.hlv-calculator--figma .custom-slider::-moz-range-progress , #calc6.term-calculator--figma .custom-slider::-moz-range-progress {
+  background: #6841e6;
+}
+
+#calc5.hlv-calculator--figma .cta-button.term-cta--primary , #calc6.term-calculator--figma .cta-button.term-cta--primary {
+  margin-top: 20px;
+  min-height: 60px;
+  border-radius: 12px;
+  background: #141414;
+  color: #fff;
+  font-weight: 600;
+  border: 2px solid #141414;
+}
+
+#calc5.hlv-calculator--figma .cta-button.term-cta--primary:hover , #calc6.term-calculator--figma .cta-button.term-cta--primary:hover {
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+#calc5.hlv-calculator--figma .cta-button.cta-stale.calc-cta--recalc , #calc6.term-calculator--figma .cta-button.cta-stale.calc-cta--recalc {
+  opacity: 0.92;
+}
+
+#calc5.hlv-calculator--figma .term-figma-results-panel , #calc6.term-calculator--figma .term-figma-results-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #cccbcd;
+  border-radius: 24px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    236.86deg,
+    rgba(74, 222, 128, 0.16) 0%,
+    rgba(255, 255, 255, 0.16) 57.75%
+  );
+  box-shadow: 0 2px 20px -4px rgba(0, 0, 0, 0.02);
+}
+
+#calc6.term-calculator--figma .term-figma-results-panel {
+  min-height: 100%;
+  justify-content: center;
+}
+
+#calc6.term-calculator--figma .term-figma-results-inner {
+  justify-content: center;
+}
+
+#calc5.hlv-calculator--figma .term-figma-results-inner , #calc6.term-calculator--figma .term-figma-results-inner {
+  align-items: stretch;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+#calc5.hlv-calculator--figma .term-figma-results-inner {
+  min-height: 100%;
+  justify-content: center;
+}
+
+/* Initial results state — Figma 3436:1576 */
+#calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+  min-height: 380px;
+}
+
+#calc6.term-calculator--figma .term-figma-results-inner:has(#c6-empty:not([hidden])) {
+  justify-content: center;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty , #calc6.term-calculator--figma .term-figma-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px 8px 8px;
+}
+
+/* display:flex above beats the UA [hidden] rule — force hide after calculate / while loading */
+#calc5.hlv-calculator--figma .term-figma-empty[hidden] , #calc6.term-calculator--figma .term-figma-empty[hidden] {
+  display: none !important;
+}
+
+/* Art is taller than wide (viewBox 127.4×163.799); never force a square — avoids distortion */
+#calc5.hlv-calculator--figma .term-figma-empty-illu-wrap , #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+  width: 118px;
+  flex-shrink: 0;
+  aspect-ratio: 127.4 / 163.799;
+  overflow: visible;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty-illu , #calc6.term-calculator--figma .term-figma-empty-illu {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty-text , #calc6.term-calculator--figma .term-figma-empty-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 367px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty-title , #calc6.term-calculator--figma .term-figma-empty-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.88);
+  text-wrap: balance;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty-body , #calc6.term-calculator--figma .term-figma-empty-body {
+  margin: 0;
+  max-width: 347px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.56);
+  text-wrap: balance;
+}
+
+#calc5.hlv-calculator--figma .term-figma-empty-cta , #calc6.term-calculator--figma .term-figma-empty-cta {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+@media (min-width: 1025px) {
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 420px;
+  }
+}
+
+#calc5.hlv-calculator--figma .term-figma-result[hidden] , #calc6.term-calculator--figma .term-figma-result[hidden] {
+  display: none !important;
+}
+
+#calc5.hlv-calculator--figma .term-figma-result , #calc6.term-calculator--figma .term-figma-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  padding: 8px 0 4px;
+  box-sizing: border-box;
+}
+
+#calc5.hlv-calculator--figma .term-figma-result-top , #calc6.term-calculator--figma .term-figma-result-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+/* Term: context pill removed — keep space before different card */
+#calc6.term-calculator--figma .term-figma-result-top {
+  gap: 0;
+  padding-bottom: 16px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-price-cluster , #calc6.term-calculator--figma .term-figma-price-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-starting , #calc6.term-calculator--figma .term-figma-starting {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.56);
+  text-align: center;
+}
+
+#calc5.hlv-calculator--figma .term-figma-price-line , #calc6.term-calculator--figma .term-figma-price-line {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: -0.03em;
+  color: #3f2299;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 2px 14px rgba(78, 41, 187, 0.22), 0 1px 2px rgba(78, 41, 187, 0.12);
+}
+
+/* HLV (3443:1851): hero cover line larger than term monthly */
+#calc5.hlv-calculator--figma .term-figma-price-line {
+  font-size: 44px;
+  line-height: 50px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-price-amount,
+#calc6.term-calculator--figma .term-figma-price-amount {
+  font-weight: 700;
+}
+
+#calc5.hlv-calculator--figma .term-figma-price-suffix , #calc6.term-calculator--figma .term-figma-price-suffix {
+  font-weight: 700;
+}
+
+/* Supporting context directly under price — one thought, not a separate “card” */
+#calc5.hlv-calculator--figma .term-figma-pill , #calc6.term-calculator--figma .term-figma-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  padding: 10px 16px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.04);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#calc5.hlv-calculator--figma .hlv-figma-pill {
+  background: #ebe4ff;
+}
+
+#calc5.hlv-calculator--figma .term-figma-pill-line , #calc6.term-calculator--figma .term-figma-pill-line ,
+#calc5.hlv-calculator--figma .term-figma-pill-copy , #calc6.term-calculator--figma .term-figma-pill-copy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: rgba(0, 0, 0, 0.52);
+  text-wrap: balance;
+}
+
+#calc5.hlv-calculator--figma .term-figma-pill-em , #calc6.term-calculator--figma .term-figma-pill-em {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.62);
+}
+
+#calc5.hlv-calculator--figma .term-figma-different-card , #calc6.term-calculator--figma .term-figma-different-card {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  border: 0.5px solid #6841e6;
+  border-radius: 16px;
+  padding: 28px 24px 30px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 20px 20px 0 rgba(0, 0, 0, 0.02),
+    0 6px 6px 0 rgba(0, 0, 0, 0.02);
+}
+
+#calc5.hlv-calculator--figma .term-figma-different-title , #calc6.term-calculator--figma .term-figma-different-title {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc5.hlv-calculator--figma .term-figma-different-list , #calc6.term-calculator--figma .term-figma-different-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-different-list li , #calc6.term-calculator--figma .term-figma-different-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc5.hlv-calculator--figma .term-figma-star , #calc6.term-calculator--figma .term-figma-star {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+}
+
+#calc5.hlv-calculator--figma .term-figma-plans-btn , #calc6.term-calculator--figma .term-figma-plans-btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 60px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #141414;
+  color: rgba(255, 255, 255, 0.96) !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background 0.2s ease;
+}
+
+#calc5.hlv-calculator--figma .term-figma-plans-btn-label , #calc6.term-calculator--figma .term-figma-plans-btn-label {
+  flex-shrink: 0;
+}
+
+#calc5.hlv-calculator--figma .term-figma-plans-btn-icon , #calc6.term-calculator--figma .term-figma-plans-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-plans-btn:hover , #calc6.term-calculator--figma .term-figma-plans-btn:hover {
+  background: #2a2a2a;
+}
+
+#calc5.hlv-calculator--figma .term-figma-plans-btn img , #calc6.term-calculator--figma .term-figma-plans-btn img {
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+#calc5.hlv-calculator--figma .term-figma-footer-note , #calc6.term-calculator--figma .term-figma-footer-note {
+  margin: 0;
+  font-size: 11px;
+  line-height: 17.6px;
+  color: #7a7b7d;
+  text-align: center;
+  max-width: 344px;
+}
+
+/* ── HLV Figma 3463:2158 / 3463:2412 — intro, dual heroes, card title lines ── */
+
+#calc5.hlv-calculator--figma .term-figma-results-panel {
+  box-shadow:
+    0 2px 20px 0 rgba(0, 0, 0, 0.02),
+    inset 0 -4px 16px 0 rgba(0, 0, 0, 0.02),
+    inset 0 -4px 4px 0 rgba(0, 0, 0, 0.02),
+    inset 0 0 4px 0 rgba(255, 255, 255, 0.88);
+}
+
+#calc5.hlv-calculator--figma .hlv-figma-intro {
+  margin-bottom: 4px;
+}
+
+#calc5.hlv-calculator--figma .hlv-figma-title {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+#calc5.hlv-calculator--figma .hlv-figma-subtitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #7a7b7d;
+}
+
+#calc5.hlv-calculator--figma .hlv-sub-part1,
+#calc5.hlv-calculator--figma .hlv-sub-part2 {
+  display: inline;
+}
+
+#calc5.hlv-calculator--figma .hlv-result-top {
+  padding-bottom: 0;
+}
+
+#calc5.hlv-calculator--figma .hlv-hero--desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+#calc5.hlv-calculator--figma .hlv-hero--mobile {
+  display: none;
+}
+
+#calc5.hlv-calculator--figma .hlv-different-card {
+  padding: 32px;
+  gap: 20px;
+}
+
+#calc5.hlv-calculator--figma .hlv-different-list li {
+  gap: 9px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+#calc5.hlv-calculator--figma .hlv-different-list .term-figma-star {
+  width: 24px;
+  height: 24px;
+}
+
+#calc5.hlv-calculator--figma .hlv-footer-note {
+  max-width: 329px;
+}
+
+#calc5.hlv-calculator--figma .term-figma-result {
+  gap: 32px;
+}
+
+@media (max-width: 1024px) {
+  #calc5.hlv-calculator--figma .hlv-figma-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-figma-subtitle {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-sub-part1,
+  #calc5.hlv-calculator--figma .hlv-sub-part2 {
+    display: block;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-hero--desktop {
+    display: none;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-hero--mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6.821px;
+    width: 100%;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-mobile-starting {
+    margin: 0;
+    max-width: 253px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.56);
+    text-align: center;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-mobile-price-line {
+    margin: 0;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-mobile-price-amount {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 50px;
+    letter-spacing: -0.03em;
+    color: #3f2299;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-shadow: 0 2px 14px rgba(78, 41, 187, 0.22), 0 1px 2px rgba(78, 41, 187, 0.12);
+  }
+
+  #calc5.hlv-calculator--figma .hlv-perday-capsule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    max-width: 260px;
+    background: linear-gradient(100deg, rgb(231, 231, 231) 0%, rgba(235, 210, 255, 0) 90%);
+    box-sizing: border-box;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-perday-text {
+    margin: 0;
+    font-size: 11.94px;
+    font-weight: 500;
+    line-height: 15.35px;
+    color: #5920c5;
+    text-align: center;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-different-card {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-different-list li {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-plans-btn {
+    min-height: 48px;
+    padding: 14px 16px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-footer-note {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}
+
+#calc5.hlv-calculator--figma .term-figma-result.result-stale, #calc6.term-calculator--figma .term-figma-result.result-stale,
+#calc5.hlv-calculator--figma .term-figma-different-card.result-stale , #calc6.term-calculator--figma .term-figma-different-card.result-stale {
+  opacity: 0.72;
+  transition: opacity 0.2s ease;
+}
+
+#calc5.hlv-calculator--figma .price-skeleton , #calc6.term-calculator--figma .price-skeleton {
+  min-height: 280px;
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #eee 0%, #f5f5f5 50%, #eee 100%);
+  background-size: 200% 100%;
+  animation: term-figma-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes term-figma-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (max-width: 480px) {
+  #calc5.hlv-calculator--figma .results-panel.results-empty , #calc6.term-calculator--figma .results-panel.results-empty {
+    display: flex !important;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-figma-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-price-line , #calc6.term-calculator--figma .term-figma-price-line {
+    white-space: normal;
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-price-line {
+    font-size: 40px;
+    line-height: 46px;
+  }
+
+  #calc5.hlv-calculator--figma .hlv-mobile-price-amount {
+    white-space: normal;
+    font-size: 40px;
+    line-height: 46px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-different-card , #calc6.term-calculator--figma .term-figma-different-card {
+    padding: 22px 18px 26px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-pill , #calc6.term-calculator--figma .term-figma-pill {
+    padding: 10px 14px;
+    max-width: none;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-pill-copy , #calc6.term-calculator--figma .term-figma-pill-copy {
+    font-size: 12.5px;
+  }
+
+  #calc6.term-calculator--figma .term-figma-results-panel:has(#c6-empty:not([hidden])) {
+    min-height: 300px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-empty , #calc6.term-calculator--figma .term-figma-empty {
+    gap: 14px;
+    padding: 8px 4px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-empty-illu-wrap , #calc6.term-calculator--figma .term-figma-empty-illu-wrap {
+    width: 100px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-empty-text , #calc6.term-calculator--figma .term-figma-empty-text {
+    max-width: none;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-empty-title , #calc6.term-calculator--figma .term-figma-empty-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  #calc5.hlv-calculator--figma .term-figma-empty-body , #calc6.term-calculator--figma .term-figma-empty-body {
+    max-width: none;
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
