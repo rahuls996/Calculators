@@ -1026,7 +1026,10 @@
 
 #calc5.hlv-calculator--figma .calculator-wrapper {
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
+  /* Match tab nav — was 100% only, which stretched HLV full viewport and skewed the grid */
+  max-width: 1120px;
+  margin-inline: auto;
 }
 
 #calc5.hlv-calculator--figma {
@@ -1038,6 +1041,19 @@
 @media (min-width: 1025px) {
   #calc5.hlv-calculator--figma .input-panel {
     justify-content: center;
+  }
+
+  /* Balanced two-column width: avoid a huge empty input rail vs narrow results */
+  #calc5.hlv-calculator--figma .calculator-container {
+    grid-template-columns: minmax(360px, 520px) minmax(320px, 420px);
+    justify-content: center;
+    column-gap: var(--scale-32, 32px);
+  }
+
+  #calc5.hlv-calculator--figma .calculator-container .input-panel,
+  #calc5.hlv-calculator--figma .calculator-container .results-panel {
+    max-width: 100%;
+    width: 100%;
   }
 }
 
