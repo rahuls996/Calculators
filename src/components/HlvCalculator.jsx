@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState, useCallback } from 'react';
+import { useMemo, useEffect, useState, useCallback, useRef } from 'react';
 import { computePrice } from '../pricing/computePrice';
 import { formatCoverHeroINR, formatLakhsWithRupee } from '../utils/format';
 import { buildPlansUrl } from '../utils/plansUrl';
@@ -9,6 +9,19 @@ import { publicAsset } from '../utils/publicAsset';
 
 const starIcon = publicAsset('icons/star.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
+const hlvEmptyIllu = publicAsset('icons/term-results-empty-illustration.svg');
+
+function scrollHlvResultsIntoView() {
+  if (typeof window === 'undefined') return;
+  document.getElementById('calc5')?.querySelector('.results-panel')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+  const result = document.getElementById('c5-result');
+  if (result && typeof result.focus === 'function') {
+    result.focus({ preventScroll: true });
+  }
+}
 
 export default function HlvCalculator({
   active = true,
@@ -19,7 +32,10 @@ export default function HlvCalculator({
   isTermFigma,
 }) {
   const { age, income, retireAge, savings, loans, existingCover } = hlvState;
-  const [refineOpen, setRefineOpen] = useState(false);
+  const [hlvInputTab, setHlvInputTab] = useState('profile');
+  const [hlvResultShown, setHlvResultShown] = useState(false);
+  const tabProfileRef = useRef(null);
+  const tabFinanceRef = useRef(null);
 
   const minRetire = Math.max(40, age + 1);
   const maxRetire = 70;
@@ -73,15 +89,192 @@ export default function HlvCalculator({
     [onHlvChange],
   );
 
-  const toggleRefine = () => setRefineOpen((o) => !o);
-
-  useEffect(() => {
-    function onKey(e) {
-      if (e.key === 'Escape' && refineOpen) setRefineOpen(false);
+  const selectHlvTab = useCallback((tab) => {
+    setHlvInputTab(tab);
+    if (tab === 'finance' && typeof window !== 'undefined' && window.innerWidth <= 1024) {
+      document.querySelector('#calc5 .hlv-tablist')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [refineOpen]);
+  }, []);
+
+  const onHlvTabKeyDown = useCallback(
+    (e, tab) => {
+      if (e.key === 'ArrowRight' && tab === 'profile') {
+        e.preventDefault();
+        selectHlvTab('finance');
+        requestAnimationFrame(() => tabFinanceRef.current?.focus());
+      } else if (e.key === 'ArrowLeft' && tab === 'finance') {
+        e.preventDefault();
+        selectHlvTab('profile');
+        requestAnimationFrame(() => tabProfileRef.current?.focus());
+      }
+    },
+    [selectHlvTab],
+  );
+
+  const onHlvCalculate = useCallback(() => {
+    setHlvResultShown(true);
+    scrollHlvResultsIntoView();
+  }, []);
+
+  const profileFields = (
+    <>
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-ageSlider">
+            Age
+          </label>
+          <div className="slider-value-box">
+            <span>{age}</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-ageSlider"
+            min={18}
+            max={69}
+            value={Math.min(69, Math.max(18, age))}
+            aria-label="Age"
+            onValueChange={(v) => patchHlv({ age: Math.min(69, Math.max(18, v)) })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>18 yrs</span>
+          <span>69 yrs</span>
+        </div>
+      </div>
+
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-retireSlider">
+            Expected retirement age
+          </label>
+          <div className="slider-value-box">
+            <span>{retireValue} yrs</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-retireSlider"
+            min={minRetire}
+            max={maxRetire}
+            step={1}
+            value={retireValue}
+            aria-label="Expected retirement age"
+            onValueChange={(v) => patchHlv({ retireAge: v })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>{minRetire} yrs</span>
+          <span>70 yrs</span>
+        </div>
+      </div>
+
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-incomeSlider">
+            Annual income
+          </label>
+          <div className="slider-value-box">
+            <span>{formatLakhsWithRupee(income)}</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-incomeSlider"
+            min={1}
+            max={200}
+            value={income}
+            aria-label="Annual income"
+            onValueChange={(v) => patchHlv({ income: v })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>₹1L</span>
+          <span>₹2Cr</span>
+        </div>
+      </div>
+    </>
+  );
+
+  const financeFields = (
+    <>
+      <p className="hlv-tab-panel-hint">
+        Optional — add savings, loans, and existing cover for a closer estimate. Defaults stay at zero until you change them.
+      </p>
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-accSavingsSlider">
+            My savings
+          </label>
+          <div className="slider-value-box">
+            <span>{formatLakhsWithRupee(savings)}</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-accSavingsSlider"
+            min={0}
+            max={200}
+            value={savings}
+            aria-label="My savings"
+            onValueChange={(v) => patchHlv({ savings: v })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>₹0</span>
+          <span>₹2Cr</span>
+        </div>
+      </div>
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-accLoansSlider">
+            Loans and liabilities
+          </label>
+          <div className="slider-value-box">
+            <span>{formatLakhsWithRupee(loans)}</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-accLoansSlider"
+            min={0}
+            max={1000}
+            value={Math.min(1000, Math.max(0, loans))}
+            aria-label="Loans and liabilities"
+            onValueChange={(v) => patchHlv({ loans: Math.min(1000, Math.max(0, v)) })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>₹0</span>
+          <span>₹10Cr</span>
+        </div>
+      </div>
+      <div className="slider-group">
+        <div className="slider-header">
+          <label className="slider-label" htmlFor="c5-accExistingSlider">
+            Existing life cover
+          </label>
+          <div className="slider-value-box">
+            <span>{formatLakhsWithRupee(existingCover)}</span>
+          </div>
+        </div>
+        <div className="slider-track-wrapper">
+          <CustomSlider
+            id="c5-accExistingSlider"
+            min={0}
+            max={500}
+            value={Math.min(500, Math.max(0, existingCover))}
+            aria-label="Existing life cover"
+            onValueChange={(v) => patchHlv({ existingCover: Math.min(500, Math.max(0, v)) })}
+          />
+        </div>
+        <div className="slider-range">
+          <span>₹0</span>
+          <span>₹5Cr</span>
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <section
@@ -99,207 +292,103 @@ export default function HlvCalculator({
               </p>
             </div>
 
-            <div className="slider-group">
-              <div className="slider-header">
-                <label className="slider-label" htmlFor="c5-ageSlider">
-                  Age
-                </label>
-                <div className="slider-value-box">
-                  <span>{age}</span>
-                </div>
-              </div>
-              <div className="slider-track-wrapper">
-                <CustomSlider
-                  id="c5-ageSlider"
-                  min={18}
-                  max={69}
-                  value={Math.min(69, Math.max(18, age))}
-                  aria-label="Age"
-                  onValueChange={(v) => patchHlv({ age: Math.min(69, Math.max(18, v)) })}
-                />
-              </div>
-              <div className="slider-range">
-                <span>18 yrs</span>
-                <span>69 yrs</span>
-              </div>
-            </div>
-
-            <div className="slider-group">
-              <div className="slider-header">
-                <label className="slider-label" htmlFor="c5-retireSlider">
-                  When you plan to retire
-                </label>
-                <div className="slider-value-box">
-                  <span>{retireValue} yrs</span>
-                </div>
-              </div>
-              <div className="slider-track-wrapper">
-                <CustomSlider
-                  id="c5-retireSlider"
-                  min={minRetire}
-                  max={maxRetire}
-                  step={1}
-                  value={retireValue}
-                  aria-label="When you plan to retire"
-                  onValueChange={(v) => patchHlv({ retireAge: v })}
-                />
-              </div>
-              <div className="slider-range">
-                <span>{minRetire} yrs</span>
-                <span>70 yrs</span>
-              </div>
-            </div>
-
-            <div className="slider-group">
-              <div className="slider-header">
-                <label className="slider-label" htmlFor="c5-incomeSlider">
-                  Annual income
-                </label>
-                <div className="slider-value-box">
-                  <span>{formatLakhsWithRupee(income)}</span>
-                </div>
-              </div>
-              <div className="slider-track-wrapper">
-                <CustomSlider
-                  id="c5-incomeSlider"
-                  min={1}
-                  max={200}
-                  value={income}
-                  aria-label="Annual income"
-                  onValueChange={(v) => patchHlv({ income: v })}
-                />
-              </div>
-              <div className="slider-range">
-                <span>₹1L</span>
-                <span>₹2Cr</span>
-              </div>
-            </div>
-
-            <div
-              className={`c5-refine-accordion ${refineOpen ? 'is-open' : ''}`}
-              id="c5-refineAccordion"
-            >
-              <button
-                type="button"
-                className={`c5-refine-trigger c5-refine-trigger--desktop ${refineOpen ? 'is-open' : ''}`}
-                id="c5-refineOpen"
-                aria-expanded={refineOpen}
-                aria-controls="c5-accordionPanel"
-                onClick={toggleRefine}
-              >
-                <span className="c5-refine-trigger-copy">
-                  <span className="c5-refine-trigger-title">Refine estimate</span>
-                  <span className="c5-refine-trigger-sub">Add savings, loans &amp; retirement age</span>
-                </span>
-                <span className="c5-refine-trigger-icon" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className={`c5-refine-accordion-trigger ${refineOpen ? 'is-open' : ''}`}
-                id="c5-accordionToggle"
-                aria-expanded={refineOpen}
-                aria-controls="c5-accordionPanel"
-                onClick={toggleRefine}
-              >
-                <span className="c5-refine-accordion-row">
-                  <span className="c5-refine-accordion-copy">
-                    <span className="c5-refine-accordion-title">Refine estimate</span>
-                    <span className="c5-refine-accordion-sub">Add savings, loans &amp; retirement age</span>
-                  </span>
-                  <span className="c5-refine-accordion-icon" aria-hidden="true" />
-                </span>
-              </button>
+            <div className="hlv-input-tabs">
               <div
-                className="c5-refine-accordion-panel"
-                id="c5-accordionPanel"
-                role="region"
-                aria-label="Savings, loans and retirement age"
-                aria-hidden={!refineOpen}
+                className="hlv-tablist"
+                role="tablist"
+                aria-label="Choose which details to enter"
               >
-                <div className="c5-refine-panel-measure">
-                  <div className="c5-refine-divider" aria-hidden="true" />
-                  <div className="slider-group">
-                    <div className="slider-header">
-                      <label className="slider-label" htmlFor="c5-accSavingsSlider">
-                        My savings
-                      </label>
-                      <div className="slider-value-box">
-                        <span>{formatLakhsWithRupee(savings)}</span>
-                      </div>
-                    </div>
-                    <div className="slider-track-wrapper">
-                      <CustomSlider
-                        id="c5-accSavingsSlider"
-                        min={0}
-                        max={200}
-                        value={savings}
-                        aria-label="My savings"
-                        onValueChange={(v) => patchHlv({ savings: v })}
-                      />
-                    </div>
-                    <div className="slider-range">
-                      <span>₹0</span>
-                      <span>₹2Cr</span>
-                    </div>
-                  </div>
-                  <div className="slider-group">
-                    <div className="slider-header">
-                      <label className="slider-label" htmlFor="c5-accLoansSlider">
-                        Loans and liabilities
-                      </label>
-                      <div className="slider-value-box">
-                        <span>{formatLakhsWithRupee(loans)}</span>
-                      </div>
-                    </div>
-                    <div className="slider-track-wrapper">
-                      <CustomSlider
-                        id="c5-accLoansSlider"
-                        min={0}
-                        max={1000}
-                        value={Math.min(1000, Math.max(0, loans))}
-                        aria-label="Loans and liabilities"
-                        onValueChange={(v) => patchHlv({ loans: Math.min(1000, Math.max(0, v)) })}
-                      />
-                    </div>
-                    <div className="slider-range">
-                      <span>₹0</span>
-                      <span>₹10Cr</span>
-                    </div>
-                  </div>
-                  <div className="slider-group">
-                    <div className="slider-header">
-                      <label className="slider-label" htmlFor="c5-accExistingSlider">
-                        Existing life cover
-                      </label>
-                      <div className="slider-value-box">
-                        <span>{formatLakhsWithRupee(existingCover)}</span>
-                      </div>
-                    </div>
-                    <div className="slider-track-wrapper">
-                      <CustomSlider
-                        id="c5-accExistingSlider"
-                        min={0}
-                        max={500}
-                        value={Math.min(500, Math.max(0, existingCover))}
-                        aria-label="Existing life cover"
-                        onValueChange={(v) =>
-                          patchHlv({ existingCover: Math.min(500, Math.max(0, v)) })
-                        }
-                      />
-                    </div>
-                    <div className="slider-range">
-                      <span>₹0</span>
-                      <span>₹5Cr</span>
-                    </div>
-                  </div>
-                </div>
+                <button
+                  ref={tabProfileRef}
+                  type="button"
+                  id="hlv-tab-profile"
+                  role="tab"
+                  aria-selected={hlvInputTab === 'profile'}
+                  aria-controls="hlv-panel-profile"
+                  tabIndex={hlvInputTab === 'profile' ? 0 : -1}
+                  className={`hlv-tab ${hlvInputTab === 'profile' ? 'hlv-tab--active' : ''}`}
+                  onClick={() => selectHlvTab('profile')}
+                  onKeyDown={(e) => onHlvTabKeyDown(e, 'profile')}
+                >
+                  <span className="hlv-tab-label">About you</span>
+                  <span className="hlv-tab-sublabel">Age, income & retirement</span>
+                </button>
+                <button
+                  ref={tabFinanceRef}
+                  type="button"
+                  id="hlv-tab-finance"
+                  role="tab"
+                  aria-selected={hlvInputTab === 'finance'}
+                  aria-controls="hlv-panel-finance"
+                  tabIndex={hlvInputTab === 'finance' ? 0 : -1}
+                  className={`hlv-tab ${hlvInputTab === 'finance' ? 'hlv-tab--active' : ''}`}
+                  onClick={() => selectHlvTab('finance')}
+                  onKeyDown={(e) => onHlvTabKeyDown(e, 'finance')}
+                >
+                  <span className="hlv-tab-label">
+                    Fine-tune
+                    <span className="hlv-tab-optional-pill">Optional</span>
+                  </span>
+                  <span className="hlv-tab-sublabel">Savings, loans & cover</span>
+                </button>
+              </div>
+
+              <div
+                id="hlv-panel-profile"
+                className="hlv-tab-panel"
+                role="tabpanel"
+                aria-labelledby="hlv-tab-profile"
+                hidden={hlvInputTab !== 'profile'}
+              >
+                {profileFields}
+              </div>
+              <div
+                id="hlv-panel-finance"
+                className="hlv-tab-panel"
+                role="tabpanel"
+                aria-labelledby="hlv-tab-finance"
+                hidden={hlvInputTab !== 'finance'}
+              >
+                {financeFields}
+              </div>
+
+              <div className="hlv-tab-footer">
+                <button
+                  type="button"
+                  className={`hlv-step-btn hlv-tab-cta ${hlvResultShown ? 'hlv-step-btn--secondary' : 'hlv-step-btn--primary'}`}
+                  onClick={onHlvCalculate}
+                >
+                  {hlvResultShown ? 'Recalculate' : 'Calculate'}
+                </button>
               </div>
             </div>
           </div>
 
-          <div className="results-panel term-figma-results-panel">
+          <div
+            className={`results-panel term-figma-results-panel ${!hlvResultShown ? 'results-empty' : ''}`}
+          >
             <div className="results-content term-figma-results-inner">
-              <div className="term-figma-result" id="c5-result">
+              <div
+                id="c5-empty"
+                className="term-figma-empty"
+                hidden={hlvResultShown}
+              >
+                <div className="term-figma-empty-illu-wrap" aria-hidden="true">
+                  <img src={hlvEmptyIllu} className="term-figma-empty-illu" alt="" width="118" height="152" />
+                </div>
+                <div className="term-figma-empty-text">
+                  <p className="term-figma-empty-title">Your estimate will show here</p>
+                  <p className="term-figma-empty-body">
+                    Enter your details, then tap Calculate to see the suggested life cover.
+                  </p>
+                </div>
+              </div>
+              <div
+                className="term-figma-result"
+                id="c5-result"
+                tabIndex={-1}
+                hidden={!hlvResultShown}
+              >
                 <div className="term-figma-result-top hlv-result-top">
                   <div className="hlv-hero hlv-hero--mobile" aria-live="polite">
                     <p className="hlv-mobile-starting">Life cover needed</p>
@@ -325,16 +414,16 @@ export default function HlvCalculator({
                   </h3>
                   <ul className="term-figma-different-list hlv-different-list">
                     <li>
-                      <img src={starIcon} alt="" width="24" height="24" className="term-figma-star" />
+                      <img src={starIcon} alt="" width="14" height="14" className="term-figma-star" />
                       <span>Family gets the full payout.</span>
                     </li>
                     <li>
-                      <img src={starIcon} alt="" width="24" height="24" className="term-figma-star" />
+                      <img src={starIcon} alt="" width="14" height="14" className="term-figma-star" />
                       <span>Increase cover when life changes.</span>
                     </li>
                   </ul>
                   <a
-                    className="term-figma-plans-btn hlv-plans-btn"
+                    className="term-figma-plans-btn hlv-plans-btn hlv-plans-btn--hero"
                     href={plansUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -351,21 +440,6 @@ export default function HlvCalculator({
             </div>
           </div>
 
-          <button
-            type="button"
-            className="cta-button calc-cta--first"
-            data-calc="c5"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.innerWidth <= 1024) {
-                document.getElementById('calc5')?.querySelector('.results-panel')?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                });
-              }
-            }}
-          >
-            Calculate my cover
-          </button>
           <div className="c5-mobile-sticky-bar" id="c5-mobileStickyBar" role="region" aria-label="Monthly estimate and plans">
             <div className="c5-mobile-sticky-bar-inner">
               <div className="c5-mobile-sticky-price">
