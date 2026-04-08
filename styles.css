@@ -872,20 +872,6 @@ body {
   box-shadow: none;
 }
 
-/* Sticky plans anchor hidden by default; mobile shows after results */
-.tab-container .calculator-container > a.cta-button.calc-sticky-plans,
-#calc1.health-calculator--seo .calculator-container > a.cta-button.calc-sticky-plans {
-  display: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.tab-container .calculator-container > .c5-mobile-sticky-bar {
-  display: none;
-  box-sizing: border-box;
-}
-
 @media (min-width: 481px) {
   #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container > .calc-cta--first {
     display: none;
@@ -904,23 +890,6 @@ body {
 
   #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container > .calc-cta--first {
     display: none;
-  }
-
-  #calc1.health-calculator--seo:has(#c1-live:not([hidden])) .calculator-container > .calc-sticky-plans,
-  #calc1.health-calculator--seo:has(#c1-result:not([hidden])) .calculator-container > .calc-sticky-plans,
-  #calc6.term-calculator--figma:has(#c6-result:not([hidden])) .calculator-container > .calc-sticky-plans {
-    display: flex;
-  }
-
-  #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container > .c5-mobile-sticky-bar {
-    display: block;
-  }
-
-  #calc1.health-calculator--seo:has(#c1-live:not([hidden])) .health-plans-btn,
-  #calc1.health-calculator--seo:has(#c1-result:not([hidden])) .plans-block .plans-block-btn,
-  #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .term-figma-plans-btn,
-  #calc6.term-calculator--figma:has(#c6-result:not([hidden])) .term-figma-plans-btn {
-    display: none !important;
   }
 }
 
@@ -1922,27 +1891,9 @@ body {
   text-align: center;
 }
 
-/* ── Mobile: sticky CTA bar + initial state optimisations ── */
+/* ── Mobile: initial state optimisations (CTAs stay in document flow) ── */
 
 @media (max-width: 480px) {
-  html {
-    scroll-padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .calculator-section {
-    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
-  }
-
-  /* Health SEO page: room for fixed sticky CTA */
-  .seo-calc-section#calculator {
-    padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px));
-  }
-
-  /* HLV composite sticky bar is taller than a single 48px pill */
-  #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container {
-    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  }
-
   /* Hide the entire results panel until a result is shown */
   .results-panel.results-empty {
     display: none;
@@ -1964,126 +1915,6 @@ body {
     line-height: 1.5;
     padding-top: var(--scale-8);
     margin-top: var(--scale-12);
-  }
-
-  .cta-button {
-    position: fixed;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    left: 16px;
-    right: 16px;
-    width: auto;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
-    border-radius: var(--radius-pill);
-  }
-
-  .tab-container .calculator-container > .cta-button,
-  #calc1.health-calculator--seo .calculator-container > .cta-button {
-    min-height: 48px;
-    height: 48px;
-    padding-top: 0;
-    padding-bottom: 0;
-    box-sizing: border-box;
-  }
-
-  .tab-container .calculator-container > .calc-sticky-plans,
-  #calc1.health-calculator--seo .calculator-container > .calc-sticky-plans {
-    background: #141414;
-    color: #fff;
-    font-weight: 600;
-    border: 2px solid #141414;
-    margin-top: 0;
-  }
-
-  .tab-container .calculator-container > .calc-sticky-plans:hover,
-  #calc1.health-calculator--seo .calculator-container > .calc-sticky-plans:hover {
-    background: #2a2a2a;
-    border-color: #2a2a2a;
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  /* HLV mobile — Figma 3465:2431 composite bar (price + See Plans) */
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-bar {
-    position: fixed;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    left: 16px;
-    right: 16px;
-    z-index: 101;
-    pointer-events: auto;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-bar-inner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid #cccbcd;
-    box-shadow:
-      0 4px 20px rgba(0, 0, 0, 0.12),
-      0 -4px 10px rgba(0, 0, 0, 0.03);
-    box-sizing: border-box;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-price {
-    min-width: 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-label {
-    margin: 0;
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 400;
-    color: #000;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-amount {
-    margin: 0;
-    font-size: 22px;
-    line-height: 32px;
-    font-weight: 700;
-    color: #282e33;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-cta {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    width: 116px;
-    padding: 0 16px;
-    box-sizing: border-box;
-    background: #141414;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 12px;
-    border: 2px solid #141414;
-    font-family: var(--font-family);
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-cta:hover {
-    background: #2a2a2a;
-    border-color: #2a2a2a;
-    color: #fff;
-  }
-
-  #calc5.hlv-calculator--figma .c5-mobile-sticky-cta:focus-visible {
-    outline: 2px solid #6841e6;
-    outline-offset: 2px;
   }
 
   .cta-button.cta-loading {

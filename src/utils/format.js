@@ -33,6 +33,6 @@ export function formatCoverHeroINR(rupees) {
 export function healthHospitalisationBullet(coverIndex) {
   const steps = [10, 25, 50, 100];
   const v = steps[Math.min(coverIndex | 0, steps.length - 1)];
-  if (v >= 100) return '₹ 1 Cr hospitalisation cover';
-  return '₹ ' + v + ' L hospitalisation cover';
+  if (v >= 100) return '₹1Cr hospitalisation cover';
+  return '₹' + v + 'L hospitalisation cover';
 }

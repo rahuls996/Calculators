@@ -1,10 +1,10 @@
-# Publishes the calculator site from branch `v7` to GitHub Pages (Vite build + legacy static files).
-name: Deploy GitHub Pages (v7)
+# Publishes the calculator site from branch `v9` to GitHub Pages (Vite build + legacy static files).
+name: Deploy GitHub Pages (v9)
 
 on:
   push:
     branches:
-      - v7
+      - v9
 
 permissions:
   contents: read
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-v7
+  group: pages-v9
   cancel-in-progress: true
 
 jobs:

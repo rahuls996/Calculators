@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { computePrice } from '../pricing/computePrice';
 import { healthHospitalisationBullet } from '../utils/format';
 import { buildPlansUrl } from '../utils/plansUrl';
@@ -12,8 +12,36 @@ const adultIcon = publicAsset('icons/Adult.svg');
 const childIcon = publicAsset('icons/Child.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
 const starIcon = publicAsset('icons/star.svg');
+const emptyIllu = publicAsset('icons/term-results-empty-illustration.svg');
 
 const coverLabels = ['₹ 10 L', '₹ 25 L', '₹ 50 L', '₹ 1 Cr'];
+
+const CALC_MS = 720;
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function HealthCalcSpinner() {
+  return (
+    <span className="health-calc-spinner" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeDasharray="32 48"
+          className="health-calc-spinner__arc"
+        />
+      </svg>
+    </span>
+  );
+}
 
 export default function HealthCalculator({
   mode = 'tab',
@@ -29,7 +57,11 @@ export default function HealthCalculator({
   const children = healthState.children ?? 1;
   const coverIndex = healthState.coverIndex ?? 0;
 
-  const c1Params = useMemo(
+  const [resultShown, setResultShown] = useState(false);
+  const [calculating, setCalculating] = useState(false);
+  const [committed, setCommitted] = useState(null);
+
+  const liveParams = useMemo(
     () => ({
       age,
       coverIndex,
@@ -39,10 +71,34 @@ export default function HealthCalculator({
     [age, coverIndex, adults, children],
   );
 
-  const result = useMemo(() => computePrice('c1', c1Params), [c1Params]);
+  const liveResult = useMemo(() => computePrice('c1', liveParams), [liveParams]);
 
-  const premiumText = '₹ ' + result.monthly.toLocaleString('en-IN');
+  const committedResult = useMemo(() => {
+    if (!committed) return null;
+    return computePrice('c1', {
+      age: committed.age,
+      coverIndex: committed.coverIndex,
+      adults: committed.adults,
+      children: committed.children,
+    });
+  }, [committed]);
+
+  const isStale =
+    resultShown &&
+    committed != null &&
+    (committed.age !== age ||
+      committed.coverIndex !== coverIndex ||
+      committed.adults !== adults ||
+      committed.children !== children);
+
+  const quote = committedResult ?? liveResult;
+  const premiumText = '₹ ' + quote.monthly.toLocaleString('en-IN');
   const animatedPremium = useAnimatedAmount(premiumText);
+
+  const perDayText = quote.daily ? 'About ₹' + quote.daily + '/day (indicative).' : '';
+
+  const coverIdxForBullets = resultShown && committed != null ? committed.coverIndex : coverIndex;
+  const hospitalisationBullet = healthHospitalisationBullet(coverIdxForBullets);
 
   const plansUrlState = {
     ...healthState,
@@ -52,12 +108,6 @@ export default function HealthCalculator({
     coverIndex,
   };
   const plansUrl = buildPlansUrl('c1', plansUrlState, c5State, c6State, isTermFigma);
-
-  const perDayText = result.daily
-    ? 'About ₹' + result.daily + '/day (indicative).'
-    : '';
-
-  const bulletCover = healthHospitalisationBullet(coverIndex);
 
   function setHealth(partial) {
     onHealthChange({ ...healthState, ...partial });
@@ -75,11 +125,34 @@ export default function HealthCalculator({
     setHealth({ children: nextC });
   }
 
+  const runCalculate = useCallback(async () => {
+    setCalculating(true);
+    await delay(CALC_MS);
+    setCommitted({
+      age,
+      coverIndex,
+      adults,
+      children,
+    });
+    setResultShown(true);
+    setCalculating(false);
+    requestAnimationFrame(() => {
+      document.getElementById('c1-result')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }, [age, coverIndex, adults, children]);
+
+  const showEmpty = !resultShown && !calculating;
+  const showSkeleton = !resultShown && calculating;
+
   const outerClass =
     mode === 'tab'
       ? `calculator-section health-calculator--seo ${active ? 'active' : ''}`
       : 'health-calculator--seo';
   const Outer = mode === 'tab' ? 'section' : 'div';
+
+  const resultKey = committed
+    ? `${committed.age}-${committed.coverIndex}-${committed.adults}-${committed.children}`
+    : 'initial';
 
   return (
     <Outer id="calc1" className={outerClass}>
@@ -88,9 +161,9 @@ export default function HealthCalculator({
           <div className="input-panel">
             <div className="calculator-intro health-intro">
               <h1 className="calculator-title health-figma-title">
-                What could health cover
+                What will your health
                 <br />
-                cost?
+                cover cost?
               </h1>
               <p className="calculator-subtitle health-figma-subtitle">
                 Tell us a few basics to see your premium estimate
@@ -219,11 +292,71 @@ export default function HealthCalculator({
                 </div>
               </div>
             </div>
+
+            <button
+              type="button"
+              className={`cta-button health-figma-calc-cta ${resultShown ? 'health-secondary-cta health-recalc-cta' : 'health-primary-cta'}${isStale ? ' cta-stale health-cta--needs-recalc' : ''}`}
+              onClick={runCalculate}
+              disabled={calculating}
+              aria-busy={calculating}
+            >
+              {calculating ? (
+                <>
+                  <HealthCalcSpinner />
+                  <span>{resultShown ? 'Updating…' : 'Calculating…'}</span>
+                </>
+              ) : resultShown ? (
+                'Recalculate'
+              ) : (
+                'Calculate premium'
+              )}
+            </button>
           </div>
 
-          <div className="results-panel health-results-panel">
+          <div
+            className={`results-panel health-results-panel ${showEmpty ? 'results-empty' : ''}${isStale ? ' health-results-stale' : ''}`}
+          >
+            {calculating && resultShown ? (
+              <div className="health-calc-loading health-calc-loading--overlay" aria-live="polite">
+                <HealthCalcSpinner />
+                <span className="health-calc-loading__text">Updating your quote…</span>
+              </div>
+            ) : null}
+
             <div className="results-content health-results-inner">
-              <div className="health-live-panel">
+              <div id="c1-empty" className="health-results-empty" hidden={!showEmpty}>
+                <div className="health-results-empty-illu-wrap" aria-hidden="true">
+                  <img
+                    src={emptyIllu}
+                    className="health-results-empty-illu"
+                    alt=""
+                    width={118}
+                    height={152}
+                  />
+                </div>
+                <div className="health-results-empty-text">
+                  <p className="health-results-empty-title">See your price instantly</p>
+                  <p className="health-results-empty-body">
+                    Adjust the sliders, then hit{' '}
+                    <span className="health-results-empty-cta">Calculate premium</span> to get your
+                    personalised quote.
+                  </p>
+                </div>
+              </div>
+
+              {showSkeleton ? (
+                <div className="health-calc-skeleton-wrap" aria-busy="true">
+                  <div className="price-skeleton" />
+                  <p className="health-calc-skeleton-hint">Crunching numbers…</p>
+                </div>
+              ) : null}
+
+              <div
+                key={resultKey}
+                id="c1-result"
+                className={`health-live-panel ${isStale ? 'result-stale' : ''}`}
+                hidden={!resultShown}
+              >
                 <div className="health-result-top">
                   <p className="health-starting">Starting from</p>
                   <p className="health-price-line">
@@ -234,16 +367,16 @@ export default function HealthCalculator({
                     <p className="health-perday">{perDayText}</p>
                   </div>
                 </div>
-                <div className="health-different-card">
+                <div className={`health-different-card ${isStale ? 'result-stale' : ''}`}>
                   <h3 className="health-different-title">What makes us different</h3>
                   <ul className="health-different-list">
                     <li>
                       <img src={starIcon} alt="" width="18" height="18" className="health-star" />
-                      <span>{bulletCover}</span>
+                      <span>{hospitalisationBullet}</span>
                     </li>
                     <li>
                       <img src={starIcon} alt="" width="18" height="18" className="health-star" />
-                      <span>14,000+ network hospitals for cashless care</span>
+                      <span>14,000+ hospitals</span>
                     </li>
                   </ul>
                   <a className="health-plans-btn" href={plansUrl} target="_blank" rel="noopener noreferrer">
@@ -258,15 +391,6 @@ export default function HealthCalculator({
               </div>
             </div>
           </div>
-
-          <a
-            className="cta-button calc-sticky-plans health-sticky-plans"
-            href={plansUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            See plans
-          </a>
         </div>
       </div>
     </Outer>

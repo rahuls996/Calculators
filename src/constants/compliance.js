@@ -8,7 +8,7 @@ export const COMPLIANCE_ARN_TERM = 'ARN-XXXXXXXXXX';
 export const COMPLIANCE_ARN_HLV = 'ARN-XXXXXXXXXX';
 
 export const DISCLAIMER_HEALTH =
-  'Premiums shown are indicative and based on standard assumptions (Rest of India tier and approved family combinations). Parents are excluded; child ages are not factored. Final premiums including GST may vary.';
+  'Please note this is an indicative price based on your inputs. Final premiums may vary.';
 
 export const DISCLAIMER_TERM =
   'Premiums shown are indicative and based on a male, non-smoker profile and standard assumptions. Final premiums may vary based on underwriting, age, health, lifestyle, and other factors.';

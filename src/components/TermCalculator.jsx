@@ -1,39 +1,93 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { computePrice } from '../pricing/computePrice';
 import { buildPlansUrl } from '../utils/plansUrl';
 import { useAnimatedAmount } from '../hooks/useAnimatedAmount';
 import { CustomSlider } from './CustomSlider';
 import { COMPLIANCE_ARN_TERM, DISCLAIMER_TERM } from '../constants/compliance';
 import { publicAsset } from '../utils/publicAsset';
+import { formatLakhsWithRupee } from '../utils/format';
 
 const starIcon = publicAsset('icons/star.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
+const emptyIllu = publicAsset('icons/term-results-empty-illustration.svg');
 
-const coverLabels = ['₹ 25 L', '₹ 50 L', '₹ 75 L', '₹ 1 Cr', '₹ 2 Cr'];
+const coverLabels = ['₹ 25 L', '₹ 50 L', '₹ 1 Cr', '₹ 2 Cr'];
 
-export default function TermCalculator({
-  active,
-  termState,
-  onTermChange,
-  healthState,
-  hlvState,
-}) {
-  const { age, coverIndex, term = 60 } = termState;
+const COVER_VARIANT = '4';
+const CALC_MS = 720;
 
-  const c6Params = useMemo(
-    () => ({
-      age: Math.min(55, Math.max(18, age)),
-      coverIndex: Math.min(4, Math.max(0, coverIndex)),
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function TermCalcSpinner() {
+  return (
+    <span className="term-calc-spinner" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeDasharray="32 48"
+          className="term-calc-spinner__arc"
+        />
+      </svg>
+    </span>
+  );
+}
+
+export default function TermCalculator({ active, termState, onTermChange, healthState, hlvState }) {
+  const { age, coverIndex, term = 60, income: incomeRaw } = termState;
+  const income = incomeRaw ?? 50;
+
+  const ci = Math.min(3, Math.max(0, coverIndex));
+  const displayAge = Math.min(100, Math.max(18, age));
+
+  const [resultShown, setResultShown] = useState(false);
+  const [calculating, setCalculating] = useState(false);
+  const [committed, setCommitted] = useState(null);
+
+  useEffect(() => {
+    if (coverIndex > 3) {
+      onTermChange({ ...termState, coverIndex: 3 });
+    }
+  }, [coverIndex, onTermChange, termState]);
+
+  const paramsFor = useCallback(
+    (a, cIdx, inc) => ({
+      age: Math.min(100, Math.max(18, a)),
+      coverIndex: Math.min(3, Math.max(0, cIdx)),
       term,
-      coverVariant: '5',
-      income: null,
+      coverVariant: COVER_VARIANT,
+      income: Math.min(200, Math.max(1, inc)),
     }),
-    [age, coverIndex, term],
+    [term],
   );
 
-  const result = useMemo(() => computePrice('c6', c6Params), [c6Params]);
+  const liveParams = useMemo(
+    () => paramsFor(displayAge, ci, income),
+    [paramsFor, displayAge, ci, income],
+  );
 
-  const monthlyText = '₹ ' + result.monthly.toLocaleString('en-IN');
+  const liveResult = useMemo(() => computePrice('c6', liveParams), [liveParams]);
+
+  const committedResult = useMemo(() => {
+    if (!committed) return null;
+    return computePrice('c6', paramsFor(committed.age, committed.coverIndex, committed.income));
+  }, [committed, paramsFor]);
+
+  const isStale =
+    resultShown &&
+    committed != null &&
+    (committed.age !== displayAge || committed.coverIndex !== ci || committed.income !== income);
+
+  const premiumSource = committedResult ?? liveResult;
+  const monthlyText = '₹ ' + premiumSource.monthly.toLocaleString('en-IN');
   const animatedMonthly = useAnimatedAmount(monthlyText);
 
   const plansUrl = buildPlansUrl(
@@ -42,18 +96,44 @@ export default function TermCalculator({
     hlvState,
     {
       ...termState,
-      age: Math.min(55, Math.max(18, age)),
-      coverIndex: Math.min(4, Math.max(0, coverIndex)),
-      term,
-      income: 50,
+      age: displayAge,
+      coverIndex: ci,
+      term: 60,
+      income,
     },
-    false,
+    true,
   );
 
   const setAge = (v) => {
-    const a = Math.min(55, Math.max(18, v));
+    const a = Math.min(100, Math.max(18, v));
     onTermChange({ ...termState, age: a });
   };
+
+  const patchIncome = (v) => {
+    const inc = Math.min(200, Math.max(1, v));
+    onTermChange({ ...termState, income: inc });
+  };
+
+  const runCalculate = useCallback(async () => {
+    setCalculating(true);
+    await delay(CALC_MS);
+    setCommitted({
+      age: displayAge,
+      coverIndex: ci,
+      income,
+    });
+    setResultShown(true);
+    setCalculating(false);
+    requestAnimationFrame(() => {
+      document.getElementById('c6-result')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }, [displayAge, ci, income]);
+
+  const showEmpty = !resultShown && !calculating;
+  const showSkeleton = !resultShown && calculating;
+  const resultBlockKey = committed
+    ? `${committed.age}-${committed.coverIndex}-${committed.income}`
+    : 'initial';
 
   return (
     <section
@@ -65,9 +145,7 @@ export default function TermCalculator({
           <div className="input-panel">
             <div className="calculator-intro">
               <h1 className="calculator-title term-figma-title">
-                What could term cover
-                <br />
-                cost?
+                What will your term plan actually cost?
               </h1>
               <p className="calculator-subtitle term-figma-subtitle">
                 Tell us a few basics to see your premium estimate
@@ -77,25 +155,25 @@ export default function TermCalculator({
             <div className="slider-group">
               <div className="slider-header">
                 <label className="slider-label" htmlFor="c6-ageSlider">
-                  Age
+                  Your age
                 </label>
                 <div className="slider-value-box">
-                  <span>{Math.min(55, Math.max(18, age))}</span>
+                  <span>{displayAge}</span>
                 </div>
               </div>
               <div className="slider-track-wrapper">
                 <CustomSlider
                   id="c6-ageSlider"
                   min={18}
-                  max={55}
-                  value={Math.min(55, Math.max(18, age))}
-                  aria-label="Age"
+                  max={100}
+                  value={displayAge}
+                  aria-label="Your age"
                   onValueChange={setAge}
                 />
               </div>
               <div className="slider-range">
                 <span>18 yrs</span>
-                <span>55 yrs</span>
+                <span>100 yrs</span>
               </div>
             </div>
 
@@ -105,16 +183,16 @@ export default function TermCalculator({
                   Cover amount
                 </label>
                 <div className="slider-value-box">
-                  <span>{coverLabels[Math.min(4, Math.max(0, coverIndex))]}</span>
+                  <span>{coverLabels[ci]}</span>
                 </div>
               </div>
               <div className="slider-track-wrapper">
                 <CustomSlider
                   id="c6-coverSlider"
                   min={0}
-                  max={4}
+                  max={3}
                   step={1}
-                  value={Math.min(4, Math.max(0, coverIndex))}
+                  value={ci}
                   aria-label="Coverage amount"
                   onValueChange={(v) => onTermChange({ ...termState, coverIndex: v })}
                 />
@@ -122,16 +200,97 @@ export default function TermCalculator({
               <div className="slider-steps term-figma-cover-steps">
                 <span className="slider-step">₹ 25 L</span>
                 <span className="slider-step">₹ 50 L</span>
-                <span className="slider-step">₹ 75 L</span>
                 <span className="slider-step">₹ 1 Cr</span>
                 <span className="slider-step">₹ 2 Cr</span>
               </div>
             </div>
+
+            <div className="slider-group">
+              <div className="slider-header">
+                <label className="slider-label" htmlFor="c6-incomeSlider">
+                  Your annual income
+                </label>
+                <div className="slider-value-box">
+                  <span>{formatLakhsWithRupee(income)}</span>
+                </div>
+              </div>
+              <div className="slider-track-wrapper">
+                <CustomSlider
+                  id="c6-incomeSlider"
+                  min={1}
+                  max={200}
+                  value={income}
+                  aria-label="Annual income"
+                  onValueChange={patchIncome}
+                />
+              </div>
+              <div className="slider-range">
+                <span>₹1 L</span>
+                <span>₹2 Cr</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className={`cta-button term-figma-calc-cta ${resultShown ? 'term-cta--secondary calc-cta--recalc' : 'term-cta--primary'}${isStale ? ' cta-stale term-cta--needs-recalc' : ''}`}
+              onClick={runCalculate}
+              disabled={calculating}
+              aria-busy={calculating}
+            >
+              {calculating ? (
+                <>
+                  <TermCalcSpinner />
+                  <span>{resultShown ? 'Updating…' : 'Calculating…'}</span>
+                </>
+              ) : resultShown ? (
+                'Recalculate'
+              ) : (
+                'Calculate premium'
+              )}
+            </button>
           </div>
 
-          <div className="results-panel term-figma-results-panel">
+          <div
+            className={`results-panel term-figma-results-panel ${showEmpty ? 'results-empty' : ''}${isStale ? ' term-results-stale' : ''}`}
+          >
+            {calculating && resultShown ? (
+              <div className="term-calc-loading term-calc-loading--overlay" aria-live="polite">
+                <TermCalcSpinner />
+                <span className="term-calc-loading__text">Updating your quote…</span>
+              </div>
+            ) : null}
+
             <div className="results-content term-figma-results-inner">
-              <div className="term-figma-result" id="c6-result">
+              <div
+                id="c6-empty"
+                className="term-figma-empty"
+                hidden={!showEmpty}
+              >
+                <div className="term-figma-empty-illu-wrap" aria-hidden="true">
+                  <img src={emptyIllu} className="term-figma-empty-illu" alt="" width={118} height={152} />
+                </div>
+                <div className="term-figma-empty-text">
+                  <p className="term-figma-empty-title">See your price instantly</p>
+                  <p className="term-figma-empty-body">
+                    Adjust the sliders, then hit <span className="term-figma-empty-cta">Calculate premium</span> to
+                    get your personalised quote.
+                  </p>
+                </div>
+              </div>
+
+              {showSkeleton ? (
+                <div className="term-calc-skeleton-wrap" aria-busy="true">
+                  <div className="price-skeleton" />
+                  <p className="term-calc-skeleton-hint">Crunching numbers…</p>
+                </div>
+              ) : null}
+
+              <div
+                key={resultBlockKey}
+                className={`term-figma-result ${isStale ? 'result-stale' : ''}`}
+                id="c6-result"
+                hidden={!resultShown}
+              >
                 <div className="term-figma-result-top">
                   <div className="term-figma-price-cluster">
                     <p className="term-figma-starting">Starting from</p>
@@ -141,16 +300,16 @@ export default function TermCalculator({
                     </p>
                   </div>
                 </div>
-                <div className="term-figma-different-card">
+                <div className={`term-figma-different-card ${isStale ? 'result-stale' : ''}`}>
                   <h3 className="term-figma-different-title">What makes us different</h3>
                   <ul className="term-figma-different-list">
                     <li>
                       <img src={starIcon} alt="" width="18" height="18" className="term-figma-star" />
-                      <span>Family gets the full payout.</span>
+                      <span>Your family gets the full amount.</span>
                     </li>
                     <li>
                       <img src={starIcon} alt="" width="18" height="18" className="term-figma-star" />
-                      <span>Increase cover when life changes.</span>
+                      <span>Increase your cover as life changes.</span>
                     </li>
                   </ul>
                   <a
@@ -170,16 +329,6 @@ export default function TermCalculator({
               </div>
             </div>
           </div>
-
-          <a
-            className="cta-button calc-sticky-plans term-sticky-plans"
-            id="c6-stickyPlans"
-            href={plansUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            See plans
-          </a>
         </div>
       </div>
     </section>
