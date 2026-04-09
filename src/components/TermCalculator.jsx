@@ -6,10 +6,10 @@ import { CustomSlider } from './CustomSlider';
 import { COMPLIANCE_ARN_TERM, DISCLAIMER_TERM } from '../constants/compliance';
 import { publicAsset } from '../utils/publicAsset';
 import { formatLakhsWithRupee } from '../utils/format';
+import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
 
 const starIcon = publicAsset('icons/star.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
-const emptyIllu = publicAsset('icons/term-results-empty-illustration.svg');
 
 const coverLabels = ['₹ 25 L', '₹ 50 L', '₹ 1 Cr', '₹ 2 Cr'];
 
@@ -267,7 +267,13 @@ export default function TermCalculator({ active, termState, onTermChange, health
                 hidden={!showEmpty}
               >
                 <div className="term-figma-empty-illu-wrap" aria-hidden="true">
-                  <img src={emptyIllu} className="term-figma-empty-illu" alt="" width={118} height={152} />
+                  <img
+                    src={EMPTY_RESULTS_ILLUSTRATION_SRC}
+                    className="term-figma-empty-illu"
+                    alt=""
+                    width={118}
+                    height={152}
+                  />
                 </div>
                 <div className="term-figma-empty-text">
                   <p className="term-figma-empty-title">See your price instantly</p>

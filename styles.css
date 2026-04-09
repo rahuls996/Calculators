@@ -256,11 +256,12 @@ body {
   margin-top: 0;
 }
 
-#calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container {
+/* HLV: same single-row layout as Term (CTA lives in input column) */
+#calc5.hlv-calculator--figma .calculator-container {
   grid-template-rows: auto;
 }
 
-#calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container .results-panel {
+#calc5.hlv-calculator--figma .calculator-container .results-panel {
   grid-row: 1;
   grid-column: 2;
   align-self: stretch;
@@ -873,10 +874,6 @@ body {
 }
 
 @media (min-width: 481px) {
-  #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container > .calc-cta--first {
-    display: none;
-  }
-
   /* Unified UX: primary plan CTAs live in the results column (pill), not full-width bars */
   .tab-container .calculator-container > .calc-primary-plans-bar {
     display: none !important;
@@ -888,9 +885,6 @@ body {
     display: none !important;
   }
 
-  #calc5.hlv-calculator--figma:has(#c5-result:not([hidden])) .calculator-container > .calc-cta--first {
-    display: none;
-  }
 }
 
 /* ==========================================

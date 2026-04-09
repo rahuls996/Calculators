@@ -7,12 +7,12 @@ import { CustomSlider } from './CustomSlider';
 import { c1MemberPairIsValid } from '../constants/healthMembers';
 import { COMPLIANCE_ARN_HEALTH, DISCLAIMER_HEALTH } from '../constants/compliance';
 import { publicAsset } from '../utils/publicAsset';
+import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
 
 const adultIcon = publicAsset('icons/Adult.svg');
 const childIcon = publicAsset('icons/Child.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
 const starIcon = publicAsset('icons/star.svg');
-const emptyIllu = publicAsset('icons/term-results-empty-illustration.svg');
 
 const coverLabels = ['₹ 10 L', '₹ 25 L', '₹ 50 L', '₹ 1 Cr'];
 
@@ -327,7 +327,7 @@ export default function HealthCalculator({
               <div id="c1-empty" className="health-results-empty" hidden={!showEmpty}>
                 <div className="health-results-empty-illu-wrap" aria-hidden="true">
                   <img
-                    src={emptyIllu}
+                    src={EMPTY_RESULTS_ILLUSTRATION_SRC}
                     className="health-results-empty-illu"
                     alt=""
                     width={118}
