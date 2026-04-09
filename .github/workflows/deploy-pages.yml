@@ -1,4 +1,8 @@
 # Publishes the calculator site from branch `v9` to GitHub Pages (Vite build + legacy static files).
+#
+# Repository Settings → Pages → Build and deployment → Source: GitHub Actions (required).
+# If Source is set to "Deploy from a branch", GitHub serves raw index.html with /src/main.jsx
+# (dev-only) and the app shows a blank white screen.
 name: Deploy GitHub Pages (v9)
 
 on:
@@ -49,6 +53,8 @@ jobs:
           done
           cp -r Font _site/ 2>/dev/null || true
           touch _site/.nojekyll
+          # Fail if Vite did not rewrite the entry script (would mean broken deploy).
+          grep -qE 'src="/Calculators/assets/main-[A-Za-z0-9_-]+\.js"' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
