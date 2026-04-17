@@ -1261,15 +1261,26 @@
 }
 
 #calc6.term-calculator--figma .input-panel {
-  gap: 22px;
-  justify-content: center;
+  gap: 28px;
+  justify-content: flex-start;
+  padding-top: 4px;
+  padding-bottom: 8px;
 }
 
-#calc5.hlv-calculator--figma .calculator-intro , #calc6.term-calculator--figma .calculator-intro {
+#calc5.hlv-calculator--figma .calculator-intro,
+#calc6.term-calculator--figma .calculator-intro {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+#calc5.hlv-calculator--figma .calculator-intro {
   margin-bottom: 2px;
+}
+
+/* Two-slider term: extra spacing under intro so left column aligns with results card */
+#calc6.term-calculator--figma .calculator-intro {
+  margin-bottom: 8px;
 }
 
 #calc5.hlv-calculator--figma .term-figma-title , #calc6.term-calculator--figma .term-figma-title {

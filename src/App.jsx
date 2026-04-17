@@ -13,7 +13,7 @@ const initialHlv = {
   loans: 0,
   existingCover: 0,
 };
-const initialTerm = { age: 30, coverIndex: 0, term: 60, income: 50 };
+const initialTerm = { age: 30, coverIndex: 0, term: 60 };
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('calc1');

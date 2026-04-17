@@ -5,8 +5,8 @@ import { useAnimatedAmount } from '../hooks/useAnimatedAmount';
 import { CustomSlider } from './CustomSlider';
 import { COMPLIANCE_ARN_TERM, DISCLAIMER_TERM } from '../constants/compliance';
 import { publicAsset } from '../utils/publicAsset';
-import { formatLakhsWithRupee } from '../utils/format';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
+import { TERM_DEFAULT_INCOME_LAKHS } from '../constants/termDefaults';
 
 const starIcon = publicAsset('icons/star.svg');
 const arrowRightIcon = publicAsset('icons/arrow-right.svg');
@@ -42,8 +42,7 @@ function TermCalcSpinner() {
 }
 
 export default function TermCalculator({ active, termState, onTermChange, healthState, hlvState }) {
-  const { age, coverIndex, term = 60, income: incomeRaw } = termState;
-  const income = incomeRaw ?? 50;
+  const { age, coverIndex, term = 60 } = termState;
 
   const ci = Math.min(3, Math.max(0, coverIndex));
   const displayAge = Math.min(100, Math.max(18, age));
@@ -59,32 +58,32 @@ export default function TermCalculator({ active, termState, onTermChange, health
   }, [coverIndex, onTermChange, termState]);
 
   const paramsFor = useCallback(
-    (a, cIdx, inc) => ({
+    (a, cIdx) => ({
       age: Math.min(100, Math.max(18, a)),
       coverIndex: Math.min(3, Math.max(0, cIdx)),
       term,
       coverVariant: COVER_VARIANT,
-      income: Math.min(200, Math.max(1, inc)),
+      income: TERM_DEFAULT_INCOME_LAKHS,
     }),
     [term],
   );
 
   const liveParams = useMemo(
-    () => paramsFor(displayAge, ci, income),
-    [paramsFor, displayAge, ci, income],
+    () => paramsFor(displayAge, ci),
+    [paramsFor, displayAge, ci],
   );
 
   const liveResult = useMemo(() => computePrice('c6', liveParams), [liveParams]);
 
   const committedResult = useMemo(() => {
     if (!committed) return null;
-    return computePrice('c6', paramsFor(committed.age, committed.coverIndex, committed.income));
+    return computePrice('c6', paramsFor(committed.age, committed.coverIndex));
   }, [committed, paramsFor]);
 
   const isStale =
     resultShown &&
     committed != null &&
-    (committed.age !== displayAge || committed.coverIndex !== ci || committed.income !== income);
+    (committed.age !== displayAge || committed.coverIndex !== ci);
 
   const premiumSource = committedResult ?? liveResult;
   const monthlyText = '₹ ' + premiumSource.monthly.toLocaleString('en-IN');
@@ -99,7 +98,6 @@ export default function TermCalculator({ active, termState, onTermChange, health
       age: displayAge,
       coverIndex: ci,
       term: 60,
-      income,
     },
     true,
   );
@@ -109,31 +107,23 @@ export default function TermCalculator({ active, termState, onTermChange, health
     onTermChange({ ...termState, age: a });
   };
 
-  const patchIncome = (v) => {
-    const inc = Math.min(200, Math.max(1, v));
-    onTermChange({ ...termState, income: inc });
-  };
-
   const runCalculate = useCallback(async () => {
     setCalculating(true);
     await delay(CALC_MS);
     setCommitted({
       age: displayAge,
       coverIndex: ci,
-      income,
     });
     setResultShown(true);
     setCalculating(false);
     requestAnimationFrame(() => {
       document.getElementById('c6-result')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
-  }, [displayAge, ci, income]);
+  }, [displayAge, ci]);
 
   const showEmpty = !resultShown && !calculating;
   const showSkeleton = !resultShown && calculating;
-  const resultBlockKey = committed
-    ? `${committed.age}-${committed.coverIndex}-${committed.income}`
-    : 'initial';
+  const resultBlockKey = committed ? `${committed.age}-${committed.coverIndex}` : 'initial';
 
   return (
     <section
@@ -202,31 +192,6 @@ export default function TermCalculator({ active, termState, onTermChange, health
                 <span className="slider-step">₹ 50 L</span>
                 <span className="slider-step">₹ 1 Cr</span>
                 <span className="slider-step">₹ 2 Cr</span>
-              </div>
-            </div>
-
-            <div className="slider-group">
-              <div className="slider-header">
-                <label className="slider-label" htmlFor="c6-incomeSlider">
-                  Your annual income
-                </label>
-                <div className="slider-value-box">
-                  <span>{formatLakhsWithRupee(income)}</span>
-                </div>
-              </div>
-              <div className="slider-track-wrapper">
-                <CustomSlider
-                  id="c6-incomeSlider"
-                  min={1}
-                  max={200}
-                  value={income}
-                  aria-label="Annual income"
-                  onValueChange={patchIncome}
-                />
-              </div>
-              <div className="slider-range">
-                <span>₹1 L</span>
-                <span>₹2 Cr</span>
               </div>
             </div>
 

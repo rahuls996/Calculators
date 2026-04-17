@@ -4,6 +4,8 @@ const plansBaseUrls = {
   c6: 'https://www.acko.com/term-life-insurance/buy',
 };
 
+import { TERM_DEFAULT_INCOME_LAKHS } from '../constants/termDefaults';
+
 const COVER_STEPS_C1 = [1000000, 2500000, 5000000, 10000000];
 const C6_COVER_5 = [2500000, 5000000, 7500000, 10000000, 20000000];
 const C6_COVER_4 = [2500000, 5000000, 10000000, 20000000];
@@ -38,7 +40,7 @@ export function buildPlansUrl(calcId, c1State, c5State, c6State, isTermFigma) {
     params.set('age', String(c6State.age));
     params.set('cover', String(steps[ci]));
     params.set('term', isTermFigma ? '60' : String(c6State.term));
-    params.set('income', String(c6State.income ?? 50));
+    params.set('income', String(c6State.income ?? TERM_DEFAULT_INCOME_LAKHS));
     return base + '?' + params.toString();
   }
 
