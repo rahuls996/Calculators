@@ -7,6 +7,9 @@ export const WHAT_MAKES_US_DIFFERENT_TITLE = 'What makes us different';
 
 export const SEE_PLANS_CTA_LABEL = 'See plans';
 
+/** Right-rail empty state (before first result) — all calculators */
+export const EMPTY_RESULTS_TITLE = 'Get your premium estimate';
+
 /** Health insurance — results “differentiators” list */
 export const HEALTH_DIFFERENTIATOR_POINTS = Object.freeze([
   'Zero waiting period',

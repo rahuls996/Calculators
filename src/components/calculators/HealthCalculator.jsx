@@ -3,6 +3,7 @@ import { computePrice } from '@/pricing/computePrice';
 import { buildPlansUrl } from '@/utils/plansUrl';
 import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
 import { CustomSlider } from '@/components/ui/CustomSlider';
+import { EMPTY_RESULTS_TITLE } from '@/constants/calculatorCopy';
 import { c1MemberPairIsValid } from '@/constants/healthMembers';
 import { publicAsset } from '@/utils/publicAsset';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
@@ -330,11 +331,11 @@ export default function HealthCalculator({
                   />
                 </div>
                 <div className="health-results-empty-text">
-                  <p className="health-results-empty-title">See your price instantly</p>
+                  <p className="health-results-empty-title">{EMPTY_RESULTS_TITLE}</p>
                   <p className="health-results-empty-body">
-                    Adjust the sliders, then hit{' '}
-                    <span className="health-results-empty-cta">Calculate premium</span> to get your
-                    personalised quote.
+                    Adjust the sliders and hit{' '}
+                    <span className="health-results-empty-cta">Calculate premium</span> to see an estimated
+                    quote for your plan.
                   </p>
                 </div>
               </div>

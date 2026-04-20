@@ -3,6 +3,7 @@ import { computePrice } from '@/pricing/computePrice';
 import { buildPlansUrl } from '@/utils/plansUrl';
 import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
 import { CustomSlider } from '@/components/ui/CustomSlider';
+import { EMPTY_RESULTS_TITLE } from '@/constants/calculatorCopy';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
 import { TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
 import { DifferentiatorsCard } from './DifferentiatorsCard';
@@ -238,10 +239,11 @@ export default function TermCalculator({ active, termState, onTermChange, health
                   />
                 </div>
                 <div className="term-figma-empty-text">
-                  <p className="term-figma-empty-title">See your price instantly</p>
+                  <p className="term-figma-empty-title">{EMPTY_RESULTS_TITLE}</p>
                   <p className="term-figma-empty-body">
-                    Adjust the sliders, then hit <span className="term-figma-empty-cta">Calculate premium</span> to
-                    get your personalised quote.
+                    Adjust the sliders and hit{' '}
+                    <span className="term-figma-empty-cta">Calculate premium</span> to see an estimated quote for
+                    your plan.
                   </p>
                 </div>
               </div>
