@@ -10,6 +10,12 @@ export const SEE_PLANS_CTA_LABEL = 'See plans';
 /** Right-rail empty state (before first result) — all calculators */
 export const EMPTY_RESULTS_TITLE = 'Get your premium estimate';
 
+/**
+ * Health only: member steppers allow a fixed set of adult/child pairs; full family setup on plans page.
+ */
+export const HEALTH_MEMBERS_PLANS_HINT =
+  'This quick estimate uses a few standard member options. If you need something different, continue to See plans to customise your quote.';
+
 /** Health insurance — results “differentiators” list */
 export const HEALTH_DIFFERENTIATOR_POINTS = Object.freeze([
   'Zero waiting period',

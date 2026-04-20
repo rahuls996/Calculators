@@ -603,6 +603,19 @@
   }
 }
 
+/* Health only — limited member pairs in-widget vs full family on plans page */
+#calc1.health-calculator--seo .health-members-plans-hint {
+  margin: 16px 0 0;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.52);
+  text-align: center;
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
 #calc1.health-calculator--seo .health-primary-cta {
   margin-top: 20px;
   min-height: 60px;
@@ -997,16 +1010,6 @@
 
 #calc1.health-calculator--seo .health-price-suffix {
   font-weight: 700;
-}
-
-#calc1.health-calculator--seo .health-perday {
-  margin: 10px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.48);
-  text-align: center;
-  max-width: 20rem;
-  margin-inline: auto;
 }
 
 #calc1.health-calculator--seo .health-different-card {

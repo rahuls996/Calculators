@@ -8,6 +8,7 @@ import { c1MemberPairIsValid } from '@/constants/healthMembers';
 import { publicAsset } from '@/utils/publicAsset';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
 import { DifferentiatorsCard } from './DifferentiatorsCard';
+import { HealthMembersPlansHint } from './HealthMembersPlansHint';
 import { ResultComplianceFooter } from './ResultComplianceFooter';
 
 const adultIcon = publicAsset('icons/Adult.svg');
@@ -93,8 +94,6 @@ export default function HealthCalculator({
   const quote = committedResult ?? liveResult;
   const premiumText = '₹ ' + quote.monthly.toLocaleString('en-IN');
   const animatedPremium = useAnimatedAmount(premiumText);
-
-  const perDayText = quote.daily ? 'About ₹' + quote.daily + '/day (indicative).' : '';
 
   const plansUrlState = {
     ...healthState,
@@ -289,6 +288,8 @@ export default function HealthCalculator({
               </div>
             </div>
 
+            <HealthMembersPlansHint />
+
             <button
               type="button"
               className={`cta-button health-figma-calc-cta ${resultShown ? 'health-secondary-cta health-recalc-cta' : 'health-primary-cta'}${isStale ? ' cta-stale health-cta--needs-recalc' : ''}`}
@@ -359,9 +360,6 @@ export default function HealthCalculator({
                     <span>{animatedPremium}</span>
                     <span className="health-price-suffix">/month</span>
                   </p>
-                  <div className="health-perday-pill">
-                    <p className="health-perday">{perDayText}</p>
-                  </div>
                 </div>
                 <DifferentiatorsCard variant="health" plansUrl={plansUrl} isStale={isStale} />
                 <ResultComplianceFooter variant="health" />
