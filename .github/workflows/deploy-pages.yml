@@ -3,6 +3,8 @@
 # Repository Settings → Pages → Build and deployment → Source: GitHub Actions (required).
 # If Source is set to "Deploy from a branch", GitHub serves raw index.html with /src/main.jsx
 # (dev-only) and the app shows a blank white screen.
+# If the site worked once then went blank after a new deploy, hard-refresh (or clear cache):
+# stale cached index.html can reference removed hashed *.js files (404 → white screen).
 name: Deploy GitHub Pages (v9)
 
 on:
