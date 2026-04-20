@@ -1,6 +1,6 @@
 import { StrictMode, useState, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
-import HealthCalculator from './components/HealthCalculator';
+import HealthCalculator from '@/components/calculators/HealthCalculator';
 
 import '../fonts.css';
 import '../styles.css';

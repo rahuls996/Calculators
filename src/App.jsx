@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
-import TabNav from './components/TabNav';
-import HealthCalculator from './components/HealthCalculator';
-import HlvCalculator from './components/HlvCalculator';
-import TermCalculator from './components/TermCalculator';
+import TabNav from '@/components/layout/TabNav';
+import HealthCalculator from '@/components/calculators/HealthCalculator';
+import HlvCalculator from '@/components/calculators/HlvCalculator';
+import TermCalculator from '@/components/calculators/TermCalculator';
 
 const initialHealth = { age: 35, coverIndex: 0, adults: 1, children: 1 };
 const initialHlv = {

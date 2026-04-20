@@ -1,10 +1,10 @@
+import { TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
+
 const plansBaseUrls = {
   c1: 'https://www.acko.com/health-insurance/buy',
   c5: 'https://www.acko.com/term-life-insurance/buy',
   c6: 'https://www.acko.com/term-life-insurance/buy',
 };
-
-import { TERM_DEFAULT_INCOME_LAKHS } from '../constants/termDefaults';
 
 const COVER_STEPS_C1 = [1000000, 2500000, 5000000, 10000000];
 const C6_COVER_5 = [2500000, 5000000, 7500000, 10000000, 20000000];

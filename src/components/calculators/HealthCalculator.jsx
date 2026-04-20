@@ -1,18 +1,16 @@
 import { useMemo, useState, useCallback } from 'react';
-import { computePrice } from '../pricing/computePrice';
-import { healthHospitalisationBullet } from '../utils/format';
-import { buildPlansUrl } from '../utils/plansUrl';
-import { useAnimatedAmount } from '../hooks/useAnimatedAmount';
-import { CustomSlider } from './CustomSlider';
-import { c1MemberPairIsValid } from '../constants/healthMembers';
-import { COMPLIANCE_ARN_HEALTH, DISCLAIMER_HEALTH } from '../constants/compliance';
-import { publicAsset } from '../utils/publicAsset';
-import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
+import { computePrice } from '@/pricing/computePrice';
+import { buildPlansUrl } from '@/utils/plansUrl';
+import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
+import { CustomSlider } from '@/components/ui/CustomSlider';
+import { c1MemberPairIsValid } from '@/constants/healthMembers';
+import { publicAsset } from '@/utils/publicAsset';
+import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
+import { DifferentiatorsCard } from './DifferentiatorsCard';
+import { ResultComplianceFooter } from './ResultComplianceFooter';
 
 const adultIcon = publicAsset('icons/Adult.svg');
 const childIcon = publicAsset('icons/Child.svg');
-const arrowRightIcon = publicAsset('icons/arrow-right.svg');
-const starIcon = publicAsset('icons/star.svg');
 
 const coverLabels = ['₹ 10 L', '₹ 25 L', '₹ 50 L', '₹ 1 Cr'];
 
@@ -96,9 +94,6 @@ export default function HealthCalculator({
   const animatedPremium = useAnimatedAmount(premiumText);
 
   const perDayText = quote.daily ? 'About ₹' + quote.daily + '/day (indicative).' : '';
-
-  const coverIdxForBullets = resultShown && committed != null ? committed.coverIndex : coverIndex;
-  const hospitalisationBullet = healthHospitalisationBullet(coverIdxForBullets);
 
   const plansUrlState = {
     ...healthState,
@@ -367,27 +362,8 @@ export default function HealthCalculator({
                     <p className="health-perday">{perDayText}</p>
                   </div>
                 </div>
-                <div className={`health-different-card ${isStale ? 'result-stale' : ''}`}>
-                  <h3 className="health-different-title">What makes us different</h3>
-                  <ul className="health-different-list">
-                    <li>
-                      <img src={starIcon} alt="" width="18" height="18" className="health-star" />
-                      <span>{hospitalisationBullet}</span>
-                    </li>
-                    <li>
-                      <img src={starIcon} alt="" width="18" height="18" className="health-star" />
-                      <span>14,000+ hospitals</span>
-                    </li>
-                  </ul>
-                  <a className="health-plans-btn" href={plansUrl} target="_blank" rel="noopener noreferrer">
-                    <span className="health-plans-btn-label">See plans</span>
-                    <span className="health-plans-btn-icon" aria-hidden="true">
-                      <img src={arrowRightIcon} alt="" width="24" height="24" />
-                    </span>
-                  </a>
-                </div>
-                <p className="health-result-arn">ARN: {COMPLIANCE_ARN_HEALTH}</p>
-                <p className="health-plans-footnote">{DISCLAIMER_HEALTH}</p>
+                <DifferentiatorsCard variant="health" plansUrl={plansUrl} isStale={isStale} />
+                <ResultComplianceFooter variant="health" />
               </div>
             </div>
           </div>

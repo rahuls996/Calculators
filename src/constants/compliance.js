@@ -1,17 +1,19 @@
-/** Replace with approved ARN before go-live (Health / GI). */
-export const COMPLIANCE_ARN_HEALTH = 'ARN-XXXXXXXXXX';
+/**
+ * Compliance identifiers and regulatory disclaimers for calculator result footers.
+ * Consumed by `ResultComplianceFooter` and must stay aligned with legal / product.
+ */
 
-/** Replace with approved ARN before go-live (Term / Life). */
+export const COMPLIANCE_UID_HEALTH = 'UID-XXXXXXXXXX';
+
 export const COMPLIANCE_ARN_TERM = 'ARN-XXXXXXXXXX';
 
-/** HLV results / disclosures — replace before go-live if required. */
 export const COMPLIANCE_ARN_HLV = 'ARN-XXXXXXXXXX';
 
 export const DISCLAIMER_HEALTH =
-  'Please note this is an indicative price based on your inputs. Final premiums may vary.';
+  'This is an indicative price based on your inputs. Your final premium (including GST) will be shown on the plans page. Estimates may vary for Delhi, Mumbai, and Kolkata.';
 
 export const DISCLAIMER_TERM =
-  'Premiums shown are indicative and based on a male, non-smoker profile and standard assumptions. Final premiums may vary based on underwriting, age, health, lifestyle, and other factors.';
+  'Premium shown is for a non-smoker male. Policy term is auto-set to 60 years. Please note this is an indicative price based on your inputs.';
 
 export const DISCLAIMER_HLV =
-  'The value shown is indicative and based on standard assumptions. Final insurance eligibility and premium depend on underwriting and policy terms.';
+  "This calculator is a guide only. Don't make investment decisions based on this alone.";

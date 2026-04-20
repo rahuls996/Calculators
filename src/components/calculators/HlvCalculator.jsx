@@ -1,15 +1,12 @@
 import { useMemo, useEffect, useState, useCallback } from 'react';
-import { computePrice } from '../pricing/computePrice';
-import { formatCoverHeroINR, formatLakhsWithRupee } from '../utils/format';
-import { buildPlansUrl } from '../utils/plansUrl';
-import { useAnimatedAmount } from '../hooks/useAnimatedAmount';
-import { CustomSlider } from './CustomSlider';
-import { COMPLIANCE_ARN_HLV, DISCLAIMER_HLV } from '../constants/compliance';
-import { publicAsset } from '../utils/publicAsset';
-import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
-
-const starIcon = publicAsset('icons/star.svg');
-const arrowRightIcon = publicAsset('icons/arrow-right.svg');
+import { computePrice } from '@/pricing/computePrice';
+import { formatCoverHeroINR, formatLakhsWithRupee } from '@/utils/format';
+import { buildPlansUrl } from '@/utils/plansUrl';
+import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
+import { CustomSlider } from '@/components/ui/CustomSlider';
+import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
+import { DifferentiatorsCard } from './DifferentiatorsCard';
+import { ResultComplianceFooter } from './ResultComplianceFooter';
 
 const CALC_MS = 720;
 
@@ -468,34 +465,8 @@ export default function HlvCalculator({
                     </div>
                   </div>
                 </div>
-                <div className={`term-figma-different-card hlv-different-card ${isStale ? 'result-stale' : ''}`}>
-                  <h3 className="term-figma-different-title hlv-different-title">
-                    What makes us different
-                  </h3>
-                  <ul className="term-figma-different-list hlv-different-list">
-                    <li>
-                      <img src={starIcon} alt="" width="24" height="24" className="term-figma-star" />
-                      <span>Family gets the full payout.</span>
-                    </li>
-                    <li>
-                      <img src={starIcon} alt="" width="24" height="24" className="term-figma-star" />
-                      <span>Increase cover when life changes.</span>
-                    </li>
-                  </ul>
-                  <a
-                    className="term-figma-plans-btn hlv-plans-btn"
-                    href={plansUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="term-figma-plans-btn-label">See plans</span>
-                    <span className="term-figma-plans-btn-icon" aria-hidden="true">
-                      <img src={arrowRightIcon} alt="" width="24" height="24" />
-                    </span>
-                  </a>
-                </div>
-                <p className="hlv-result-arn">ARN: {COMPLIANCE_ARN_HLV}</p>
-                <p className="term-figma-footer-note hlv-footer-note">{DISCLAIMER_HLV}</p>
+                <DifferentiatorsCard variant="hlv" plansUrl={plansUrl} isStale={isStale} />
+                <ResultComplianceFooter variant="hlv" />
               </div>
             </div>
           </div>

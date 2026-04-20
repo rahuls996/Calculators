@@ -1,15 +1,12 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { computePrice } from '../pricing/computePrice';
-import { buildPlansUrl } from '../utils/plansUrl';
-import { useAnimatedAmount } from '../hooks/useAnimatedAmount';
-import { CustomSlider } from './CustomSlider';
-import { COMPLIANCE_ARN_TERM, DISCLAIMER_TERM } from '../constants/compliance';
-import { publicAsset } from '../utils/publicAsset';
-import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '../constants/emptyResultsIllustration';
-import { TERM_DEFAULT_INCOME_LAKHS } from '../constants/termDefaults';
-
-const starIcon = publicAsset('icons/star.svg');
-const arrowRightIcon = publicAsset('icons/arrow-right.svg');
+import { computePrice } from '@/pricing/computePrice';
+import { buildPlansUrl } from '@/utils/plansUrl';
+import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
+import { CustomSlider } from '@/components/ui/CustomSlider';
+import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
+import { TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
+import { DifferentiatorsCard } from './DifferentiatorsCard';
+import { ResultComplianceFooter } from './ResultComplianceFooter';
 
 const coverLabels = ['₹ 25 L', '₹ 50 L', '₹ 1 Cr', '₹ 2 Cr'];
 
@@ -271,32 +268,8 @@ export default function TermCalculator({ active, termState, onTermChange, health
                     </p>
                   </div>
                 </div>
-                <div className={`term-figma-different-card ${isStale ? 'result-stale' : ''}`}>
-                  <h3 className="term-figma-different-title">What makes us different</h3>
-                  <ul className="term-figma-different-list">
-                    <li>
-                      <img src={starIcon} alt="" width="18" height="18" className="term-figma-star" />
-                      <span>Your family gets the full amount.</span>
-                    </li>
-                    <li>
-                      <img src={starIcon} alt="" width="18" height="18" className="term-figma-star" />
-                      <span>Increase your cover as life changes.</span>
-                    </li>
-                  </ul>
-                  <a
-                    className="term-figma-plans-btn"
-                    href={plansUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="term-figma-plans-btn-label">See plans</span>
-                    <span className="term-figma-plans-btn-icon" aria-hidden="true">
-                      <img src={arrowRightIcon} alt="" width="24" height="24" />
-                    </span>
-                  </a>
-                </div>
-                <p className="term-result-arn">ARN: {COMPLIANCE_ARN_TERM}</p>
-                <p className="term-figma-footer-note">{DISCLAIMER_TERM}</p>
+                <DifferentiatorsCard variant="term" plansUrl={plansUrl} isStale={isStale} />
+                <ResultComplianceFooter variant="term" />
               </div>
             </div>
           </div>
