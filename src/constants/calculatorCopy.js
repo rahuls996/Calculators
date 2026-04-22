@@ -12,8 +12,13 @@ export const EMPTY_RESULTS_TITLE = 'Get your premium estimate';
 
 /**
  * Health only: member steppers allow a fixed set of adult/child pairs; full family setup on plans page.
+ * Before the first quote there is no “See plans” CTA in the right column, so the initial line avoids that label.
  */
-export const HEALTH_MEMBERS_PLANS_HINT =
+export const HEALTH_MEMBERS_PLANS_HINT_BEFORE_RESULT =
+  'This quick estimate uses a few standard member options. After you see your estimate, you can customise members and cover on the plans page.';
+
+/** Shown once a result exists, when the “See plans” CTA is visible below the price. */
+export const HEALTH_MEMBERS_PLANS_HINT_AFTER_RESULT =
   'This quick estimate uses a few standard member options. If you need something different, continue to See plans to customise your quote.';
 
 /** Health insurance — results “differentiators” list */

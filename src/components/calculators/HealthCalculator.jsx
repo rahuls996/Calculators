@@ -288,7 +288,7 @@ export default function HealthCalculator({
               </div>
             </div>
 
-            <HealthMembersPlansHint />
+            <HealthMembersPlansHint resultShown={resultShown} />
 
             <button
               type="button"

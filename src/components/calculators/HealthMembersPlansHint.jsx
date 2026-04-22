@@ -1,10 +1,13 @@
-import { HEALTH_MEMBERS_PLANS_HINT } from '@/constants/calculatorCopy';
+import {
+  HEALTH_MEMBERS_PLANS_HINT_AFTER_RESULT,
+  HEALTH_MEMBERS_PLANS_HINT_BEFORE_RESULT,
+} from '@/constants/calculatorCopy';
 
 /** Health calculator only — member combinations are limited in-widget. */
-export function HealthMembersPlansHint() {
+export function HealthMembersPlansHint({ resultShown = false }) {
   return (
     <p className="health-members-plans-hint" role="note">
-      {HEALTH_MEMBERS_PLANS_HINT}
+      {resultShown ? HEALTH_MEMBERS_PLANS_HINT_AFTER_RESULT : HEALTH_MEMBERS_PLANS_HINT_BEFORE_RESULT}
     </p>
   );
 }
