@@ -1,5 +1,4 @@
 import {
-  COMPLIANCE_ARN_HLV,
   COMPLIANCE_ARN_TERM,
   COMPLIANCE_UID_HEALTH,
   DISCLAIMER_HEALTH,
@@ -13,10 +12,12 @@ import {
 export function ResultComplianceFooter({ variant }) {
   if (variant === 'health') {
     return (
-      <>
-        <p className="health-result-arn">UID: {COMPLIANCE_UID_HEALTH}</p>
+      <div className="health-compliance-block">
+        <p className="health-result-arn">
+          {`UID: ${COMPLIANCE_UID_HEALTH} | T&C apply`}
+        </p>
         <p className="health-plans-footnote">{DISCLAIMER_HEALTH}</p>
-      </>
+      </div>
     );
   }
   if (variant === 'term') {
@@ -31,10 +32,7 @@ export function ResultComplianceFooter({ variant }) {
   }
   if (variant === 'hlv') {
     return (
-      <>
-        <p className="hlv-result-arn">ARN: {COMPLIANCE_ARN_HLV}</p>
-        <p className="term-figma-footer-note hlv-footer-note">{DISCLAIMER_HLV}</p>
-      </>
+      <p className="term-figma-footer-note hlv-footer-note">{DISCLAIMER_HLV}</p>
     );
   }
   return null;

@@ -105,8 +105,6 @@ export default function HlvCalculator({
 
   const quoteForDisplay = committedResult ?? liveResult;
   const coverHeroText = formatCoverHeroINR(quoteForDisplay.suggestedCoverRs ?? quoteForDisplay.price);
-  const monthlyStr =
-    quoteForDisplay.monthly != null ? '₹ ' + quoteForDisplay.monthly.toLocaleString('en-IN') : '₹ 0';
   const animatedSuggestedCover = useAnimatedAmount(coverHeroText);
 
   const plansUrl = buildPlansUrl(
@@ -116,10 +114,6 @@ export default function HlvCalculator({
     c6State,
     isTermFigma,
   );
-
-  const perDayText = quoteForDisplay.monthly
-    ? `Indicative term premium from ${monthlyStr}/month (illustrative).`
-    : '';
 
   const patchHlv = useCallback(
     (partial) => {
@@ -454,9 +448,6 @@ export default function HlvCalculator({
                     <p className="hlv-mobile-price-line">
                       <span className="hlv-mobile-price-amount">{animatedSuggestedCover}</span>
                     </p>
-                    <div className="hlv-perday-capsule">
-                      <p className="hlv-perday-text">{perDayText}</p>
-                    </div>
                   </div>
                   <div className="hlv-hero hlv-hero--desktop" aria-live="polite">
                     <div className="term-figma-price-cluster">

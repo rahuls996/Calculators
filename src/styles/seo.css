@@ -1112,8 +1112,34 @@
   box-sizing: border-box;
 }
 
+/* UID + T&C and disclaimer: full-width column, text centered in panel */
+#calc1.health-calculator--seo .health-compliance-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 2px;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+#calc1.health-calculator--seo .health-compliance-block .health-result-arn,
+#calc1.health-calculator--seo .health-compliance-block .health-plans-footnote {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  margin-inline: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#calc1.health-calculator--seo .health-compliance-block .health-plans-footnote {
+  padding: 0 4px;
+}
+
 #calc1.health-calculator--seo .health-result-arn,
-#calc5.hlv-calculator--figma .hlv-result-arn,
 #calc6.term-calculator--figma .term-result-arn {
   margin: 0 0 8px;
   font-size: 11px;
@@ -1581,7 +1607,6 @@
 
 #calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .term-result-arn,
 #calc6.term-calculator--figma .term-figma-result:not([hidden]) .term-result-arn,
-#calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .hlv-result-arn,
 #calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .term-figma-footer-note,
 #calc6.term-calculator--figma .term-figma-result:not([hidden]) .term-figma-footer-note {
   animation: calc-result-fade-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
@@ -2167,26 +2192,6 @@
     text-shadow: 0 2px 14px rgba(78, 41, 187, 0.22), 0 1px 2px rgba(78, 41, 187, 0.12);
   }
 
-  #calc5.hlv-calculator--figma .hlv-perday-capsule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 8px;
-    border-radius: 999px;
-    max-width: 260px;
-    background: linear-gradient(100deg, rgb(231, 231, 231) 0%, rgba(235, 210, 255, 0) 90%);
-    box-sizing: border-box;
-  }
-
-  #calc5.hlv-calculator--figma .hlv-perday-text {
-    margin: 0;
-    font-size: 11.94px;
-    font-weight: 500;
-    line-height: 15.35px;
-    color: #5920c5;
-    text-align: center;
-  }
-
   #calc5.hlv-calculator--figma .hlv-different-card {
     padding: 20px;
     gap: 16px;
@@ -2339,7 +2344,6 @@
   #calc6.term-calculator--figma .term-figma-result:not([hidden]) .term-figma-different-card,
   #calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .term-result-arn,
   #calc6.term-calculator--figma .term-figma-result:not([hidden]) .term-result-arn,
-  #calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .hlv-result-arn,
   #calc5.hlv-calculator--figma .term-figma-result:not([hidden]) .term-figma-footer-note,
   #calc6.term-calculator--figma .term-figma-result:not([hidden]) .term-figma-footer-note {
     animation: none !important;
