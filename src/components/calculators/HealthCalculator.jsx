@@ -217,7 +217,7 @@ export default function HealthCalculator({
             </div>
 
             <div className="option-group health-figma-members">
-              <label className="option-label">Who’s on the plan?</label>
+              <label className="option-label">Who are you covering?</label>
               <div className="member-stepper-group health-figma-stepper-group">
                 <div className="member-stepper health-figma-stepper">
                   <div className="member-stepper-head">

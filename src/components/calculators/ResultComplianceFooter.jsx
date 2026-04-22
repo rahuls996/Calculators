@@ -22,7 +22,9 @@ export function ResultComplianceFooter({ variant }) {
   if (variant === 'term') {
     return (
       <>
-        <p className="term-result-arn">ARN: {COMPLIANCE_ARN_TERM}</p>
+        <p className="term-result-arn">
+          {`ARN: ${COMPLIANCE_ARN_TERM} | T&C apply`}
+        </p>
         <p className="term-figma-footer-note">{DISCLAIMER_TERM}</p>
       </>
     );
