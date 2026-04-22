@@ -5,7 +5,8 @@
 
 export const COMPLIANCE_UID_HEALTH = 'UID-XXXXXXXXXX';
 
-export const COMPLIANCE_ARN_TERM = 'ARN-XXXXXXXXXX';
+/** Shown as: ARN: {value} | T&C apply on the term calculator footer. */
+export const COMPLIANCE_ARN_TERM = 'XXXXX';
 
 export const COMPLIANCE_ARN_HLV = 'ARN-XXXXXXXXXX';
 

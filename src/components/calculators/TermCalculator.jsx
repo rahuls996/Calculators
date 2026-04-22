@@ -5,7 +5,7 @@ import { useAnimatedAmount } from '@/hooks/useAnimatedAmount';
 import { CustomSlider } from '@/components/ui/CustomSlider';
 import { EMPTY_RESULTS_TITLE } from '@/constants/calculatorCopy';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
-import { TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
+import { TERM_AGE_MAX, TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
 import { DifferentiatorsCard } from './DifferentiatorsCard';
 import { ResultComplianceFooter } from './ResultComplianceFooter';
 
@@ -43,7 +43,7 @@ export default function TermCalculator({ active, termState, onTermChange, health
   const { age, coverIndex, term = 60 } = termState;
 
   const ci = Math.min(3, Math.max(0, coverIndex));
-  const displayAge = Math.min(100, Math.max(18, age));
+  const displayAge = Math.min(TERM_AGE_MAX, Math.max(18, age));
 
   const [resultShown, setResultShown] = useState(false);
   const [calculating, setCalculating] = useState(false);
@@ -55,9 +55,15 @@ export default function TermCalculator({ active, termState, onTermChange, health
     }
   }, [coverIndex, onTermChange, termState]);
 
+  useEffect(() => {
+    if (age > TERM_AGE_MAX) {
+      onTermChange({ ...termState, age: TERM_AGE_MAX });
+    }
+  }, [age, onTermChange, termState]);
+
   const paramsFor = useCallback(
     (a, cIdx) => ({
-      age: Math.min(100, Math.max(18, a)),
+      age: Math.min(TERM_AGE_MAX, Math.max(18, a)),
       coverIndex: Math.min(3, Math.max(0, cIdx)),
       term,
       coverVariant: COVER_VARIANT,
@@ -101,7 +107,7 @@ export default function TermCalculator({ active, termState, onTermChange, health
   );
 
   const setAge = (v) => {
-    const a = Math.min(100, Math.max(18, v));
+    const a = Math.min(TERM_AGE_MAX, Math.max(18, v));
     onTermChange({ ...termState, age: a });
   };
 
@@ -153,7 +159,7 @@ export default function TermCalculator({ active, termState, onTermChange, health
                 <CustomSlider
                   id="c6-ageSlider"
                   min={18}
-                  max={100}
+                  max={TERM_AGE_MAX}
                   value={displayAge}
                   aria-label="Your age"
                   onValueChange={setAge}
@@ -161,7 +167,7 @@ export default function TermCalculator({ active, termState, onTermChange, health
               </div>
               <div className="slider-range">
                 <span>18 yrs</span>
-                <span>100 yrs</span>
+                <span>{TERM_AGE_MAX} yrs</span>
               </div>
             </div>
 

@@ -97,6 +97,8 @@ function calcC5(p) {
 const C6_COVER_STEPS = [2500000, 5000000, 7500000, 10000000, 20000000];
 /** Figma SEO widget (3430:1434): ₹25L, ₹50L, ₹1Cr, ₹2Cr */
 const C6_COVER_STEPS_4 = [2500000, 5000000, 10000000, 20000000];
+/** Must match `TERM_AGE_MAX` in `src/constants/termDefaults.js` (term calculator UI). */
+const TERM_AGE_MAX = 55;
 
 function getTermAgeFactor(age) {
   if (age <= 25) return 0.7;
@@ -120,7 +122,8 @@ function calcC6(p) {
   const cover = steps[idx];
   const coverInLakhs = cover / 100000;
   const baseAnnual = coverInLakhs * 28;
-  const ageMul  = getTermAgeFactor(p.age);
+  const age = Math.min(TERM_AGE_MAX, Math.max(18, Number(p.age) || 18));
+  const ageMul = getTermAgeFactor(age);
   const term = p.coverVariant === '4' ? 60 : p.term;
   const termMul = getTermFactor(term);
   const ageComp   = r100(baseAnnual * (ageMul - 1));

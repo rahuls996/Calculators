@@ -3,6 +3,7 @@
  */
 
 import { getHlvDiscountRateForHorizon } from '../data/hlvDiscountGrid.js';
+import { TERM_AGE_MAX } from '@/constants/termDefaults.js';
 
 function getAgeMultiplier(age) {
   if (age <= 25) return 0.6;
@@ -103,7 +104,7 @@ function calcC6(p) {
   const cover = steps[idx];
   const coverInLakhs = cover / 100000;
   const baseAnnual = coverInLakhs * 28;
-  const age = Math.min(100, Math.max(18, Number(p.age) || 18));
+  const age = Math.min(TERM_AGE_MAX, Math.max(18, Number(p.age) || 18));
   const ageMul = getTermAgeFactor(age);
   const term = p.coverVariant === '4' ? 60 : p.term;
   const termMul = getTermFactor(term);
