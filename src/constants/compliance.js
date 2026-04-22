@@ -14,7 +14,7 @@ export const DISCLAIMER_HEALTH =
   'This premium estimate is based on your inputs and a few standard assumptions, and may not reflect the final premium. Estimates may vary for Delhi, Mumbai, and Kolkata. Click "See plans" to view the exact premium.';
 
 export const DISCLAIMER_TERM =
-  'Premium shown is for a non-smoker male. Policy term is auto-set to 60 years. Please note this is an indicative price based on your inputs.';
+  "This quick estimate is calculated using standard assumptions (e.g., non-smoker profile and retirement age of 60 years) for illustration purposes only. The premium shown is indicative and may vary based on your actual details, underwriting, and selected plan options. Please click 'See plans' to view your exact quote.";
 
 export const DISCLAIMER_HLV =
   "This calculator is a guide only. Don't make investment decisions based on this alone.";
