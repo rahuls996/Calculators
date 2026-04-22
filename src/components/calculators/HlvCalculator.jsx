@@ -458,7 +458,7 @@ export default function HlvCalculator({
                     </div>
                   </div>
                 </div>
-                <DifferentiatorsCard variant="hlv" plansUrl={plansUrl} isStale={isStale} />
+                <DifferentiatorsCard variant="hlv" plansUrl={plansUrl} />
                 <ResultComplianceFooter variant="hlv" />
               </div>
             </div>

@@ -11,8 +11,7 @@ const arrowRightSrc = publicAsset('icons/arrow-right.svg');
 
 const LAYOUT = {
   health: {
-    cardClass: (isStale) =>
-      `health-different-card${isStale ? ' result-stale' : ''}`,
+    cardClass: 'health-different-card',
     titleClass: 'health-different-title',
     listClass: 'health-different-list',
     starClass: 'health-star',
@@ -23,8 +22,7 @@ const LAYOUT = {
     points: HEALTH_DIFFERENTIATOR_POINTS,
   },
   term: {
-    cardClass: (isStale) =>
-      `term-figma-different-card${isStale ? ' result-stale' : ''}`,
+    cardClass: 'term-figma-different-card',
     titleClass: 'term-figma-different-title',
     listClass: 'term-figma-different-list',
     starClass: 'term-figma-star',
@@ -35,8 +33,7 @@ const LAYOUT = {
     points: LIFE_PRODUCT_DIFFERENTIATOR_POINTS,
   },
   hlv: {
-    cardClass: (isStale) =>
-      `term-figma-different-card hlv-different-card${isStale ? ' result-stale' : ''}`,
+    cardClass: 'term-figma-different-card hlv-different-card',
     titleClass: 'term-figma-different-title hlv-different-title',
     listClass: 'term-figma-different-list hlv-different-list',
     starClass: 'term-figma-star',
@@ -51,12 +48,12 @@ const LAYOUT = {
 /**
  * “What makes us different” card + See plans CTA (Health, Term, or HLV styling).
  */
-export function DifferentiatorsCard({ variant, plansUrl, isStale }) {
+export function DifferentiatorsCard({ variant, plansUrl }) {
   const layout = LAYOUT[variant];
   if (!layout) return null;
 
   return (
-    <div className={layout.cardClass(!!isStale)}>
+    <div className={layout.cardClass}>
       <h3 className={layout.titleClass}>{WHAT_MAKES_US_DIFFERENT_TITLE}</h3>
       <ul className={layout.listClass}>
         {layout.points.map((text) => (

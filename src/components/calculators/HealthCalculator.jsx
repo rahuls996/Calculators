@@ -361,7 +361,7 @@ export default function HealthCalculator({
                     <span className="health-price-suffix">/month</span>
                   </p>
                 </div>
-                <DifferentiatorsCard variant="health" plansUrl={plansUrl} isStale={isStale} />
+                <DifferentiatorsCard variant="health" plansUrl={plansUrl} />
                 <ResultComplianceFooter variant="health" />
               </div>
             </div>

@@ -969,11 +969,13 @@
 }
 
 #calc1.health-calculator--seo .health-live-panel.result-stale {
-  opacity: 0.88;
-  filter: saturate(0.92);
+  opacity: 0.7;
+  filter: blur(2.5px) saturate(0.86);
   transition:
     opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.45s ease;
+  will-change: opacity, filter;
+  border-radius: 4px;
 }
 
 #calc1.health-calculator--seo .health-result-top {
@@ -2215,13 +2217,15 @@
   }
 }
 
-#calc5.hlv-calculator--figma .term-figma-result.result-stale, #calc6.term-calculator--figma .term-figma-result.result-stale,
-#calc5.hlv-calculator--figma .term-figma-different-card.result-stale , #calc6.term-calculator--figma .term-figma-different-card.result-stale {
-  opacity: 0.86;
-  filter: saturate(0.92);
+#calc5.hlv-calculator--figma .term-figma-result.result-stale,
+#calc6.term-calculator--figma .term-figma-result.result-stale {
+  opacity: 0.7;
+  filter: blur(2.5px) saturate(0.86);
   transition:
     opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.45s ease;
+  will-change: opacity, filter;
+  border-radius: 4px;
 }
 
 #calc5.hlv-calculator--figma .price-skeleton , #calc6.term-calculator--figma .price-skeleton {
@@ -2373,5 +2377,13 @@
   #calc5.hlv-calculator--figma .price-skeleton,
   #calc6.term-calculator--figma .price-skeleton {
     animation: none !important;
+  }
+
+  #calc1.health-calculator--seo .health-live-panel.result-stale,
+  #calc5.hlv-calculator--figma .term-figma-result.result-stale,
+  #calc6.term-calculator--figma .term-figma-result.result-stale {
+    filter: saturate(0.9) !important;
+    opacity: 0.72 !important;
+    will-change: auto !important;
   }
 }

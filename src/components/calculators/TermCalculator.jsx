@@ -276,7 +276,7 @@ export default function TermCalculator({ active, termState, onTermChange, health
                     </p>
                   </div>
                 </div>
-                <DifferentiatorsCard variant="term" plansUrl={plansUrl} isStale={isStale} />
+                <DifferentiatorsCard variant="term" plansUrl={plansUrl} />
                 <ResultComplianceFooter variant="term" />
               </div>
             </div>
