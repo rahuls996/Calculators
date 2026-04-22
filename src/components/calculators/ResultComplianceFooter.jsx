@@ -21,12 +21,12 @@ export function ResultComplianceFooter({ variant }) {
   }
   if (variant === 'term') {
     return (
-      <>
+      <div className="term-compliance-block">
         <p className="term-result-arn">
           {`ARN: ${COMPLIANCE_ARN_TERM} | T&C apply`}
         </p>
         <p className="term-figma-footer-note">{DISCLAIMER_TERM}</p>
-      </>
+      </div>
     );
   }
   if (variant === 'hlv') {

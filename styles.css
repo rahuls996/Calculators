@@ -267,15 +267,19 @@ body {
   align-self: stretch;
 }
 
-/* Term (Figma): no Calculate / no full-width bar — single grid row for input + results */
+/* Term (Figma): CTA lives in the input column so sliders + action stay a tight stack (no
+   extra grid row that stretches when the results card is tall). */
 #calc6.term-calculator--figma .calculator-container {
   grid-template-rows: auto;
+  /* Match seo.css: avoid stretch-with-tall-results spacing oddities in the left column. */
+  align-items: start;
 }
 
 #calc6.term-calculator--figma .calculator-container .results-panel {
   grid-row: 1;
   grid-column: 2;
-  align-self: stretch;
+  align-self: start;
+  min-width: 0;
 }
 
 /* ==========================================
