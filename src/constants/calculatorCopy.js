@@ -21,6 +21,10 @@ export const HEALTH_MEMBERS_PLANS_HINT_BEFORE_RESULT =
 export const HEALTH_MEMBERS_PLANS_HINT_AFTER_RESULT =
   'This quick estimate uses a few standard member options. If you need something different, continue to See plans to customise your quote.';
 
+/** Stale state — Figma 3849:5610; form Recalculate is the CTA. */
+export const STALE_CALLOUT_TITLE = 'Your inputs changed';
+export const STALE_CALLOUT_BODY = 'Press Recalculate to see the new price.';
+
 /** Health insurance — results “differentiators” list */
 export const HEALTH_DIFFERENTIATOR_POINTS = Object.freeze([
   'Zero waiting period',

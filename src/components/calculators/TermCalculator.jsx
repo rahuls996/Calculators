@@ -8,6 +8,7 @@ import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustra
 import { TERM_AGE_MAX, TERM_DEFAULT_INCOME_LAKHS } from '@/constants/termDefaults';
 import { DifferentiatorsCard } from './DifferentiatorsCard';
 import { ResultComplianceFooter } from './ResultComplianceFooter';
+import { StaleResultCallout } from './StaleResultCallout';
 
 const coverLabels = ['₹ 25 L', '₹ 50 L', '₹ 1 Cr', '₹ 2 Cr'];
 
@@ -263,21 +264,27 @@ export default function TermCalculator({ active, termState, onTermChange, health
 
               <div
                 key={resultBlockKey}
-                className={`term-figma-result ${isStale ? 'result-stale' : ''}`}
+                className={`term-figma-result${isStale ? ' term-figma-result--stale' : ''}`}
                 id="c6-result"
                 hidden={!resultShown}
               >
-                <div className="term-figma-result-top">
-                  <div className="term-figma-price-cluster">
-                    <p className="term-figma-starting">Starting from</p>
-                    <p className="term-figma-price-line">
-                      <span className="term-figma-price-amount">{animatedMonthly}</span>
-                      <span className="term-figma-price-suffix">/month</span>
-                    </p>
-                  </div>
-                </div>
-                <DifferentiatorsCard variant="term" plansUrl={plansUrl} />
-                <ResultComplianceFooter variant="term" />
+                {isStale ? (
+                  <StaleResultCallout idPrefix="c6" />
+                ) : (
+                  <>
+                    <div className="term-figma-result-top">
+                      <div className="term-figma-price-cluster">
+                        <p className="term-figma-starting">Starting from</p>
+                        <p className="term-figma-price-line">
+                          <span className="term-figma-price-amount">{animatedMonthly}</span>
+                          <span className="term-figma-price-suffix">/month</span>
+                        </p>
+                      </div>
+                    </div>
+                    <DifferentiatorsCard variant="term" plansUrl={plansUrl} />
+                    <ResultComplianceFooter variant="term" />
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { EMPTY_RESULTS_TITLE } from '@/constants/calculatorCopy';
 import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustration';
 import { DifferentiatorsCard } from './DifferentiatorsCard';
 import { ResultComplianceFooter } from './ResultComplianceFooter';
+import { StaleResultCallout } from './StaleResultCallout';
 
 const CALC_MS = 720;
 
@@ -439,27 +440,33 @@ export default function HlvCalculator({
               <div
                 key={resultKey}
                 id="c5-result"
-                className={`term-figma-result ${isStale ? 'result-stale' : ''}`}
+                className={`term-figma-result${isStale ? ' term-figma-result--stale' : ''}`}
                 hidden={!resultShown}
               >
-                <div className="term-figma-result-top hlv-result-top">
-                  <div className="hlv-hero hlv-hero--mobile" aria-live="polite">
-                    <p className="hlv-mobile-starting">Life cover needed</p>
-                    <p className="hlv-mobile-price-line">
-                      <span className="hlv-mobile-price-amount">{animatedSuggestedCover}</span>
-                    </p>
-                  </div>
-                  <div className="hlv-hero hlv-hero--desktop" aria-live="polite">
-                    <div className="term-figma-price-cluster">
-                      <p className="term-figma-starting">Life cover needed</p>
-                      <p className="term-figma-price-line">
-                        <span className="term-figma-price-amount">{animatedSuggestedCover}</span>
-                      </p>
+                {isStale ? (
+                  <StaleResultCallout idPrefix="c5" />
+                ) : (
+                  <>
+                    <div className="term-figma-result-top hlv-result-top">
+                      <div className="hlv-hero hlv-hero--mobile" aria-live="polite">
+                        <p className="hlv-mobile-starting">Life cover needed</p>
+                        <p className="hlv-mobile-price-line">
+                          <span className="hlv-mobile-price-amount">{animatedSuggestedCover}</span>
+                        </p>
+                      </div>
+                      <div className="hlv-hero hlv-hero--desktop" aria-live="polite">
+                        <div className="term-figma-price-cluster">
+                          <p className="term-figma-starting">Life cover needed</p>
+                          <p className="term-figma-price-line">
+                            <span className="term-figma-price-amount">{animatedSuggestedCover}</span>
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <DifferentiatorsCard variant="hlv" plansUrl={plansUrl} />
-                <ResultComplianceFooter variant="hlv" />
+                    <DifferentiatorsCard variant="hlv" plansUrl={plansUrl} />
+                    <ResultComplianceFooter variant="hlv" />
+                  </>
+                )}
               </div>
             </div>
           </div>

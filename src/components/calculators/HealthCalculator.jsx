@@ -10,6 +10,7 @@ import { EMPTY_RESULTS_ILLUSTRATION_SRC } from '@/constants/emptyResultsIllustra
 import { DifferentiatorsCard } from './DifferentiatorsCard';
 import { HealthMembersPlansHint } from './HealthMembersPlansHint';
 import { ResultComplianceFooter } from './ResultComplianceFooter';
+import { StaleResultCallout } from './StaleResultCallout';
 
 const adultIcon = publicAsset('icons/Adult.svg');
 const childIcon = publicAsset('icons/Child.svg');
@@ -351,18 +352,24 @@ export default function HealthCalculator({
               <div
                 key={resultKey}
                 id="c1-result"
-                className={`health-live-panel ${isStale ? 'result-stale' : ''}`}
+                className={`health-live-panel${isStale ? ' health-live-panel--stale' : ''}`}
                 hidden={!resultShown}
               >
-                <div className="health-result-top">
-                  <p className="health-starting">Starting from</p>
-                  <p className="health-price-line">
-                    <span>{animatedPremium}</span>
-                    <span className="health-price-suffix">/month</span>
-                  </p>
-                </div>
-                <DifferentiatorsCard variant="health" plansUrl={plansUrl} />
-                <ResultComplianceFooter variant="health" />
+                {isStale ? (
+                  <StaleResultCallout idPrefix="c1" />
+                ) : (
+                  <>
+                    <div className="health-result-top">
+                      <p className="health-starting">Starting from</p>
+                      <p className="health-price-line">
+                        <span>{animatedPremium}</span>
+                        <span className="health-price-suffix">/month</span>
+                      </p>
+                    </div>
+                    <DifferentiatorsCard variant="health" plansUrl={plansUrl} />
+                    <ResultComplianceFooter variant="health" />
+                  </>
+                )}
               </div>
             </div>
           </div>
