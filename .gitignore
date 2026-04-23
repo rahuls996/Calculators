@@ -1,2 +1,29 @@
 .DS_Store
 Thumbs.db
+
+# Dependencies & build output
+node_modules/
+dist/
+
+# Local env
+.env
+.env.*
+!.env.example
+*.local
+
+# Editor & agent tooling (keep repo focused on source)
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.cursor/
+.agents/
+.claude/
+skills-lock.json
+
+# Logs & caches
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vite/
+.cache/

@@ -1,0 +1,71 @@
+# Publishes the calculator site from branch `v9` to GitHub Pages (Vite build + legacy static files).
+#
+# Repository Settings → Pages → Build and deployment → Source: GitHub Actions (required).
+# If Source is set to "Deploy from a branch", GitHub serves raw index.html with /src/main.jsx
+# (dev-only) and the app shows a blank white screen.
+# If the site worked once then went blank after a new deploy, hard-refresh (or clear cache):
+# stale cached index.html can reference removed hashed *.js files (404 → white screen).
+name: Deploy GitHub Pages (v9)
+
+on:
+  push:
+    branches:
+      - v9
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-v9
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -r dist/* _site/
+          for f in variations.html variations.css variations.js script.js; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          [ -f legacy/api.js ] && cp legacy/api.js _site/api.js
+          for f in *.svg *.png; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          cp -r Font _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+          # Fail if Vite did not rewrite the entry script (would mean broken deploy).
+          grep -qE 'src="/Calculators/assets/main-[A-Za-z0-9_-]+\.js"' _site/index.html
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

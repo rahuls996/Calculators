@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Insurance — ACKO</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      var mark = '/Calculators';
+      var i = path.indexOf(mark);
+      if (i === -1) return;
+      var after = path.slice(i + mark.length);
+      var slash = after.indexOf('/');
+      var href =
+        slash === -1
+          ? path.slice(0, i + mark.length) + '/'
+          : path.slice(0, i + mark.length + slash + 1);
+      var b = document.createElement('base');
+      b.href = href;
+      var first = document.head.querySelector('link[rel="preconnect"]') || document.head.querySelector('link') || document.head.firstChild;
+      document.head.insertBefore(b, first);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="seo-page">
+
+  <!-- ── Top Nav ── -->
+  <header class="seo-header">
+    <div class="seo-header-inner">
+      <a href="index.html" class="seo-logo-link">ACKO</a>
+    </div>
+  </header>
+
+  <!-- ── Page layout: sticky left ToC + main content ── -->
+  <div class="seo-layout">
+
+    <!-- ── Left sticky Table of Contents ── -->
+    <aside class="seo-toc" id="seo-toc">
+      <p class="seo-toc-heading">Content</p>
+      <div class="seo-toc-list-wrap">
+        <div class="seo-toc-line-wrap">
+          <div class="seo-toc-active-bar"></div>
+        </div>
+        <nav class="seo-toc-list">
+          <a class="seo-toc-item active" href="#what-is">What is health insurance?</a>
+          <a class="seo-toc-item" href="#hospitals">Top hospitals in India</a>
+          <a class="seo-toc-item" href="#at-a-glance">ACKO Health Insurance at a Glance</a>
+          <a class="seo-toc-item" href="#calculator">Health Premium Calculator</a>
+          <a class="seo-toc-item" href="#ideal-coverage">Ideal Health Insurance Coverage</a>
+          <a class="seo-toc-item" href="#factors">Factors affecting your premium</a>
+          <a class="seo-toc-item" href="#how-to-buy">How to buy online</a>
+          <a class="seo-toc-item" href="#faqs">FAQs</a>
+        </nav>
+        <div class="seo-toc-fade"></div>
+      </div>
+    </aside>
+
+    <!-- ── Main content ── -->
+    <main class="seo-main">
+
+      <!-- Breadcrumb -->
+      <nav class="seo-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <span>Health insurance</span>
+      </nav>
+
+      <!-- Section: What is health insurance -->
+      <section class="seo-section" id="what-is">
+        <h1 class="seo-h1">What is health insurance?</h1>
+        <p class="seo-body">Health insurance is a type of insurance plan that helps you or your family cover medical bills when you're unwell or injured. Health insurance policy provides these coverages and benefits:</p>
+        <div class="seo-two-col-list">
+          <ul class="seo-list">
+            <li>Surgeries Cost</li>
+            <li>Pre &amp; Post hospitalisation cost</li>
+            <li>Room Rent coverage</li>
+            <li>Cashless hospitalisation</li>
+          </ul>
+          <ul class="seo-list">
+            <li>Ambulance charges</li>
+            <li>Day Care Procedures</li>
+            <li>Save up to ₹75,000 as Tax Benefits</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section: Top hospitals -->
+      <section class="seo-section" id="hospitals">
+        <h2 class="seo-h2">You can look after your family at top hospitals in India</h2>
+        <div class="seo-hospital-grid">
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Max Healthcare</span></div>
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Narayana Health</span></div>
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Manipal Hospitals</span></div>
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Fortis Hospital</span></div>
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Apollo Hospitals</span></div>
+          <div class="seo-hospital-card"><img src="icons/hospital.svg" alt="" width="48" height="48"><span>Aster Hospital</span></div>
+        </div>
+        <button class="seo-secondary-btn">Find cashless hospitals near you</button>
+      </section>
+
+      <!-- Section: At a Glance table -->
+      <section class="seo-section" id="at-a-glance">
+        <h2 class="seo-h2">ACKO Personal Health Insurance at a Glance</h2>
+        <div class="seo-table">
+          <div class="seo-table-header">
+            <div class="seo-table-cell seo-table-cell--header">Categories</div>
+            <div class="seo-table-cell seo-table-cell--header">Specifications</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Premium</div>
+            <div class="seo-table-cell seo-table-cell--spec">Starting at ₹21/day as per plan type</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Sum Insured</div>
+            <div class="seo-table-cell seo-table-cell--spec">₹10 Lakhs to Unlimited</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Hospital bill coverage</div>
+            <div class="seo-table-cell seo-table-cell--spec">No deductions. Get 100% coverage for hospital bills up to the sum insured</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Pre &amp; Post-hospitalisation Expenses</div>
+            <div class="seo-table-cell seo-table-cell--spec">Covered</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">ICU Charges</div>
+            <div class="seo-table-cell seo-table-cell--spec">Covered</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Pre-existing Diseases</div>
+            <div class="seo-table-cell seo-table-cell--spec">Covered as per T&amp;C</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Room rent limit</div>
+            <div class="seo-table-cell seo-table-cell--spec">No limit on room rent. Available up to the sum insured. No deductions.</div>
+          </div>
+          <div class="seo-table-row">
+            <div class="seo-table-cell">Ambulance Cover</div>
+            <div class="seo-table-cell seo-table-cell--spec">Available</div>
+          </div>
+          <div class="seo-table-row seo-table-row--last">
+            <div class="seo-table-cell">Pre-existing Diseases</div>
+            <div class="seo-table-cell seo-table-cell--spec">Covered as per T&amp;C</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Health Premium Calculator (React — src/healthEmbed.jsx) -->
+      <section class="seo-section seo-calc-section" id="calculator">
+        <h2 class="seo-h2">Calculate Your Health Insurance Premium</h2>
+        <p class="seo-body">See how much your health cover will cost — adjust the details and your estimate updates automatically.</p>
+
+        <div class="seo-calc-embed">
+          <div id="health-calculator-root"></div>
+        </div>
+      </section>
+
+      <!-- Section: Ideal Coverage -->
+      <section class="seo-section" id="ideal-coverage">
+        <h2 class="seo-h2">What is the Ideal Health Insurance Coverage?</h2>
+        <p class="seo-body">The ideal health insurance coverage for an Indian family with aging parents, spouse, and children can be twice the family's annual income. However, you can choose to get higher or lower coverage as per your needs. Opting for a ₹10–₹25 lakh plan can prove to be sufficient for one year.</p>
+        <p class="seo-body">Here are the other factors you can consider to calculate your ideal coverage:</p>
+        <ul class="seo-list seo-list--spaced">
+          <li><strong>Location:</strong> Consider your city of residence — healthcare costs are higher in tier 1 cities.</li>
+          <li><strong>Age:</strong> The age of the oldest member and their medical needs can help you decide your ideal cover.</li>
+          <li><strong>Income:</strong> Your income affects the premium you can comfortably pay and the coverage you need.</li>
+        </ul>
+      </section>
+
+      <!-- Section: Factors -->
+      <section class="seo-section" id="factors">
+        <h2 class="seo-h2">Factors affecting your premium</h2>
+        <p class="seo-body">Several factors influence the premium you pay for health insurance. Understanding them can help you choose the right plan.</p>
+        <ul class="seo-list seo-list--spaced">
+          <li><strong>Age:</strong> Older individuals typically pay higher premiums due to increased health risks.</li>
+          <li><strong>City:</strong> Metro cities with higher healthcare costs attract higher premiums.</li>
+          <li><strong>Cover amount:</strong> Higher sum insured means higher premium.</li>
+          <li><strong>Number of members:</strong> Family floater plans cost more but offer better value.</li>
+        </ul>
+      </section>
+
+      <!-- Section: How to buy -->
+      <section class="seo-section" id="how-to-buy">
+        <h2 class="seo-h2">How to buy health insurance online</h2>
+        <ol class="seo-list seo-list--spaced">
+          <li>Use the calculator above to estimate your premium.</li>
+          <li>Click "See my health plans" to explore available plans.</li>
+          <li>Select the cover amount and add-ons that suit your family.</li>
+          <li>Complete the purchase online — no agents, no paperwork.</li>
+        </ol>
+      </section>
+
+      <!-- Section: FAQs -->
+      <section class="seo-section" id="faqs">
+        <h2 class="seo-h2">FAQs</h2>
+        <div class="seo-faq-list">
+          <div class="seo-faq-item">
+            <p class="seo-faq-q">What is covered under ACKO health insurance?</p>
+            <p class="seo-faq-a">ACKO health insurance covers hospitalisation, surgeries, ICU charges, pre & post hospitalisation expenses, ambulance charges, and day care procedures.</p>
+          </div>
+          <div class="seo-faq-item">
+            <p class="seo-faq-q">Is there a waiting period for pre-existing diseases?</p>
+            <p class="seo-faq-a">Pre-existing diseases are covered as per the terms and conditions of the policy after the applicable waiting period.</p>
+          </div>
+          <div class="seo-faq-item">
+            <p class="seo-faq-q">Can I get cashless treatment at any hospital?</p>
+            <p class="seo-faq-a">Yes, ACKO offers cashless treatment at 14,000+ network hospitals across India.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="/src/healthEmbed.jsx"></script>
+  <script src="/seo-toc.js"></script>
+</body>
+</html>
